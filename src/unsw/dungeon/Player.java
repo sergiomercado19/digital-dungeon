@@ -8,16 +8,6 @@ package unsw.dungeon;
 public class Player extends Entity {
 
     private Dungeon dungeon;
-    
-    // Rory's parameters
-    private int treasureCount;
-    private boolean hasSword;
-    private List<int> keyIDs;
-    
-    // these two maybe better handled by observers watching
-    // enemies and floor switches
-//    private int numEnemiesKilled;
-//    private int switchesTriggered;
 
     /**
      * Create a player positioned in square (x,y)
