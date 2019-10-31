@@ -1,6 +1,12 @@
 package unsw.dungeon;
 
 public class Key implements Item {
+	
+	public int ID;
+	
+	public Key(int ID) {
+		this.ID = ID;
+	}
 
 	@Override
 	public boolean canCollect() {
@@ -11,7 +17,8 @@ public class Key implements Item {
 	@Override
 	public void collect(Player player) {
 		// TODO Auto-generated method stub
-		
+		player.addKey(ID);
+		// delete item
 	}
 
 }

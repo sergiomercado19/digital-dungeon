@@ -5,9 +5,11 @@ import java.util.List;
 
 public class Treasure implements Item, GoalSubject {
 	
-	// this needs to be initialised but... there's no constructor
 	private List<GoalObserver> observers;
-	// observers = new ArrayList<GoalObserver>();
+	
+	public Treasure() {
+		observers = new ArrayList<GoalObserver>();
+	}
 
 	@Override
 	public boolean canCollect() {
@@ -17,8 +19,8 @@ public class Treasure implements Item, GoalSubject {
 
 	@Override
 	public void collect(Player player) {
-		// TODO Auto-generated method stub
-		
+		notifyObservers();
+		// delete item
 	}
 
 	@Override

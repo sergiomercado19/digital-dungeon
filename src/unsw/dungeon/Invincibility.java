@@ -11,7 +11,8 @@ public class Invincibility implements Item {
 	@Override
 	public void collect(Player player) {
 		// TODO Auto-generated method stub
-		
+		player.becomeInvincible();
+		// delete item
 	}
 
 }
