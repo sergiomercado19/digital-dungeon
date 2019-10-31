@@ -17,36 +17,47 @@ import java.util.List;
  */
 public class Dungeon {
 
-    private int width, height;
-    private List<Entity> entities;
-    private Player player;
-    private ArrayList<GoalComponent> goals;
+   private int width, height;
+   private ArrayList<Entity> entities;
+   private Player player;
+   private GoalComponent goals;
 
-    public Dungeon(int width, int height, ArrayList<GoalComponent> goals) {
-        this.width = width;
-        this.height = height;
-        this.entities = new ArrayList<>();
-        this.player = null;
-        this.goals = goals;
-    }
+   public Dungeon(int width, int height) {
+      this.width = width;
+      this.height = height;
+      this.entities = new ArrayList<Entity>();
+      this.player = null;
+   }
 
-    public int getWidth() {
-        return width;
-    }
+   public void setGoals(GoalComponent goals) {      
+      this.goals = goals;
+   }
+   
+   public int getEntityQuantity(String type) {
+      int count = 0;
+      for (Entity e : this.entities) {
+         if (e.getClass().getName().equals(type)) count++; 
+      }
+      return count;
+   }
 
-    public int getHeight() {
-        return height;
-    }
+   public int getWidth() {
+      return width;
+   }
 
-    public Player getPlayer() {
-        return player;
-    }
+   public int getHeight() {
+      return height;
+   }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
+   public Player getPlayer() {
+      return player;
+   }
 
-    public void addEntity(Entity entity) {
-        entities.add(entity);
-    }
+   public void setPlayer(Player player) {
+      this.player = player;
+   }
+
+   public void addEntity(Entity entity) {
+      entities.add(entity);
+   }
 }

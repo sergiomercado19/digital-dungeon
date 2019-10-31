@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,60 +16,119 @@ import org.json.JSONTokener;
  *
  * @author Robert Clifton-Everest
  *
+ *
+ * For milestone 3 we will change this to an abstract class, extended by 
+ * an EntityLoader that will render the visual elements of the dungeon.
  */
-public abstract class DungeonLoader {
+public class DungeonLoader {
 
-    private JSONObject json;
+   private JSONObject json;
 
-    public DungeonLoader(String filename) throws FileNotFoundException {
-        json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
-    }
+   public DungeonLoader(String filename) throws FileNotFoundException {
+      json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
+   }
 
-    /**
-     * Parses the JSON to create a dungeon.
-     * @return
-     */
-    public Dungeon load() {
-        int width = json.getInt("width");
-        int height = json.getInt("height");
+   /**
+    * Parses the JSON to create a dungeon.
+    * @return
+    */
+   public Dungeon load() {
+      int width = json.getInt("width");
+      int height = json.getInt("height");
 
-        Dungeon dungeon = new Dungeon(width, height);
+      Dungeon dungeon = new Dungeon(width, height);
 
-        JSONArray jsonEntities = json.getJSONArray("entities");
+      JSONArray jsonEntities = json.getJSONArray("entities");
 
-        for (int i = 0; i < jsonEntities.length(); i++) {
-            loadEntity(dungeon, jsonEntities.getJSONObject(i));
-        }
-        return dungeon;
-    }
+      for (int i = 0; i < jsonEntities.length(); i++) {
+         loadEntity(dungeon, jsonEntities.getJSONObject(i));
+      }
+      
+      dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
+      
+      return dungeon;
+   }
 
-    private void loadEntity(Dungeon dungeon, JSONObject json) {
-        String type = json.getString("type");
-        int x = json.getInt("x");
-        int y = json.getInt("y");
+   private GoalComponent loadGoal(Dungeon dungeon, JSONObject json) {
+      String name = json.getString("goal");
+      GoalComponent gc;
+      
+      if (name.equals("AND") || name.equals("OR")) {
+         
+         ArrayList<GoalComponent> subgoals = new ArrayList<GoalComponent>();
+         JSONArray jsonSubgoals = json.getJSONArray("subgoals");
+         for (int i = 0; i < jsonSubgoals.length(); i++) {
+            subgoals.add(loadGoal(dungeon, jsonSubgoals.getJSONObject(i)));
+         }
+         
+         if (name.equals("AND")) gc = new GoalAnd(subgoals);
+         else gc = new GoalOr(subgoals);
+         
+      } else {
+         
+         gc = new Goal(name, dungeon.getEntityQuantity(name));
+         
+      }
+      
+      return gc;
+   }
 
-        Entity entity = null;
-        switch (type) {
-        case "player":
+   private void loadEntity(Dungeon dungeon, JSONObject json) {
+      String type = json.getString("type");
+      int x = json.getInt("x");
+      int y = json.getInt("y");
+
+      Entity entity = null;
+      switch (type) {
+         case "player":
             Player player = new Player(dungeon, x, y);
             dungeon.setPlayer(player);
-            onLoad(player);
+//            onLoad(player);
             entity = player;
             break;
-        case "wall":
+         case "wall":
             Wall wall = new Wall(x, y);
-            onLoad(wall);
+//            onLoad(wall);
             entity = wall;
             break;
-        // TODO Handle other possible entities
-        }
-        dungeon.addEntity(entity);
-    }
+         case "exit":
+            
+            break;
+         case "treasure":
+            
+            break;
+         case "door":
+            
+            break;
+         case "key":
+            
+            break;
+         case "boulder":
+            
+            break;
+         case "floorSwitch":
+            
+            break;
+         case "portal":
+            
+            break;
+         case "enemy":
+            
+            break;
+         case "sword":
+            
+            break;
+         case "invincibility":
+            
+            break;
+      }
+      dungeon.addEntity(entity);
+   }
 
-    public abstract void onLoad(Entity player);
+//   public abstract void onLoad(Entity player);
+//
+//   public abstract void onLoad(Wall wall);
 
-    public abstract void onLoad(Wall wall);
-
-    // TODO Create additional abstract methods for the other entities
+   // TODO MILESTONE 3: Create additional abstract methods for the other entities
 
 }
