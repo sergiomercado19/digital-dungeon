@@ -2,7 +2,7 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
-public class Goal implements GoalComponent {
+public class Goal implements GoalComponent, GoalObserver {
    
    private String name;
    private int currentValue;
@@ -25,5 +25,10 @@ public class Goal implements GoalComponent {
       res.add(this.name + ": " + this.currentValue + "/" + this.targetValue);
       return res;
    }
+
+	@Override
+	public void update() {
+		currentValue++;
+	}
    
 }
