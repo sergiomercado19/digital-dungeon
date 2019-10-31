@@ -21,7 +21,7 @@ public class Player extends Entity {
      * @param y
      */
     public Player(Dungeon dungeon, int x, int y) {
-        super(x, y);
+        super(x, y, true);
         this.dungeon = dungeon;
         this.keyIDs = new ArrayList<>();
         this.swordHits = 0;
