@@ -95,16 +95,24 @@ public class DungeonLoader {
             
             break;
          case "treasure":
-            
+            Treasure treasure = new Treasure();
+            Collectable cTreasure = new Collectable(x, y, treasure);
+            entity = cTreasure;
             break;
          case "door":
-            
+            int doorID = dungeon.getEntityQuantity("door");
+            Door door = new Door(x, y, doorID);
+            entity = door;
             break;
          case "key":
-            
+            int keyID = dungeon.getEntityQuantity("key");
+            Key key = new Key(keyID);
+            Collectable cKey = new Collectable(x, y, key);
+            entity = cKey;
             break;
          case "boulder":
-            
+            Boulder boulder = new Boulder(x, y);
+            entity = boulder;
             break;
          case "floorSwitch":
             
