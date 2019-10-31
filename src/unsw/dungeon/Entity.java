@@ -20,10 +20,10 @@ public class Entity {
      * @param x
      * @param y
      */
-    public Entity(int x, int y) {
+    public Entity(int x, int y, boolean isSolid) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        isSolid = false;
+        this.isSolid = isSolid;
     }
 
     public IntegerProperty x() {
@@ -42,7 +42,11 @@ public class Entity {
         return x().get();
     }
     
-    public boolean isSolid() {
+    public boolean getSolid() {
     	return isSolid;
+    }
+    
+    public void setSolid(boolean isSolid) {
+    	this.isSolid = isSolid;
     }
 }
