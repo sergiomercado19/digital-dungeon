@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The player entity
  * @author Robert Clifton-Everest
@@ -8,16 +11,9 @@ package unsw.dungeon;
 public class Player extends Entity {
 
     private Dungeon dungeon;
-    
-    // Rory's parameters
-    private int treasureCount;
-    private boolean hasSword;
-    private List<int> keyIDs;
-    
-    // these two maybe better handled by observers watching
-    // enemies and floor switches
-//    private int numEnemiesKilled;
-//    private int switchesTriggered;
+    private List<Integer> keyIDs; 
+    private int swordHits;
+    private int invincibilityLeft;
 
     /**
      * Create a player positioned in square (x,y)
@@ -27,6 +23,9 @@ public class Player extends Entity {
     public Player(Dungeon dungeon, int x, int y) {
         super(x, y);
         this.dungeon = dungeon;
+        this.keyIDs = new ArrayList<>();
+        this.swordHits = 0;
+        this.invincibilityLeft = 0;
     }
 
     public void moveUp() {
@@ -48,4 +47,18 @@ public class Player extends Entity {
         if (getX() < dungeon.getWidth() - 1)
             x().set(getX() + 1);
     }
+
+	public void getSword() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void becomeInvincible() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addKey(int ID) {
+		keyIDs.add(ID);
+	}
 }
