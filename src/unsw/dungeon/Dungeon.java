@@ -65,7 +65,7 @@ public class Dungeon {
 	   boolean canMove = true;
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   for(Entity e : tileEntities) {
-		   if(e.isSolid()) {
+		   if(e.getSolid()) {
 			   canMove = false;
 		   }
 	   }

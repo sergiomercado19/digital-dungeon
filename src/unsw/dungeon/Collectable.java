@@ -5,9 +5,8 @@ public class Collectable extends Entity {
 	private Item item;
 
 	public Collectable(int x, int y, Item item) {
-		super(x, y);
+		super(x, y, false);
 		this.item = item;
-		isSolid = false;
 		// TODO Auto-generated constructor stub
 	}
 	
