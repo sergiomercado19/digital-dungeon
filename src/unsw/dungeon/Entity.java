@@ -13,6 +13,7 @@ public class Entity {
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
+    protected boolean isSolid;
 
     /**
      * Create an entity positioned in square (x,y)
@@ -22,6 +23,7 @@ public class Entity {
     public Entity(int x, int y) {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
+        isSolid = false;
     }
 
     public IntegerProperty x() {
@@ -38,5 +40,9 @@ public class Entity {
 
     public int getX() {
         return x().get();
+    }
+    
+    public boolean isSolid() {
+    	return isSolid;
     }
 }

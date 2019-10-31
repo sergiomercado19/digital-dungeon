@@ -7,6 +7,7 @@ public class Collectable extends Entity {
 	public Collectable(int x, int y, Item item) {
 		super(x, y);
 		this.item = item;
+		isSolid = false;
 		// TODO Auto-generated constructor stub
 	}
 	

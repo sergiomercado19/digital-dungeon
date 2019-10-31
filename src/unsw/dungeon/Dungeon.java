@@ -60,4 +60,25 @@ public class Dungeon {
    public void addEntity(Entity entity) {
       entities.add(entity);
    }
+   
+   public boolean canMove(int x, int y) {
+	   boolean canMove = true;
+	   ArrayList<Entity> tileEntities = checkTile(x, y);
+	   for(Entity e : tileEntities) {
+		   if(e.isSolid()) {
+			   canMove = false;
+		   }
+	   }
+	   return canMove;
+   }
+   
+   public ArrayList<Entity> checkTile(int x, int y) {
+	   ArrayList<Entity> tileEntities = new ArrayList<>();
+	   for(Entity e : entities) {
+		   if(e.getX() == x && e.getY() == y) {
+			   tileEntities.add(e);
+		   }
+	   }
+	   return tileEntities;
+   }
 }
