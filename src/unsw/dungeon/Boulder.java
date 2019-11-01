@@ -7,10 +7,10 @@ public class Boulder extends MovableEntity {
 	public Boulder(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y, false);
 		this.dungeon = dungeon;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void push(Direction d) {
+		// FIXME
 		// check
 		// then
 		makeMove(d);
