@@ -2,12 +2,15 @@ package unsw.dungeon;
 
 public class Enemy extends Entity implements MovableEntity {
 
-   private Player player;
    private Dungeon dungeon;
+   private Player player;
    
-   public Enemy(Dungeon dungeon, int x, int y, Player player) {
+   public Enemy(Dungeon dungeon, int x, int y) {
       super(x, y, false);
       this.dungeon = dungeon;
+   }
+   
+   public void setPlayer(Player player) {
       this.player = player;
    }
    
