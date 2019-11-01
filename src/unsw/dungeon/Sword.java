@@ -12,7 +12,7 @@ public class Sword implements Item {
 	public void collect(Player player) {
 		// TODO Auto-generated method stub
 		player.getSword();
-		// delete item
+		// FIXME delete item (same for all items)
 	}
 
 }
