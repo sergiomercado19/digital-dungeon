@@ -9,11 +9,11 @@ public class Portal extends InertEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void linkTo(Portal p) {
-		link = p;
+	public void linkTo(Portal portal) {
+		link = portal;
 	}
 	
-	public void teleport(Player p) {
-		p.setPosition(link.getX(), link.getY());
+	public void teleport(Player player) {
+		player.setPosition(link.getX(), link.getY());
 	}
 }
