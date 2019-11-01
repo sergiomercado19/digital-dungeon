@@ -27,8 +27,11 @@ public class Goal implements GoalComponent, GoalObserver {
    }
 
 	@Override
-	public void update() {
-		currentValue++;
+	public void increaseProgress() {
+		this.currentValue++;
 	}
    
+	public void decreaseProgress() {
+      this.currentValue--;
+   }
 }
