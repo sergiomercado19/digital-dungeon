@@ -72,7 +72,14 @@ public class DungeonLoader {
          
       } else {
          
-         gc = new Goal(name, dungeon.getEntityQuantity(name));
+         // Get goal relevant entity list
+         ArrayList<Entity> entities = dungeon.getEntityArrayList(name);
+         
+         gc = new Goal(name, entities.size());
+         // Pass this Goal (that implements GoalObserver) into all the relevant entities (that implement GoalSubject)
+         for (Entity e : entities) {
+            ((GoalSubject) e).addObserver((GoalObserver) gc);
+         }
          
       }
       

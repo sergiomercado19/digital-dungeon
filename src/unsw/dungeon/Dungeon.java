@@ -40,6 +40,14 @@ public class Dungeon {
       }
       return count;
    }
+   
+   public ArrayList<Entity> getEntityArrayList(String type) {
+      ArrayList<Entity> res = new ArrayList<Entity>();
+      for (Entity e : this.entities) {
+         if (e.getClass().getName().equals(type)) res.add(e); 
+      }
+      return res;
+   }
 
    public void alertEnemies() {
       for (Entity e : this.entities) {
