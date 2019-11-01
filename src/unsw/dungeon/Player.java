@@ -27,6 +27,10 @@ public class Player extends Entity {
         this.swordHits = 0;
         this.invincibilityLeft = 0;
     }
+    
+    public void makeMove(Direction d) {
+    	
+    }
 
     public void moveUp() {
         if (getY() > 0)
