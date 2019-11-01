@@ -33,13 +33,13 @@ public class DungeonControllerLoader extends DungeonLoader {
         wallImage = new Image("/brick_brown_0.png");
     }
 
-    @Override
+    //@Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
         addEntity(player, view);
     }
 
-    @Override
+    //@Override
     public void onLoad(Wall wall) {
         ImageView view = new ImageView(wallImage);
         addEntity(wall, view);
