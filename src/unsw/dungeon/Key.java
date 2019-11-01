@@ -23,6 +23,7 @@ public class Key implements Item, KeySubject {
 	public void collect(Player player) {
 		// TODO Auto-generated method stub
 		player.addKey(ID);
+		notifyObservers();
 		// delete item
 	}
 
