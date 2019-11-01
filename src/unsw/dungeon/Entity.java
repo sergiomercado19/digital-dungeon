@@ -8,45 +8,18 @@ import javafx.beans.property.SimpleIntegerProperty;
  * @author Robert Clifton-Everest
  *
  */
-public class Entity {
+public interface Entity {
 
-    // IntegerProperty is used so that changes to the entities position can be
-    // externally observed.
-    private IntegerProperty x, y;
-    protected boolean isSolid;
+    public IntegerProperty x();
 
-    /**
-     * Create an entity positioned in square (x,y)
-     * @param x
-     * @param y
-     */
-    public Entity(int x, int y, boolean isSolid) {
-        this.x = new SimpleIntegerProperty(x);
-        this.y = new SimpleIntegerProperty(y);
-        this.isSolid = isSolid;
-    }
+    public IntegerProperty y();
 
-    public IntegerProperty x() {
-        return x;
-    }
+    public int getY();
 
-    public IntegerProperty y() {
-        return y;
-    }
-
-    public int getY() {
-        return y().get();
-    }
-
-    public int getX() {
-        return x().get();
-    }
+    public int getX();
     
-    public boolean getSolid() {
-    	return isSolid;
-    }
+    public boolean getSolid();
     
-    public void setSolid(boolean isSolid) {
-    	this.isSolid = isSolid;
-    }
+    public void setSolid(boolean isSolid);
+    
 }
