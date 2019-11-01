@@ -36,14 +36,20 @@ public class DungeonLoader {
       int width = json.getInt("width");
       int height = json.getInt("height");
 
+      // 1. Create dungeon
       Dungeon dungeon = new Dungeon(width, height);
 
       JSONArray jsonEntities = json.getJSONArray("entities");
 
+      // 2. Load entities
       for (int i = 0; i < jsonEntities.length(); i++) {
          loadEntity(dungeon, jsonEntities.getJSONObject(i));
       }
       
+      // 3. Alert enemies of players
+      dungeon.alertEnemies();
+      
+      // 4. Set dungeon goals
       dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
       
       return dungeon;
@@ -111,7 +117,7 @@ public class DungeonLoader {
             entity = cKey;
             break;
          case "boulder":
-            Boulder boulder = new Boulder(x, y);
+            Boulder boulder = new Boulder(dungeon, x, y);
             entity = boulder;
             break;
          case "floorSwitch":
@@ -121,7 +127,8 @@ public class DungeonLoader {
             
             break;
          case "enemy":
-            
+            Enemy enemy = new Enemy(dungeon, x, y);
+            entity = enemy;
             break;
          case "sword":
             

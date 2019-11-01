@@ -1,7 +1,6 @@
 package unsw.dungeon;
 
 public class Boulder extends Entity implements MovableEntity {
-	
 	private Dungeon dungeon;
 
 	public Boulder(Dungeon dungeon, int x, int y) {
