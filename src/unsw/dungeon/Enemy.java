@@ -1,13 +1,13 @@
 package unsw.dungeon;
 
-import java.lang.*;
-
-public class Enemy extends Entity {
+public class Enemy extends Entity implements MovableEntity {
 
    private Player player;
+   private Dungeon dungeon;
    
-   public Enemy(int x, int y, Player player) {
+   public Enemy(Dungeon dungeon, int x, int y, Player player) {
       super(x, y, false);
+      this.dungeon = dungeon;
       this.player = player;
    }
    
@@ -27,5 +27,9 @@ public class Enemy extends Entity {
    public void makeMove(Direction dir) {
       
    }
+
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
    
 }
