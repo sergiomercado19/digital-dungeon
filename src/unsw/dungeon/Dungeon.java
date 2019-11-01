@@ -69,6 +69,27 @@ public class Dungeon {
       entities.add(entity);
    }
    
+   public void registerMove(int x, int y, Direction d, Player player) {
+	   ArrayList<Entity> tileEntities = checkTile(x, y);
+	   // FIXME horrible code
+	   for(Entity e : tileEntities) {
+		   if (e instanceof Collectable) {
+			   ((Collectable) e).collect(player);
+		   } else if (e instanceof Boulder) {
+			   ((Boulder) e).push(d);
+		   } else if (e instanceof Exit) {
+			   ((Exit) e).trigger();
+		   } else if (e instanceof Portal) {
+			   ((Portal) e).teleport(player);
+		   }
+	   }
+   }
+   
+   public void linkPortals(Portal p1, Portal p2) {
+	   p1.linkTo(p2);
+	   p2.linkTo(p1);
+   }
+   
    public boolean canMove(int x, int y) {
 	   boolean canMove = true;
 	   ArrayList<Entity> tileEntities = checkTile(x, y);

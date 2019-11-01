@@ -24,7 +24,12 @@ public class MovableEntity implements Entity {
    }
    
 	public Dungeon getDungeon() {
-	   return this.dungeon;
+	   return dungeon;
+	}
+	
+	public void setPosition(int x, int y) {
+		x().set(x);
+		y().set(y);
 	}
 	
 	public void makeMove(Direction d) {
@@ -33,23 +38,27 @@ public class MovableEntity implements Entity {
       
       switch (d) {
       case UP:
-         if(this.getDungeon().canMove(x, y - 1)) {
-            this.y().set(y - 1);       
+    	  // FIXME
+    	  // check boulder conditions? or in another place
+         if(dungeon.canMove(x, y - 1)) {
+            setPosition(x, y - 1);
+            // this should only trigger for players:
+            // dungeon.registerMove(x, y - 1, d, this);
          }
          break;
       case DOWN:
-         if(this.getDungeon().canMove(x, y + 1)) {
-            this.y().set(y + 1);
+         if(dungeon.canMove(x, y + 1)) {
+        	 setPosition(x, y + 1);
          }
          break;
       case LEFT:
-         if(this.getDungeon().canMove(x - 1, y)) {
-            this.x().set(x - 1);
+         if(dungeon.canMove(x - 1, y)) {
+        	 setPosition(x - 1, y);
          }
          break;
       case RIGHT:
-         if(this.getDungeon().canMove(x + 1, y)) {
-            this.x().set(x + 1);
+         if(dungeon.canMove(x + 1, y)) {
+        	 setPosition(x + 1, y);
          }
          break;
       }
