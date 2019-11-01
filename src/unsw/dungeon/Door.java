@@ -9,7 +9,6 @@ public class Door extends InertEntity implements KeyObserver {
 		super(x, y, true);
 		isOpen = false;
 		this.keyID = keyID;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
