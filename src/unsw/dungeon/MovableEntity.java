@@ -33,32 +33,33 @@ public class MovableEntity implements Entity {
 	}
 	
 	public void makeMove(Direction d) {
-	   int x = this.getX();
+	  int x = this.getX();
       int y = this.getY();
       
       switch (d) {
       case UP:
-    	  // FIXME
-    	  // check boulder conditions? or in another place
          if(dungeon.canMove(x, y - 1)) {
             setPosition(x, y - 1);
-            // this should only trigger for players:
-            // dungeon.registerMove(x, y - 1, d, this);
+            // FIXME
+            dungeon.registerMove(x, y - 1, d, this);
          }
          break;
       case DOWN:
          if(dungeon.canMove(x, y + 1)) {
         	 setPosition(x, y + 1);
+        	 dungeon.registerMove(x, y + 1, d, this);
          }
          break;
       case LEFT:
          if(dungeon.canMove(x - 1, y)) {
         	 setPosition(x - 1, y);
+        	 dungeon.registerMove(x - 1, y, d, this);
          }
          break;
       case RIGHT:
          if(dungeon.canMove(x + 1, y)) {
         	 setPosition(x + 1, y);
+        	 dungeon.registerMove(x + 1, y, d, this);
          }
          break;
       }
