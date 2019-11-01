@@ -41,6 +41,14 @@ public class Dungeon {
       return count;
    }
 
+   public void alertEnemies() {
+      for (Entity e : this.entities) {
+         if (e instanceof Enemy) {
+            ((Enemy) e).setPlayer(this.player);
+         }
+      }
+   }
+   
    public int getWidth() {
       return width;
    }
