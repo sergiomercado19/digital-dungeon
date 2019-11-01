@@ -2,8 +2,11 @@ package unsw.dungeon;
 
 public class Boulder extends Entity {
 
-	public Boulder(int x, int y) {
+   private Dungeon dungeon;
+   
+	public Boulder(Dungeon dungeon, int x, int y) {
 		super(x, y, false);
+		this.dungeon = dungeon;
 		// TODO Auto-generated constructor stub
 	}
 	

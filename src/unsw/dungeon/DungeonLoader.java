@@ -117,7 +117,7 @@ public class DungeonLoader {
             entity = cKey;
             break;
          case "boulder":
-            Boulder boulder = new Boulder(x, y);
+            Boulder boulder = new Boulder(dungeon, x, y);
             entity = boulder;
             break;
          case "floorSwitch":
@@ -127,7 +127,8 @@ public class DungeonLoader {
             
             break;
          case "enemy":
-            
+            Enemy enemy = new Enemy(dungeon, x, y);
+            entity = enemy;
             break;
          case "sword":
             

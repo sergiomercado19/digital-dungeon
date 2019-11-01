@@ -4,10 +4,12 @@ import java.lang.*;
 
 public class Enemy extends Entity {
 
+   private Dungeon dungeon;
    private Player player;
    
-   public Enemy(int x, int y) {
+   public Enemy(Dungeon dungeon, int x, int y) {
       super(x, y, false);
+      this.dungeon = dungeon;
    }
    
    public void setPlayer(Player player) {
