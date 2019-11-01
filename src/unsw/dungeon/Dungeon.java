@@ -4,7 +4,6 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -77,10 +76,11 @@ public class Dungeon {
       entities.add(entity);
    }
    
-   public void registerMove(int x, int y, Direction d, Player player) {
+   public void registerMove(int x, int y, Direction d, MovableEntity me) {
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   // FIXME horrible code
 	   for(Entity e : tileEntities) {
+		   // these should only be triggered by players
 		   if (e instanceof Collectable) {
 			   ((Collectable) e).collect(player);
 		   } else if (e instanceof Boulder) {
@@ -89,6 +89,10 @@ public class Dungeon {
 			   ((Exit) e).trigger();
 		   } else if (e instanceof Portal) {
 			   ((Portal) e).teleport(player);
+			   
+		   // this will be triggered by a boulder being pushed onto a floor switch
+		   } else if (e instanceof FloorSwitch) {
+			   ((FloorSwitch) e).trigger();
 		   }
 	   }
    }

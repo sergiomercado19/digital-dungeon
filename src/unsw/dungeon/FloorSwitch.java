@@ -1,14 +1,17 @@
 package unsw.dungeon;
 
-public class Exit extends InertEntity implements GoalSubject {
+public class FloorSwitch extends InertEntity implements GoalSubject {
 
-	public Exit(int x, int y) {
+	public FloorSwitch(int x, int y) {
 		super(x, y, false);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void trigger() {
 		notifyObserversOfIncrease();
+	}
+	
+	public void unTrigger() {
+		notifyObserversOfDecrease();
 	}
 
 	@Override
@@ -34,5 +37,4 @@ public class Exit extends InertEntity implements GoalSubject {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

@@ -19,7 +19,7 @@ public class Treasure implements Item, GoalSubject {
 
 	@Override
 	public void collect(Player player) {
-		notifyObservers();
+		notifyObserversOfIncrease();
 		// delete item
 	}
 
@@ -37,10 +37,15 @@ public class Treasure implements Item, GoalSubject {
 	}
 
 	@Override
-	public void notifyObservers() {
-		for (GoalObserver o : observers) {
-			o.update();
-		}
+	public void notifyObserversOfIncrease() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyObserversOfDecrease() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
