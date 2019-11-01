@@ -24,8 +24,23 @@ public class Enemy extends Entity implements MovableEntity {
       }
    }
    
-   public void makeMove(Direction dir) {
-      
+   public void makeMove(Direction d) {
+	   MoveContext move = null;
+	   	switch(d) {
+	   	case UP:
+	   		move = new MoveContext(new MoveUp());
+				break;
+	   	case DOWN:
+	   		move = new MoveContext(new MoveDown());
+	   		break;
+	   	case LEFT:
+	   		move = new MoveContext(new MoveLeft());
+	   		break;
+	   	case RIGHT:
+	   		move = new MoveContext(new MoveRight());
+	   		break;
+	   	}
+	   	move.doMove(this);
    }
 
 	public Dungeon getDungeon() {

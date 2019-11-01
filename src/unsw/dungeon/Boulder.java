@@ -10,8 +10,10 @@ public class Boulder extends Entity implements MovableEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void push(Direction direction) {
-		
+	public void push(Direction d) {
+		// check
+		// then
+		makeMove(d);
 	}
 
 	public Dungeon getDungeon() {
@@ -20,8 +22,22 @@ public class Boulder extends Entity implements MovableEntity {
 
 	@Override
 	public void makeMove(Direction d) {
-		// TODO Auto-generated method stub
-		
+		MoveContext move = null;
+    	switch(d) {
+    	case UP:
+    		move = new MoveContext(new MoveUp());
+			break;
+    	case DOWN:
+    		move = new MoveContext(new MoveDown());
+    		break;
+    	case LEFT:
+    		move = new MoveContext(new MoveLeft());
+    		break;
+    	case RIGHT:
+    		move = new MoveContext(new MoveRight());
+    		break;
+    	}
+    	move.doMove(this);
 	}
 
 }
