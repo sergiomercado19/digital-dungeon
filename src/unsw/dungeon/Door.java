@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-public class Door extends Entity implements KeyObserver {
+public class Door extends InertEntity implements KeyObserver {
 	
 	private boolean isOpen;
 	private int keyID;

@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-public class Collectable extends Entity {
+public class Collectable extends InertEntity {
 	
 	private Item item;
 
