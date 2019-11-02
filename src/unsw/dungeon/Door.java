@@ -1,21 +1,22 @@
 package unsw.dungeon;
 
-public class Door extends InertEntity implements KeyObserver {
+public class Door extends InertEntity {
 	
-	private boolean isOpen;
-	// FIXME do we really need key IDs when the observers will be linked?
-	private int keyID;
+//	private boolean isOpen;
+	private int ID;
 
-	public Door(int x, int y, int keyID) {
+	public Door(int x, int y, int ID) {
 		super(x, y, true);
-		isOpen = false;
-		this.keyID = keyID;
+//		isOpen = false;
+		this.ID = ID;
 	}
 
-	@Override
-	public void update() {
-		isOpen = true;
+	public int getID() {
+		return ID;
+	}
+
+	public void unlock() {
+//		isOpen = true;
 		super.setSolid(false);
 	}
-
 }

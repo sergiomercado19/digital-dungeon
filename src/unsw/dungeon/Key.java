@@ -1,50 +1,33 @@
 package unsw.dungeon;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Key implements Item, KeySubject {
+public class Key implements Item {
 	
 	public int ID;
-	public List<KeyObserver> observers;
+	public Door door;
 	
 	public Key(int ID) {
 		this.ID = ID;
-		ArrayList<KeyObserver> observers = new ArrayList<>();
 	}
 
 	@Override
 	public boolean canCollect() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public void collect(Player player) {
-		// TODO Auto-generated method stub
 		player.addKey(ID);
-		notifyObservers();
+		door.unlock();
+		//FIXME
 		// delete item
 	}
 
-	@Override
-	public void addObserver(KeyObserver o) {
-		observers.add(o);
+	public int getID() {
+		return ID;
 	}
 
-	@Override
-	public void removeObserver(KeyObserver o) {
-		int i = observers.indexOf(o);
-		if (i >= 0) {
-			observers.remove(i);
-		}
-	}
-
-	@Override
-	public void notifyObservers() {
-		for (KeyObserver o : observers) {
-			o.update();
-		}
+	public void linkDoor(Door d) {
+		this.door = d;
 	}
 
 }

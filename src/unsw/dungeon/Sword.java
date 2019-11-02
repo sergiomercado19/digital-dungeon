@@ -4,13 +4,12 @@ public class Sword implements Item {
 
 	@Override
 	public boolean canCollect() {
-		// TODO Auto-generated method stub
-		return false;
+		// if has sword, false. otherwise
+		return true;
 	}
 
 	@Override
 	public void collect(Player player) {
-		// TODO Auto-generated method stub
 		player.getSword();
 		// FIXME delete item (same for all items)
 	}
