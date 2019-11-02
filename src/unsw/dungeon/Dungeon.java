@@ -21,16 +21,22 @@ public class Dungeon {
    private ArrayList<Entity> entities;
    private Player player;
    private GoalComponent goals;
+   private DungeonState state;
 
    public Dungeon(int width, int height) {
       this.width = width;
       this.height = height;
       this.entities = new ArrayList<Entity>();
       this.player = null;
+      this.state = DungeonState.INITIALIZING;
    }
 
    public void setGoals(GoalComponent goals) {      
       this.goals = goals;
+   }
+   
+   public void setState(DungeonState state) {
+      this.state = state;
    }
    
    public int getEntityQuantity(String type) {
@@ -77,26 +83,56 @@ public class Dungeon {
       entities.add(entity);
    }
    
+   public void removeEntity(Entity entity) {
+      entities.remove(entity);
+   }
+   
    public void registerMove(int x, int y, Direction d, MovableEntity me) {
+      
+      // If the player moves, enemies move as well
+      if (me instanceof Player) {
+         for (Enemy e : getEnemies()) {
+            e.moveTowardsPlayer();
+         }
+      }
       
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   // FIXME horrible code
-	   for(Entity e : tileEntities) {
+	   for (Entity e : tileEntities) {
 		   if (e instanceof Collectable && me instanceof Player) {
-			   ((Collectable) e).collect(player);
-		   } else if (e instanceof Boulder) {
+		      // Don't pick up Sword if Player already has one
+		      if (((Collectable) e).getItem() instanceof Sword && ((Player) me).hasSword())
+		         continue;
+
+		      ((Collectable) e).collect(player);
+		      removeEntity(e);
+		   } else if (e instanceof Player && me instanceof Enemy) {
+            attack((Player) e, (Enemy) me);
+         } else if (me instanceof Player && e instanceof Enemy) {
+            attack((Player) me, (Enemy) e);
+	      } else if (e instanceof Boulder) {
 			   ((Boulder) e).push(d);
 		   } else if (e instanceof Exit) {
 			   ((Exit) e).trigger();
 		   } else if (e instanceof Portal) {
 			   ((Portal) e).teleport(player);
-			   
-		   // this will be triggered by a boulder being pushed onto a floor switch
 		   } else if (e instanceof FloorSwitch && me instanceof Boulder) {
-			   ((FloorSwitch) e).activate();
 			   ((Boulder) me).activateSwitch((FloorSwitch) e);
 		   }
 	   }
+	   
+	   // Check if game was won
+	   if (this.goals.isComplete()) this.state = DungeonState.WON;
+   }
+   
+   public void attack(Player player, Enemy enemy) {
+      if (player.isInvincible() || player.hasSword()) {
+         enemy.notifyObserversOfIncrease();
+         this.removeEntity(enemy);
+      } else {
+         this.removeEntity(player);
+         this.setState(DungeonState.LOST);
+      }
    }
    
    public void linkPortals() {
@@ -137,6 +173,14 @@ public class Dungeon {
 		   }
 	   }
 	   return res;
+   }
+   
+   public ArrayList<Enemy> getEnemies() {
+      ArrayList<Enemy> res = new ArrayList<Enemy>();
+      for (Entity e : this.entities) {
+         if (e.getClass().getName().equals("enemy")) res.add((Enemy) e); 
+      }
+      return res;
    }
    
    public void linkKeysToDoors() {

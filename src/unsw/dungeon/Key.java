@@ -10,11 +10,6 @@ public class Key implements Item {
 	}
 
 	@Override
-	public boolean canCollect() {
-		return true;
-	}
-
-	@Override
 	public void collect(Player player) {
 		player.addKey(ID);
 		door.unlock();

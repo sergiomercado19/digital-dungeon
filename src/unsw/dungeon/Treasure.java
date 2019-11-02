@@ -11,11 +11,6 @@ public class Treasure implements Item, GoalSubject {
 	}
 
 	@Override
-	public boolean canCollect() {
-		return true;
-	}
-
-	@Override
 	public void collect(Player player) {
 		notifyObserversOfIncrease();
 		// delete item

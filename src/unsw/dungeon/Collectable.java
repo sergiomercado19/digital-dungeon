@@ -9,10 +9,6 @@ public class Collectable extends InertEntity {
 		this.item = item;
 	}
 	
-	public boolean canCollect() {
-		return item.canCollect();
-	}
-	
 	public void collect(Player player) {
 		item.collect(player);
 	}
