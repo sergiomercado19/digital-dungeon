@@ -117,12 +117,12 @@ public class DungeonLoader {
             entity = cTreasure;
             break;
          case "door":
-            int doorID = dungeon.getEntityQuantity("door");
+            int doorID = json.getInt("id");;
             Door door = new Door(x, y, doorID);
             entity = door;
             break;
          case "key":
-            int keyID = dungeon.getEntityQuantity("key");
+            int keyID = json.getInt("id");;
             Key key = new Key(keyID);
             Collectable cKey = new Collectable(x, y, key);
             entity = cKey;
@@ -136,8 +136,8 @@ public class DungeonLoader {
             entity = floorSwitch;
             break;
          case "portal":
-        	 // FIXME portals have IDs
-            Portal portal = new Portal(x, y);
+            int portalID = json.getInt("id");
+            Portal portal = new Portal(x, y, portalID);
             entity = portal;
             break;
          case "enemy":
