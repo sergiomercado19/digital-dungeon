@@ -10,36 +10,39 @@ import java.util.List;
  */
 public class Player extends MovableEntity {
 
-    private Dungeon dungeon;
-    private List<Integer> keyIDs; 
-    private int swordHits;
-    private int invincibilityLeft;
+   private ArrayList<Integer> keyIDs; 
+   private int swordHits;
+   private int invincibilityLeft;
 
-    /**
-     * Create a player positioned in square (x,y)
-     * @param x
-     * @param y
-     */
-    public Player(Dungeon dungeon, int x, int y) {
-        super(dungeon, x, y, true);
-        this.dungeon = dungeon;
-        this.keyIDs = new ArrayList<>();
-        this.swordHits = 0;
-        this.invincibilityLeft = 0;
-    }
+   /**
+    * Create a player positioned in square (x,y)
+    * @param x
+    * @param y
+    */
+   public Player(Dungeon dungeon, int x, int y) {
+      super(dungeon, x, y, true);
+      this.keyIDs = new ArrayList<>();
+      this.swordHits = 0;
+      this.invincibilityLeft = 0;
+   }
 
-	public void getSword() {
-		// TODO Auto-generated method stub
-		
-	}
+   public void getSword() {
+      this.swordHits += 5;
+   }
 
-	public void becomeInvincible() {
-		// TODO Auto-generated method stub
-		
-	}
+   public void becomeInvincible() {
+      this.invincibilityLeft += 15;
+   }
 
-	public void addKey(int ID) {
-		keyIDs.add(ID);
-	}
-	
+   public void addKey(int ID) {
+      keyIDs.add(ID);
+   }
+
+   @Override
+   public void makeMove(Direction d) {
+      // Decrease invincibility when you move
+      if (this.invincibilityLeft > 0) this.invincibilityLeft--;
+         
+      super.makeMove(d);
+   }
 }

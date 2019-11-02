@@ -49,7 +49,10 @@ public class DungeonLoader {
       // 3. Alert enemies of players
       dungeon.alertEnemies();
       
-      // 4. Set dungeon goals
+      // 4. Link portals
+      dungeon.linkPortals();
+      
+      // 5. Set dungeon goals
       dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
       
       return dungeon;
@@ -105,7 +108,8 @@ public class DungeonLoader {
             entity = wall;
             break;
          case "exit":
-            
+            Exit exit = new Exit(x, y);
+            entity = exit;
             break;
          case "treasure":
             Treasure treasure = new Treasure();
@@ -128,20 +132,26 @@ public class DungeonLoader {
             entity = boulder;
             break;
          case "floorSwitch":
-            
+            FloorSwitch floorSwitch = new FloorSwitch(x, y);
+            entity = floorSwitch;
             break;
          case "portal":
-            
+            Portal portal = new Portal(x, y);
+            entity = portal;
             break;
          case "enemy":
             Enemy enemy = new Enemy(dungeon, x, y);
             entity = enemy;
             break;
          case "sword":
-            
+            Sword sword = new Sword();
+            Collectable cSword = new Collectable(x, y, sword);
+            entity = cSword;
             break;
          case "invincibility":
-            
+            Invincibility invincibility = new Invincibility();
+            Collectable cInvincibility = new Collectable(x, y, invincibility);
+            entity = cInvincibility;
             break;
       }
       dungeon.addEntity(entity);

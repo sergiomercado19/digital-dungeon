@@ -38,26 +38,26 @@ public class MovableEntity implements Entity {
       
       switch (d) {
       case UP:
-         if(dungeon.canMove(x, y - 1)) {
+         if(dungeon.canMove(x, y - 1, this)) {
             setPosition(x, y - 1);
             // FIXME
             dungeon.registerMove(x, y - 1, d, this);
          }
          break;
       case DOWN:
-         if(dungeon.canMove(x, y + 1)) {
+         if(dungeon.canMove(x, y + 1, this)) {
         	 setPosition(x, y + 1);
         	 dungeon.registerMove(x, y + 1, d, this);
          }
          break;
       case LEFT:
-         if(dungeon.canMove(x - 1, y)) {
+         if(dungeon.canMove(x - 1, y, this)) {
         	 setPosition(x - 1, y);
         	 dungeon.registerMove(x - 1, y, d, this);
          }
          break;
       case RIGHT:
-         if(dungeon.canMove(x + 1, y)) {
+         if(dungeon.canMove(x + 1, y, this)) {
         	 setPosition(x + 1, y);
         	 dungeon.registerMove(x + 1, y, d, this);
          }
@@ -86,7 +86,7 @@ public class MovableEntity implements Entity {
    }
    
    @Override
-   public boolean getSolid() {
+   public boolean isSolid() {
      return isSolid;
    }
    

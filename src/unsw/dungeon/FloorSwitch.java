@@ -1,9 +1,14 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+
 public class FloorSwitch extends InertEntity implements GoalSubject {
+   
+   private ArrayList<GoalObserver> goalObservers;
 
 	public FloorSwitch(int x, int y) {
 		super(x, y, false);
+		this.goalObservers = new ArrayList<GoalObserver>();
 	}
 	
 	public void trigger() {
@@ -15,26 +20,27 @@ public class FloorSwitch extends InertEntity implements GoalSubject {
 	}
 
 	@Override
-	public void addObserver(GoalObserver o) {
-		// TODO Auto-generated method stub
-		
-	}
+   public void addObserver(GoalObserver o) {
+      this.goalObservers.add(o);
+   }
 
-	@Override
-	public void removeObserver(GoalObserver o) {
-		// TODO Auto-generated method stub
-		
-	}
+   @Override
+   public void removeObserver(GoalObserver o) {
+      this.goalObservers.remove(o);
+   }
 
-	@Override
-	public void notifyObserversOfIncrease() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyObserversOfDecrease() {
-		// TODO Auto-generated method stub
-		
-	}
+   @Override
+   public void notifyObserversOfIncrease() {
+      for (GoalObserver go : this.goalObservers) {
+         go.increaseProgress();
+      }  
+   }
+   
+   @Override
+   public void notifyObserversOfDecrease() {
+      for (GoalObserver go : this.goalObservers) {
+         go.decreaseProgress();
+      }  
+   }
+   
 }
