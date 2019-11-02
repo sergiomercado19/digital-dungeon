@@ -10,10 +10,6 @@ public class Collectable extends InertEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean canCollect() {
-		return item.canCollect();
-	}
-	
 	public void collect(Player player) {
 		item.collect(player);
 	}
