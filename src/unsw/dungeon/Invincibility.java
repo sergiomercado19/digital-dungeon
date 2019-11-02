@@ -4,13 +4,11 @@ public class Invincibility implements Item {
 
 	@Override
 	public boolean canCollect() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public void collect(Player player) {
-		// TODO Auto-generated method stub
 		player.becomeInvincible();
 		// delete item
 	}
