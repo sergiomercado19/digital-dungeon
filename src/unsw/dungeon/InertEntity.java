@@ -47,7 +47,7 @@ public class InertEntity implements Entity {
     }
     
     @Override
-    public boolean getSolid() {
+    public boolean isSolid() {
     	return isSolid;
     }
     

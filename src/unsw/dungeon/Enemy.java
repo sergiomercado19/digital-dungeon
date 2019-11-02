@@ -11,6 +11,7 @@ public class Enemy extends MovableEntity implements GoalSubject {
    public Enemy(Dungeon dungeon, int x, int y) {
       super(dungeon, x, y, false);
       this.dungeon = dungeon;
+      this.goalObservers = new ArrayList<GoalObserver>();
    }
    
    public void setPlayer(Player player) {

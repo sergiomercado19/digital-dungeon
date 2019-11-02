@@ -12,6 +12,6 @@ public interface Entity {
     public IntegerProperty y();
     public int getY();
     public int getX();
-    public boolean getSolid();
+    public boolean isSolid();
     public void setSolid(boolean isSolid);
 }

@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Treasure implements Item, GoalSubject {
 	
-	private List<GoalObserver> observers;
+   private ArrayList<GoalObserver> goalObservers;
 	
 	public Treasure() {
-		observers = new ArrayList<GoalObserver>();
+	   this.goalObservers = new ArrayList<GoalObserver>();
 	}
 
 	@Override
@@ -24,28 +24,27 @@ public class Treasure implements Item, GoalSubject {
 	}
 
 	@Override
-	public void addObserver(GoalObserver o) {
-		observers.add(o);
-	}
+   public void addObserver(GoalObserver o) {
+      this.goalObservers.add(o);
+   }
 
-	@Override
-	public void removeObserver(GoalObserver o) {
-		int i = observers.indexOf(o);
-		if (i >= 0) {
-			observers.remove(i);
-		}
-	}
+   @Override
+   public void removeObserver(GoalObserver o) {
+      this.goalObservers.remove(o);
+   }
 
-	@Override
-	public void notifyObserversOfIncrease() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyObserversOfDecrease() {
-		// TODO Auto-generated method stub
-		
-	}
+   @Override
+   public void notifyObserversOfIncrease() {
+      for (GoalObserver go : this.goalObservers) {
+         go.increaseProgress();
+      }  
+   }
+   
+   @Override
+   public void notifyObserversOfDecrease() {
+      for (GoalObserver go : this.goalObservers) {
+         go.decreaseProgress();
+      }  
+   }
 
 }

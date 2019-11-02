@@ -6,7 +6,7 @@ public class Portal extends InertEntity {
 
 	public Portal(int x, int y) {
 		super(x, y, false);
-		// TODO Auto-generated constructor stub
+		this.link = null;
 	}
 	
 	public void linkTo(Portal portal) {
@@ -14,6 +14,8 @@ public class Portal extends InertEntity {
 	}
 	
 	public void teleport(Player player) {
-		player.setPosition(link.getX(), link.getY());
+	   if (link != null) {	      
+	      player.setPosition(link.getX(), link.getY());
+	   }
 	}
 }

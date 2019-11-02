@@ -4,6 +4,7 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -77,6 +78,7 @@ public class Dungeon {
    }
    
    public void registerMove(int x, int y, Direction d, MovableEntity me) {
+      
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   // FIXME horrible code
 	   for(Entity e : tileEntities) {
@@ -97,26 +99,35 @@ public class Dungeon {
 	   }
    }
    
-   public void linkPortals(Portal p1, Portal p2) {
-	   p1.linkTo(p2);
-	   p2.linkTo(p1);
+   public void linkPortals() {
+      // Portals are linked randomly in pairs
+      ArrayList<Entity> entities = this.getEntityArrayList("portal");
+      Random r = new Random();
+      while (entities.size() > 1) {
+         int r1 = r.nextInt(entities.size());
+         int r2 = r.nextInt(entities.size());
+         Portal p1 = (Portal) entities.remove(r1);
+         Portal p2 = (Portal) entities.remove(r2);
+         p1.linkTo(p2);
+         p2.linkTo(p1);
+      }
    }
    
-   public boolean canMove(int x, int y) {
-	   boolean canMove = true;
+   public boolean canMove(int x, int y, MovableEntity me) {
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
-	   for(Entity e : tileEntities) {
-		   if(e.getSolid()) {
-			   canMove = false;
-		   }
+	   for (Entity e : tileEntities) {
+	      // Boulders can't push boulders
+		   if (me instanceof Boulder && e instanceof Boulder) return false;
+		   // Movable entities can't go in solid entities
+		   else if (e.isSolid()) return false;
 	   }
-	   return canMove;
+	   return true;
    }
    
    public ArrayList<Entity> checkTile(int x, int y) {
-	   ArrayList<Entity> tileEntities = new ArrayList<>();
-	   for(Entity e : entities) {
-		   if(e.getX() == x && e.getY() == y) {
+	   ArrayList<Entity> tileEntities = new ArrayList<Entity>();
+	   for (Entity e : entities) {
+		   if (e.getX() == x && e.getY() == y) {
 			   tileEntities.add(e);
 		   }
 	   }
