@@ -152,6 +152,7 @@ public class Dungeon {
    }
    
    public boolean canMove(int x, int y, MovableEntity me) {
+	   // FIXME can't go outside the border
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   for (Entity e : tileEntities) {
 	      // Boulders can't push boulders
