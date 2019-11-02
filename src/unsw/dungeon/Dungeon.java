@@ -82,8 +82,7 @@ public class Dungeon {
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   // FIXME horrible code
 	   for(Entity e : tileEntities) {
-		   // these should only be triggered by players
-		   if (e instanceof Collectable) {
+		   if (e instanceof Collectable && me instanceof Player) {
 			   ((Collectable) e).collect(player);
 		   } else if (e instanceof Boulder) {
 			   ((Boulder) e).push(d);
@@ -93,8 +92,9 @@ public class Dungeon {
 			   ((Portal) e).teleport(player);
 			   
 		   // this will be triggered by a boulder being pushed onto a floor switch
-		   } else if (e instanceof FloorSwitch) {
-			   ((FloorSwitch) e).trigger();
+		   } else if (e instanceof FloorSwitch && me instanceof Boulder) {
+			   ((FloorSwitch) e).activate();
+			   ((Boulder) me).activateSwitch((FloorSwitch) e);
 		   }
 	   }
    }
