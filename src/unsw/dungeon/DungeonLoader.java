@@ -136,6 +136,7 @@ public class DungeonLoader {
             entity = floorSwitch;
             break;
          case "portal":
+        	 // FIXME portals have IDs
             Portal portal = new Portal(x, y);
             entity = portal;
             break;

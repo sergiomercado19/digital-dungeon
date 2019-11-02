@@ -2,11 +2,13 @@ package unsw.dungeon;
 
 public class Portal extends InertEntity {
 	
-	public Portal link;
+	private Portal link;
+	private int ID;
 
-	public Portal(int x, int y) {
+	public Portal(int x, int y, int ID) {
 		super(x, y, false);
 		this.link = null;
+		this.ID = ID;
 	}
 	
 	public void linkTo(Portal portal) {
@@ -17,5 +19,9 @@ public class Portal extends InertEntity {
 	   if (link != null) {	      
 	      player.setPosition(link.getX(), link.getY());
 	   }
+	}
+
+	public Object getID() {
+		return ID;
 	}
 }
