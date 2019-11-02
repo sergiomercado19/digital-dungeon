@@ -19,16 +19,39 @@ public class Enemy extends MovableEntity implements GoalSubject {
    }
    
    public void moveTowardsPlayer() {
+      
+      Direction d = null;
+      
       int xDist = Math.abs(this.getX()-this.player.getX());
       int yDist = Math.abs(this.getY()-this.player.getY());
       
       if (xDist > yDist) {
-         if (this.player.getX() < this.getX()) makeMove(Direction.LEFT);
-         else makeMove(Direction.RIGHT);
+         if (this.player.getX() < this.getX()) d = Direction.LEFT;
+         else d = Direction.RIGHT;
       } else {
-         if (this.player.getY() < this.getY()) makeMove(Direction.UP);
-         else makeMove(Direction.DOWN);
+         if (this.player.getY() < this.getY()) d = Direction.UP;
+         else d = Direction.DOWN;
       }
+      
+      // If player is invincible move in the opposite direction
+      if (this.player.isInvincible()) {
+         switch (d) {
+         case UP:
+            d = Direction.DOWN;
+            break;
+         case DOWN:
+            d = Direction.UP;
+            break;
+         case LEFT:
+            d = Direction.RIGHT;
+            break;
+         case RIGHT:
+            d = Direction.LEFT;
+            break;
+         }
+      }
+      
+      makeMove(d);
    }
    
 	public Dungeon getDungeon() {

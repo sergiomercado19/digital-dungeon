@@ -24,6 +24,7 @@ public class Boulder extends MovableEntity {
 
    public void activateSwitch(FloorSwitch s) {
       this.floorSwitch = s;
+      this.floorSwitch.activate();
    }
 
    public void deactivateSwitch() {

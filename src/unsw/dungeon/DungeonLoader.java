@@ -55,6 +55,9 @@ public class DungeonLoader {
       // 5. Set dungeon goals
       dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
       
+      // 6. Start dungeon
+      dungeon.setState(DungeonState.INPROGRESS);
+      
       return dungeon;
    }
 
