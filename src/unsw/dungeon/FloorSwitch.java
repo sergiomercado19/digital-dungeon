@@ -11,11 +11,11 @@ public class FloorSwitch extends InertEntity implements GoalSubject {
 		this.goalObservers = new ArrayList<GoalObserver>();
 	}
 	
-	public void trigger() {
+	public void activate() {
 		notifyObserversOfIncrease();
 	}
 	
-	public void unTrigger() {
+	public void deactivate() {
 		notifyObserversOfDecrease();
 	}
 
