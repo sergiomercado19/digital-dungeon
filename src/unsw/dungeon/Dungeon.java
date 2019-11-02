@@ -100,8 +100,12 @@ public class Dungeon {
 	   // FIXME horrible code
 	   for (Entity e : tileEntities) {
 		   if (e instanceof Collectable && me instanceof Player) {
-			   ((Collectable) e).collect(player);
-			   removeEntity(e);
+		      // Don't pick up Sword if Player already has one
+		      if (((Collectable) e).getItem() instanceof Sword && ((Player) me).hasSword())
+		         continue;
+
+		      ((Collectable) e).collect(player);
+		      removeEntity(e);
 		   } else if (e instanceof Player && me instanceof Enemy) {
             attack((Player) e, (Enemy) me);
          } else if (me instanceof Player && e instanceof Enemy) {
