@@ -34,6 +34,14 @@ public class Player extends MovableEntity {
       this.invincibilityLeft += 15;
    }
 
+   public boolean isInvincible() {
+      return this.invincibilityLeft > 0;
+   }
+   
+   public boolean hasSword() {
+      return this.swordHits > 0;
+   }
+   
    public void addKey(int ID) {
       keyIDs.add(ID);
    }
