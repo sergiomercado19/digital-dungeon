@@ -100,17 +100,55 @@ public class Dungeon {
    }
    
    public void linkPortals() {
-      // Portals are linked randomly in pairs
-      ArrayList<Entity> entities = this.getEntityArrayList("portal");
-      Random r = new Random();
-      while (entities.size() > 1) {
-         int r1 = r.nextInt(entities.size());
-         int r2 = r.nextInt(entities.size());
-         Portal p1 = (Portal) entities.remove(r1);
-         Portal p2 = (Portal) entities.remove(r2);
-         p1.linkTo(p2);
-         p2.linkTo(p1);
+	   ArrayList<Portal> portals = getPortals();
+	   for(Portal p1 : portals) {
+		   for(Portal p2 : portals) {
+			   if(!p1.equals(p2) && p1.getID() == p2.getID()) {
+				   p1.linkTo(p2);
+				   p2.linkTo(p1);
+			   }
+		   }
+	   }
+   }
+   
+   public ArrayList<Portal> getPortals() {
+	   ArrayList<Portal> res = new ArrayList<Portal>();
+      for (Entity e : this.entities) {
+         if (e.getClass().getName().equals("portal")) res.add((Portal) e); 
       }
+      return res;
+   }
+   
+   public ArrayList<Door> getDoors() {
+	   ArrayList<Door> res = new ArrayList<Door>();
+      for (Entity e : this.entities) {
+         if (e.getClass().getName().equals("door")) res.add((Door) e); 
+      }
+      return res;
+   }
+   
+   public ArrayList<Key> getKeys() {
+	   ArrayList<Key> res = new ArrayList<Key>();
+	   for (Entity e : getEntityArrayList("collectable")) {
+		   Collectable c = (Collectable) e;
+		   Item i = c.getItem();
+		   if(c.getItem().getClass().getName().equals("key")) {
+			   res.add((Key) i);
+		   }
+	   }
+	   return res;
+   }
+   
+   public void linkKeysToDoors() {
+	   ArrayList<Key> keys = getKeys();
+	   ArrayList<Door> doors = getDoors();
+	   for(Key k : keys) {
+		   for(Door d : doors) {
+			   if(k.getID() == d.getID()) {
+				   k.linkDoor(d);
+			   }
+		   }
+	   }
    }
    
    public boolean canMove(int x, int y, MovableEntity me) {

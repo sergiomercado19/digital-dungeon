@@ -1,7 +1,6 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Treasure implements Item, GoalSubject {
 	
@@ -13,8 +12,7 @@ public class Treasure implements Item, GoalSubject {
 
 	@Override
 	public boolean canCollect() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

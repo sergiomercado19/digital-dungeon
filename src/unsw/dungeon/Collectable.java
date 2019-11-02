@@ -17,5 +17,8 @@ public class Collectable extends InertEntity {
 	public void collect(Player player) {
 		item.collect(player);
 	}
-
+	
+	public Item getItem() {
+		return item;
+	}
 }
