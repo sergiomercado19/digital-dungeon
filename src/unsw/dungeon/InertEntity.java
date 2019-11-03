@@ -4,8 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
- * An entity in the dungeon.
- * @author Robert Clifton-Everest
+ * An inert (non-moving) entity in the dungeon.
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class InertEntity implements Entity {
@@ -16,9 +16,9 @@ public class InertEntity implements Entity {
     protected boolean isSolid;
 
     /**
-     * Create an entity positioned in square (x,y)
-     * @param x
-     * @param y
+     * create a new entity
+     * @param x x position of the entity
+     * @param y y position of the entity
      */
     public InertEntity(int x, int y, boolean isSolid) {
         this.x = new SimpleIntegerProperty(x);

@@ -2,10 +2,20 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+/**
+ * a composite goal made up of multiple goals within the GoalComponent composite pattern
+ * players must achieve all goals within to complete the goal
+ * @author Sergio Mercado Ruiz & Rory Madden
+ *
+ */
 public class GoalAnd implements GoalComponent {
 
    private ArrayList<GoalComponent> goals;
    
+   /**
+    * create a new composite-and goal
+    * @param goals the goals within the composite
+    */
    public GoalAnd(ArrayList<GoalComponent> goals) {
       this.goals = goals;
    }

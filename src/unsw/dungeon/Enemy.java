@@ -2,12 +2,23 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+/**
+ * an enemy entity, seeks out the player to kill
+ * @author Sergio Mercado Ruiz & Rory Madden
+ *
+ */
 public class Enemy extends MovableEntity implements GoalSubject {
 
    private Dungeon dungeon;
    private Player player;
    private ArrayList<GoalObserver> goalObservers;
    
+   /**
+    * create a new enemy
+    * @param dungeon the dungeon the enemy is contained within
+    * @param x x position of the enemy
+    * @param y y position of the enemy
+    */
    public Enemy(Dungeon dungeon, int x, int y) {
       super(dungeon, x, y, false);
       this.dungeon = dungeon;
@@ -15,10 +26,17 @@ public class Enemy extends MovableEntity implements GoalSubject {
       this.player = null;
    }
    
+   /**
+    * set the target player of the enemy
+    * @param player the player to target
+    */
    public void setPlayer(Player player) {
       this.player = player;
    }
    
+   /**
+    * pathfind one step towards the current position of the player
+    */
    public void moveTowardsPlayer() {
       
       if (this.player != null) {         
@@ -57,10 +75,17 @@ public class Enemy extends MovableEntity implements GoalSubject {
       }
    }
    
+   /**
+    * get the dungeon the enemy is contained within
+    * @return dungeon the dungeon
+    */
 	public Dungeon getDungeon() {
 		return dungeon;
 	}
 	
+	/**
+	 * kill off the enemy
+	 */
 	public void die() {
 		notifyObserversOfIncrease();
 	}

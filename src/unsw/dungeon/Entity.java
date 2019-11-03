@@ -3,11 +3,15 @@ package unsw.dungeon;
 import javafx.beans.property.IntegerProperty;
 
 /**
- * An entity in the dungeon.
- * @author Robert Clifton-Everest
+ * interface for an entity in the dungeon.
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public interface Entity {
+	/**
+	 * 
+	 * @return
+	 */
     public IntegerProperty x();
     public IntegerProperty y();
     public int getY();

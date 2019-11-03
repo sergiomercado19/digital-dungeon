@@ -2,6 +2,12 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+/**
+ * a "pile of treasure", which when picked up will go towards the total treasure the player has picked up
+ * Collectable under the strategy pattern
+ * @author Sergio Mercado Ruiz & Rory Madden
+ *
+ */
 public class Treasure implements Item, GoalSubject {
 	
    private ArrayList<GoalObserver> goalObservers;
