@@ -153,29 +153,32 @@ public class Dungeon {
     */
    public void registerMove(int x, int y, Direction d, MovableEntity me) {
       
+      
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   // FIXME horrible code
 	   for (Entity e : tileEntities) {
-		   if (e instanceof Collectable && me instanceof Player) {
-		      // Don't pick up Sword if Player already has one
-		      if (((Collectable) e).getItem() instanceof Sword && ((Player) me).hasSword())
-		         continue;
-
-		      ((Collectable) e).collect(player);
-		      removeEntity(e);
-		   } else if (e instanceof Player && me instanceof Enemy) {
-            attack((Player) e, (Enemy) me);
-         } else if (me instanceof Player && e instanceof Enemy) {
-            attack((Player) me, (Enemy) e);
-	      } else if (e instanceof Boulder) {
-			   ((Boulder) e).push(d);
-		   } else if (e instanceof Exit) {
-			   ((Exit) e).trigger();
-		   } else if (e instanceof Portal) {
-			   ((Portal) e).teleport(player);
-		   } else if (e instanceof FloorSwitch && me instanceof Boulder) {
-			   ((Boulder) me).activateSwitch((FloorSwitch) e);
-		   }
+	      if (!((Entity) me).equals(e)) {    
+	         if (e instanceof Collectable && me instanceof Player) {
+	            // Don't pick up Sword if Player already has one
+	            if (((Collectable) e).getItem() instanceof Sword && ((Player) me).hasSword())
+	               continue;
+	            
+	            ((Collectable) e).collect(player);
+	            removeEntity(e);
+	         } else if (e instanceof Player && me instanceof Enemy) {
+	            attack((Player) e, (Enemy) me);
+	         } else if (me instanceof Player && e instanceof Enemy) {
+	            attack((Player) me, (Enemy) e);
+	         } else if (e instanceof Boulder) {
+	            ((Boulder) e).push(d);
+	         } else if (e instanceof Exit) {
+	            ((Exit) e).trigger();
+	         } else if (e instanceof Portal) {
+	            ((Portal) e).teleport(player);
+	         } else if (e instanceof FloorSwitch && me instanceof Boulder) {
+	            ((Boulder) me).activateSwitch((FloorSwitch) e);
+	         }
+	      }
 	   }
 	   
 	   // If the player attempts moves, enemies move as well
