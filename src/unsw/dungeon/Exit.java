@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * an exit to a dungeon
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class Exit extends InertEntity implements GoalSubject {

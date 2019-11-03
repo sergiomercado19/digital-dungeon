@@ -3,7 +3,7 @@ package unsw.dungeon;
 /**
  * interface for a goal observer
  * observes a subject, updating progress on a goal accordingly
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public interface GoalObserver {

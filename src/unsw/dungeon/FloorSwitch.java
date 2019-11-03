@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * a floor switch in the dungeon, which can be triggered by a boulder
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class FloorSwitch extends InertEntity implements GoalSubject {
