@@ -9,20 +9,20 @@ import java.util.ArrayList;
  *
  */
 public class Treasure implements Item, GoalSubject {
-	
+
    private ArrayList<GoalObserver> goalObservers;
-	
-	public Treasure() {
-	   this.goalObservers = new ArrayList<GoalObserver>();
-	}
 
-	@Override
-	public void collect(Player player) {
-		notifyObserversOfIncrease();
-		// delete item
-	}
+   public Treasure() {
+      this.goalObservers = new ArrayList<GoalObserver>();
+   }
 
-	@Override
+   @Override
+   public void collect(Player player) {
+      notifyObserversOfIncrease();
+      // delete item
+   }
+
+   @Override
    public void addObserver(GoalObserver o) {
       this.goalObservers.add(o);
    }
@@ -38,7 +38,7 @@ public class Treasure implements Item, GoalSubject {
          go.increaseProgress();
       }  
    }
-   
+
    @Override
    public void notifyObserversOfDecrease() {
       for (GoalObserver go : this.goalObservers) {

@@ -10,25 +10,25 @@ import java.util.ArrayList;
 public class Exit extends InertEntity implements GoalSubject {
 
    private ArrayList<GoalObserver> goalObservers;
-   
+
    /**
     * create a new exit
     * @param x x position of the exit
     * @param y y position of the exit
     */
-	public Exit(int x, int y) {
-		super(x, y, false);
-		this.goalObservers = new ArrayList<GoalObserver>();
-	}
-	
-	/**
-	 * when the player reaches the exit
-	 */
-	public void trigger() {
-		notifyObserversOfIncrease();
-	}
+   public Exit(int x, int y) {
+      super(x, y, false);
+      this.goalObservers = new ArrayList<GoalObserver>();
+   }
 
-	@Override
+   /**
+    * when the player reaches the exit
+    */
+   public void trigger() {
+      notifyObserversOfIncrease();
+   }
+
+   @Override
    public void addObserver(GoalObserver o) {
       this.goalObservers.add(o);
    }
@@ -44,7 +44,7 @@ public class Exit extends InertEntity implements GoalSubject {
          go.increaseProgress();
       }  
    }
-   
+
    @Override
    public void notifyObserversOfDecrease() {
       for (GoalObserver go : this.goalObservers) {

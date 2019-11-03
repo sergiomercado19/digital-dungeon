@@ -7,38 +7,38 @@ package unsw.dungeon;
  *
  */
 public class Key implements Item {
-	
-	public int ID;
-	public Door door;
-	
-	/**
-	 * create a new key with an id to unlock a corresponding door
-	 * @param ID the id of the key
-	 */
-	public Key(int ID) {
-		this.ID = ID;
-	}
 
-	@Override
-	public void collect(Player player) {
-		player.addKey(ID);
-		door.unlock();
-	}
+   public int ID;
+   public Door door;
 
-	/**
-	 * get the id of the key
-	 * @return the id of the key
-	 */
-	public int getID() {
-		return ID;
-	}
+   /**
+    * create a new key with an id to unlock a corresponding door
+    * @param ID the id of the key
+    */
+   public Key(int ID) {
+      this.ID = ID;
+   }
 
-	/**
-	 * link to a door with the same id, to unlock when collected
-	 * @param d the door to link to
-	 */
-	public void linkDoor(Door d) {
-		this.door = d;
-	}
+   @Override
+   public void collect(Player player) {
+      player.addKey(ID);
+      door.unlock();
+   }
+
+   /**
+    * get the id of the key
+    * @return the id of the key
+    */
+   public int getID() {
+      return ID;
+   }
+
+   /**
+    * link to a door with the same id, to unlock when collected
+    * @param d the door to link to
+    */
+   public void linkDoor(Door d) {
+      this.door = d;
+   }
 
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  */
 public class FloorSwitch extends InertEntity implements GoalSubject {
-   
+
    private ArrayList<GoalObserver> goalObservers;
 
    /**
@@ -16,26 +16,26 @@ public class FloorSwitch extends InertEntity implements GoalSubject {
     * @param x x position of the floor switch
     * @param y y position of the floor switch
     */
-	public FloorSwitch(int x, int y) {
-		super(x, y, false);
-		this.goalObservers = new ArrayList<GoalObserver>();
-	}
-	
-	/**
-	 * activate the floor switch (when a boulder is on top)
-	 */
-	public void activate() {
-		notifyObserversOfIncrease();
-	}
-	
-	/**
-	 * deactivate the floor switch (when a boulder is no longer on top)
-	 */
-	public void deactivate() {
-		notifyObserversOfDecrease();
-	}
+   public FloorSwitch(int x, int y) {
+      super(x, y, false);
+      this.goalObservers = new ArrayList<GoalObserver>();
+   }
 
-	@Override
+   /**
+    * activate the floor switch (when a boulder is on top)
+    */
+   public void activate() {
+      notifyObserversOfIncrease();
+   }
+
+   /**
+    * deactivate the floor switch (when a boulder is no longer on top)
+    */
+   public void deactivate() {
+      notifyObserversOfDecrease();
+   }
+
+   @Override
    public void addObserver(GoalObserver o) {
       this.goalObservers.add(o);
    }
@@ -51,12 +51,12 @@ public class FloorSwitch extends InertEntity implements GoalSubject {
          go.increaseProgress();
       }  
    }
-   
+
    @Override
    public void notifyObserversOfDecrease() {
       for (GoalObserver go : this.goalObservers) {
          go.decreaseProgress();
       }  
    }
-   
+
 }

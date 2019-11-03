@@ -6,9 +6,9 @@ package unsw.dungeon;
  *
  */
 public interface Item {
-	/**
-	 * give item to player and remove from the dungeon
-	 * @param player
-	 */
-	public void collect(Player player);
+   /**
+    * give item to player and remove from the dungeon
+    * @param player
+    */
+   public void collect(Player player);
 }
