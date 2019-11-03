@@ -7,7 +7,6 @@ public class Collectable extends InertEntity {
 	public Collectable(int x, int y, Item item) {
 		super(x, y, false);
 		this.item = item;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void collect(Player player) {
