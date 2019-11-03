@@ -109,7 +109,71 @@ public class InteractionTesting {
 	   dungeon.addEntity(boulder);
 	   
 	   // add a floor switch
-	   FloorSwitch
+	   FloorSwitch floorSwitch = new FloorSwitch(4, 3);
+	   dungeon.addEntity(floorSwitch);
+	   
+	   assertEquals(true, dungeon.checkTile(3, 2).contains(boulder), "Boulder is in dungeon");
+	   player.makeMove(Direction.RIGHT);
+//	   assertEquals(false, dungeon.checkTile(3, 2).contains(boulder), "Boulder is no longer at (3, 2)");
+//	   assertEquals(true, dungeon.checkTile(4, 2).contains(boulder), "Boulder is now at (4, 2)");
+   }
+   
+   @Test
+   void testInteractionKey() {
+	   // add some doors
+	   Door door1 = new Door(3, 2, 0);
+	   dungeon.addEntity(door1);
+	   Door door2 = new Door(1, 2, 1);
+	   dungeon.addEntity(door2);
+	   
+	   // add some keys
+	   Key key1 = new Key(0);
+	   Collectable cKey1 = new Collectable(2, 3, key1);
+	   dungeon.addEntity(cKey1);
+	   Key key2 = new Key(1);
+	   Collectable cKey2 = new Collectable(2, 1, key2);
+	   dungeon.addEntity(cKey2);
+	   
+	   dungeon.linkKeysToDoors();
+       
+       assertEquals(player.getX(), 2, "Player is at their starting x");
+       assertEquals(player.getY(), 2, "Player is at their starting y");
+       
+       assertEquals(true, door1.isSolid(), "door1 locked");
+       assertEquals(true, door2.isSolid(), "door2 locked");
+       
+       player.makeMove(Direction.RIGHT);
+       assertEquals(player.getX(), 2, "Player is still at their starting x as door1 is locked");
+       assertEquals(player.getY(), 2, "Player is still at their starting y as door1 is locked");
+       
+       player.makeMove(Direction.LEFT);
+       assertEquals(player.getX(), 2, "Player is still at their starting x as door2 is locked");
+       assertEquals(player.getY(), 2, "Player is still at their starting y as door2 is locked");
+       
+       assertEquals(true, dungeon.checkTile(2, 3).contains(cKey1), "key1 is in dungeon");
+       player.makeMove(Direction.DOWN);
+       assertEquals(false, dungeon.checkTile(2, 3).contains(cKey1), "key1 was picked up");
+       assertEquals(false, door1.isSolid(), "door1 unlocked");
+       assertEquals(true, door2.isSolid(), "door2 locked");
+       player.makeMove(Direction.UP);
+       player.makeMove(Direction.LEFT);
+       assertEquals(player.getX(), 2, "Player is at x = 2 as door2 is still locked");
+       assertEquals(player.getY(), 2, "Player is at y = 2 as door2 is still locked");
+       
+       player.makeMove(Direction.RIGHT);
+       assertEquals(player.getX(), 3, "Player is at x = 3 as door1 is unlocked");
+       assertEquals(player.getY(), 2, "Player is at y = 2 as door1 is unlocked");
+       
+       player.makeMove(Direction.LEFT);
+       assertEquals(true, dungeon.checkTile(2, 1).contains(cKey2), "key2 is in dungeon");
+       player.makeMove(Direction.UP);
+       assertEquals(false, dungeon.checkTile(2, 1).contains(cKey2), "key2 was picked up");
+       assertEquals(false, door2.isSolid(), "door2 unlocked");
+       player.makeMove(Direction.DOWN);
+       
+       player.makeMove(Direction.LEFT);
+       assertEquals(player.getX(), 1, "Player is at x = 1 as door2 is unlocked");
+       assertEquals(player.getY(), 2, "Player is at y = 2 as door2 is unlocked");
    }
    
    
