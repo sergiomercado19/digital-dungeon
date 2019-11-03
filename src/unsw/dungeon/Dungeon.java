@@ -255,13 +255,16 @@ public class Dungeon {
     */
    public ArrayList<Key> getKeys() {
 	   ArrayList<Key> res = new ArrayList<Key>();
-	   for (Entity e : getEntityArrayList("unsw.dungeon.Collectable")) {
-		   Collectable c = (Collectable) e;
-		   Item i = c.getItem();
-		   if(c.getItem().getClass().getName().equals("key")) {
-			   res.add((Key) i);
+	   for (Entity e : this.entities) {
+		   if(e.getClass().getName().equals("unsw.dungeon.Collectable")) {
+			   Collectable c = (Collectable) e;
+			   Item i = c.getItem();
+			   if(c.getItem().getClass().getName().equals("unsw.dungeon.Key")) {
+				   res.add((Key) i);
+			   }
 		   }
 	   }
+	   
 	   return res;
    }
    
