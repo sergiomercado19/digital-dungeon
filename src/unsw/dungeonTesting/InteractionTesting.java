@@ -103,7 +103,7 @@ public class InteractionTesting {
    }
 
    @Test
-   void testInteractionBoulder() {
+   void testInteractionBoulder1() {
       // add a boulder
       Boulder boulder = new Boulder(dungeon, 3, 2);
       dungeon.addEntity(boulder);
@@ -114,6 +114,26 @@ public class InteractionTesting {
       assertEquals(true, dungeon.checkTile(3, 2).contains(boulder), "Boulder doesn't move because it's against a wall");
       assertEquals(true, dungeon.checkTile(2, 2).contains(player), "Player doesn't move because boulder can't move");
 
+   }
+   
+   @Test
+   void testInteractionBoulder2() {
+      player.makeMove(Direction.LEFT);
+      assertEquals(true, dungeon.checkTile(1, 2).contains(player), "Player moves to the left");
+      
+      // add a boulder
+      Boulder boulder1 = new Boulder(dungeon, 2, 2);
+      dungeon.addEntity(boulder1);
+      
+      // add a boulder
+      Boulder boulder2 = new Boulder(dungeon, 3, 2);
+      dungeon.addEntity(boulder2);
+
+      player.makeMove(Direction.RIGHT);
+
+      assertEquals(true, dungeon.checkTile(2, 2).contains(boulder1), "Boulder1 doesn't move because it's against boulder2");
+      assertEquals(true, dungeon.checkTile(3, 2).contains(boulder2), "Boulder2 doesn't move because it's against a wall");
+      assertEquals(true, dungeon.checkTile(1, 2).contains(player), "Player doesn't move because boulder can't move");
    }
 
    @Test
