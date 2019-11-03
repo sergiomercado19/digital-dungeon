@@ -4,7 +4,6 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -23,6 +22,11 @@ public class Dungeon {
    private GoalComponent goals;
    private DungeonState state;
 
+   /**
+    * create a new dungeon
+    * @param width the width of the dungeon
+    * @param height the height of the dungeon
+    */
    public Dungeon(int width, int height) {
       this.width = width;
       this.height = height;
@@ -31,14 +35,35 @@ public class Dungeon {
       this.state = DungeonState.INITIALIZING;
    }
 
+   /**
+    * set the goals the player must achieve within the dungeon
+    * @param goals
+    */
    public void setGoals(GoalComponent goals) {      
       this.goals = goals;
    }
    
+   /**
+    * set the current state of the dungeon
+    * @param state
+    */
    public void setState(DungeonState state) {
       this.state = state;
    }
    
+   /**
+    * get the current state of the dungeon
+    * @return the current state of the dungeon
+    */
+   public DungeonState getState() {
+	   return state;
+   }
+   
+   /**
+    * get the count of a certain entity within the dungeon
+    * @param type the type of entity
+    * @return the count for of the entity
+    */
    public int getEntityQuantity(String type) {
       int count = 0;
       for (Entity e : this.entities) {
@@ -47,6 +72,11 @@ public class Dungeon {
       return count;
    }
    
+   /**
+    * get all entities of a certain type within the dungeon
+    * @param type the type of entity
+    * @return the list of all entities of the type
+    */
    public ArrayList<Entity> getEntityArrayList(String type) {
       ArrayList<Entity> res = new ArrayList<Entity>();
       for (Entity e : this.entities) {
@@ -55,6 +85,9 @@ public class Dungeon {
       return res;
    }
 
+   /**
+    * alert enemies of the player so they will begin to pathfind to them
+    */
    public void alertEnemies() {
       for (Entity e : this.entities) {
          if (e instanceof Enemy) {
@@ -63,22 +96,42 @@ public class Dungeon {
       }
    }
    
+   /**
+    * get the width of the dungeon
+    * @return the width of the dungeon
+    */
    public int getWidth() {
       return width;
    }
 
+   /**
+    * get the height of the dungeon
+    * @return the height of the dungeon
+    */
    public int getHeight() {
       return height;
    }
 
+   /**
+    * get the player within the dungeon
+    * @return the player within the dungeon
+    */
    public Player getPlayer() {
       return player;
    }
 
+   /**
+    * set the player within the dungeon
+    * @param player the player to set
+    */
    public void setPlayer(Player player) {
       this.player = player;
    }
 
+   /**
+    * add an entity to the dungeon
+    * @param entity the entity to add to the dungeon
+    */
    public void addEntity(Entity entity) {
       entities.add(entity);
    }
@@ -127,7 +180,7 @@ public class Dungeon {
    
    public void attack(Player player, Enemy enemy) {
       if (player.isInvincible() || player.hasSword()) {
-         enemy.notifyObserversOfIncrease();
+         enemy.die();
          this.removeEntity(enemy);
       } else {
          this.removeEntity(player);
