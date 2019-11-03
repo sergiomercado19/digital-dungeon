@@ -20,7 +20,7 @@ public class Player extends MovableEntity {
     * @param y
     */
    public Player(Dungeon dungeon, int x, int y) {
-      super(dungeon, x, y, true);
+      super(dungeon, x, y, false);
       this.keyIDs = new ArrayList<>();
       this.swordHits = 0;
       this.invincibilityLeft = 0;
