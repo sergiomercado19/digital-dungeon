@@ -108,14 +108,11 @@ public class InteractionTesting {
 	   Boulder boulder = new Boulder(dungeon, 3, 2);
 	   dungeon.addEntity(boulder);
 	   
-	   // add a floor switch
-	   FloorSwitch floorSwitch = new FloorSwitch(4, 3);
-	   dungeon.addEntity(floorSwitch);
-	   
 	   assertEquals(true, dungeon.checkTile(3, 2).contains(boulder), "Boulder is in dungeon");
 	   player.makeMove(Direction.RIGHT);
-//	   assertEquals(false, dungeon.checkTile(3, 2).contains(boulder), "Boulder is no longer at (3, 2)");
-//	   assertEquals(true, dungeon.checkTile(4, 2).contains(boulder), "Boulder is now at (4, 2)");
+
+	   assertEquals(true, dungeon.checkTile(3, 2).contains(boulder), "Boulder doesn't move because it's against a wall");
+	   assertEquals(true, dungeon.checkTile(2, 2).contains(player), "Player doesn't move because boulder can't move");
    }
    
    @Test
