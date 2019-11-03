@@ -26,11 +26,26 @@ public class Player extends MovableEntity {
       this.invincibilityLeft = 0;
    }
 
+
+   public int getSwordHits() {
+      return this.swordHits;
+   }
+   
+   public int getInvincibilityLeft() {
+      return this.invincibilityLeft;
+   }
+
    /**
     * give the player a sword, with 5 hits remaining
     */
-   public void getSword() {
+   public void pickupSword() {
       this.swordHits += 5;
+   }
+   
+   public void hitEnemy() {
+      if (this.swordHits > 0) {
+         this.swordHits--;
+      }
    }
 
    /**
@@ -70,5 +85,6 @@ public class Player extends MovableEntity {
       if (this.invincibilityLeft > 0) this.invincibilityLeft--;
          
       super.makeMove(d);
+      
    }
 }

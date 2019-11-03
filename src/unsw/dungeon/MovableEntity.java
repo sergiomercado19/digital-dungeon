@@ -51,6 +51,7 @@ public class MovableEntity implements Entity {
 	 * @param d the direction to move in
 	 */
 	public void makeMove(Direction d) {
+	   
 	  int x = this.getX();
       int y = this.getY();
       

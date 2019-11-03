@@ -80,7 +80,7 @@ public class Dungeon {
    public ArrayList<Entity> getEntityArrayList(String type) {
       ArrayList<Entity> res = new ArrayList<Entity>();
       for (Entity e : this.entities) {
-         if (e.getClass().getName().equals(type)) res.add(e); 
+         if (e.getClass().getName().toLowerCase().equals("unsw.dungeon." + type)) res.add(e); 
       }
       return res;
    }
@@ -153,13 +153,6 @@ public class Dungeon {
     */
    public void registerMove(int x, int y, Direction d, MovableEntity me) {
       
-      // If the player moves, enemies move as well
-      if (me instanceof Player) {
-         for (Enemy e : getEnemies()) {
-            e.moveTowardsPlayer();
-         }
-      }
-      
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   // FIXME horrible code
 	   for (Entity e : tileEntities) {
@@ -185,8 +178,17 @@ public class Dungeon {
 		   }
 	   }
 	   
+	   // If the player attempts moves, enemies move as well
+      if (me instanceof Player) {
+         ArrayList<Enemy> enemies = getEnemies();
+         for (Enemy e : enemies) {
+            e.moveTowardsPlayer();
+         }
+      }
+      
+	   
 	   // Check if game was won
-	   if (this.goals == null || this.goals.isComplete()) this.state = DungeonState.WON;
+	   if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
    }
    
    /**
@@ -196,8 +198,9 @@ public class Dungeon {
     */
    public void attack(Player player, Enemy enemy) {
       if (player.isInvincible() || player.hasSword()) {
+         player.hitEnemy();
          enemy.die();
-         this.removeEntity(enemy);
+         this.removeEntity((Entity) enemy);
       } else {
          this.removeEntity(player);
          this.setState(DungeonState.LOST);
@@ -226,7 +229,7 @@ public class Dungeon {
    public ArrayList<Portal> getPortals() {
 	   ArrayList<Portal> res = new ArrayList<Portal>();
       for (Entity e : this.entities) {
-         if (e.getClass().getName().equals("portal")) res.add((Portal) e); 
+         if (e.getClass().getName().equals("unsw.dungeon.Portal")) res.add((Portal) e); 
       }
       return res;
    }
@@ -238,7 +241,7 @@ public class Dungeon {
    public ArrayList<Door> getDoors() {
 	   ArrayList<Door> res = new ArrayList<Door>();
       for (Entity e : this.entities) {
-         if (e.getClass().getName().equals("door")) res.add((Door) e); 
+         if (e.getClass().getName().equals("unsw.dungeon.Door")) res.add((Door) e); 
       }
       return res;
    }
@@ -249,7 +252,7 @@ public class Dungeon {
     */
    public ArrayList<Key> getKeys() {
 	   ArrayList<Key> res = new ArrayList<Key>();
-	   for (Entity e : getEntityArrayList("collectable")) {
+	   for (Entity e : getEntityArrayList("unsw.dungeon.Collectable")) {
 		   Collectable c = (Collectable) e;
 		   Item i = c.getItem();
 		   if(c.getItem().getClass().getName().equals("key")) {
@@ -266,7 +269,7 @@ public class Dungeon {
    public ArrayList<Enemy> getEnemies() {
       ArrayList<Enemy> res = new ArrayList<Enemy>();
       for (Entity e : this.entities) {
-         if (e.getClass().getName().equals("enemy")) res.add((Enemy) e); 
+         if (e.getClass().getName().equals("unsw.dungeon.Enemy")) res.add((Enemy) e); 
       }
       return res;
    }
@@ -294,19 +297,34 @@ public class Dungeon {
     * @return whether the entity can move or not
     */
    public boolean canMove(int x, int y, MovableEntity me) {
-	   // can't go outside border
+
+   
+      boolean validMove = true;
+
+	   // Entities can't go outside the dungeon border
 	   if (y < 0 || y > getHeight() - 1 || x < 0 || x > getWidth() - 1) {
-		   return false;
+	      validMove = false;
 	   }
 
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   for (Entity e : tileEntities) {
 	      // Boulders can't push boulders
-		   if (me instanceof Boulder && e instanceof Boulder) return false;
+		   if (me instanceof Boulder && e instanceof Boulder) validMove = false;
 		   // Movable entities can't go in solid entities
-		   else if (e.isSolid()) return false;
+		   else if (e.isSolid()) validMove = false;
 	   }
-	   return true;
+	   
+	   if (!validMove) {
+	      // If the player makes an invalid move, enemies move as well
+	      if (me instanceof Player) {
+	         ArrayList<Enemy> enemies = getEnemies();
+	         for (Enemy e : enemies) {
+	            e.moveTowardsPlayer();
+	         }
+	      }
+	   }
+	   
+	   return validMove;
    }
    
    /**

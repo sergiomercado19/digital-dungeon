@@ -10,7 +10,7 @@ public class Sword implements Item {
 
 	@Override
 	public void collect(Player player) {
-		player.getSword();
+		player.pickupSword();
 		// FIXME delete item (same for all items)
 	}
 
