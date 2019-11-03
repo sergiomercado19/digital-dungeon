@@ -2,12 +2,23 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+/**
+ * a goal that a player must achieve within the dungeon
+ * leaf node of a GoalComponent in the composite pattern
+ * @author Rory
+ *
+ */
 public class Goal implements GoalComponent, GoalObserver {
    
    private String name;
    private int currentValue;
    private int targetValue;
    
+   /**
+    * create a new goal
+    * @param name the name of the goal
+    * @param targetValue the value to reach to complete the goal
+    */
    public Goal(String name, int targetValue) {
       this.name = name;
       this.currentValue = 0;
@@ -31,6 +42,7 @@ public class Goal implements GoalComponent, GoalObserver {
 		this.currentValue++;
 	}
    
+	@Override
 	public void decreaseProgress() {
       this.currentValue--;
    }

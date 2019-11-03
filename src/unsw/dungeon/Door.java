@@ -9,7 +9,7 @@ public class Door extends InertEntity {
 	
 	private int ID;
 
-	/**\
+	/**
 	 * create a new door
 	 * @param x x position of the door
 	 * @param y y position of the door

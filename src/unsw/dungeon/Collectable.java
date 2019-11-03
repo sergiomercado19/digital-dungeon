@@ -2,7 +2,7 @@ package unsw.dungeon;
 
 /**
  * an object that can be collected
- * employs the strategy pattern
+ * employs the strategy pattern using Items
  * @author Rory
  *
  */
