@@ -113,10 +113,11 @@ public class InteractionTesting {
 
 	   assertEquals(true, dungeon.checkTile(3, 2).contains(boulder), "Boulder doesn't move because it's against a wall");
 	   assertEquals(true, dungeon.checkTile(2, 2).contains(player), "Player doesn't move because boulder can't move");
+
    }
    
    @Test
-   void testInteractionKey() {
+   void testInteractionKeyDoor() {
 	   // add some doors
 	   Door door1 = new Door(3, 2, 0);
 	   dungeon.addEntity(door1);
