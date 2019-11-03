@@ -295,7 +295,7 @@ public class Dungeon {
     */
    public boolean canMove(int x, int y, MovableEntity me) {
 	   // can't go outside border
-	   if (me.getY() <= 0 || me.getY() >= getHeight() - 1 || me.getX() <= 0 || me.getX() >= getWidth() - 1) {
+	   if (y < 0 || y > getHeight() - 1 || x < 0 || x > getWidth() - 1) {
 		   return false;
 	   }
 
