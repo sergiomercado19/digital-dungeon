@@ -114,12 +114,14 @@ public class InteractionTesting {
 	   
 	   assertEquals(true, dungeon.checkTile(3, 2).contains(boulder), "Boulder is in dungeon");
 	   player.makeMove(Direction.RIGHT);
-//	   assertEquals(false, dungeon.checkTile(3, 2).contains(boulder), "Boulder is no longer at (3, 2)");
-//	   assertEquals(true, dungeon.checkTile(4, 2).contains(boulder), "Boulder is now at (4, 2)");
+	   assertEquals(player.getX(), 3, "Player is at x = 3");
+	   assertEquals(player.getY(), 2, "Player is at y = 2");
+	   assertEquals(false, dungeon.checkTile(3, 2).contains(boulder), "Boulder is no longer at (3, 2)");
+	   assertEquals(true, dungeon.checkTile(4, 2).contains(boulder), "Boulder is now at (4, 2)");
    }
    
    @Test
-   void testInteractionKey() {
+   void testInteractionKeyDoor() {
 	   // add some doors
 	   Door door1 = new Door(3, 2, 0);
 	   dungeon.addEntity(door1);
