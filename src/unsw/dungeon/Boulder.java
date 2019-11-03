@@ -2,7 +2,7 @@ package unsw.dungeon;
 
 /**
  * a boulder, which can be pushed by a player to trigger a floor switch
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class Boulder extends MovableEntity {
@@ -27,14 +27,12 @@ public class Boulder extends MovableEntity {
 	 * @param d the direction to push
 	 */
 	public void push(Direction d) {
-		// FIXME
-		// check
-		// then
 		makeMove(d);
 	}
 
 	/**
 	 * get the dungeon the boulder is contained in
+	 * @return the dungeon
 	 */
 	public Dungeon getDungeon() {
 		return dungeon;

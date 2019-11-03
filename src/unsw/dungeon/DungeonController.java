@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  * A JavaFX controller for the dungeon.
- * @author Robert Clifton-Everest
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class DungeonController {

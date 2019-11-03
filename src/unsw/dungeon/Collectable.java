@@ -2,8 +2,8 @@ package unsw.dungeon;
 
 /**
  * an object that can be collected
- * employs the strategy pattern
- * @author Rory
+ * employs the strategy pattern using Items
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class Collectable extends InertEntity {

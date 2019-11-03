@@ -1,11 +1,10 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The player entity
- * @author Robert Clifton-Everest
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class Player extends MovableEntity {
@@ -15,9 +14,10 @@ public class Player extends MovableEntity {
    private int invincibilityLeft;
 
    /**
-    * Create a player positioned in square (x,y)
-    * @param x
-    * @param y
+    * create a new player
+    * @param dungeon the dungeon the player is contained within
+    * @param x x position of the player
+    * @param y y position of the player
     */
    public Player(Dungeon dungeon, int x, int y) {
       super(dungeon, x, y, false);
@@ -26,6 +26,7 @@ public class Player extends MovableEntity {
       this.invincibilityLeft = 0;
    }
 
+
    public int getSwordHits() {
       return this.swordHits;
    }
@@ -33,7 +34,10 @@ public class Player extends MovableEntity {
    public int getInvincibilityLeft() {
       return this.invincibilityLeft;
    }
-   
+
+   /**
+    * give the player a sword, with 5 hits remaining
+    */
    public void pickupSword() {
       this.swordHits += 5;
    }
@@ -44,18 +48,33 @@ public class Player extends MovableEntity {
       }
    }
 
+   /**
+    * turn the player invincible for a certain length of time (tiles travelled)
+    */
    public void becomeInvincible() {
       this.invincibilityLeft += 15;
    }
 
+   /**
+    * check if the player is invincible
+    * @return whether or not the player is invincible
+    */
    public boolean isInvincible() {
       return this.invincibilityLeft > 0;
    }
    
+   /**
+    * check if the player has a sword
+    * @return whether or not the player has a sword
+    */
    public boolean hasSword() {
       return this.swordHits > 0;
    }
    
+   /**
+    * add a new key id to the player's inventory
+    * @param ID the id of the key to add
+    */
    public void addKey(int ID) {
       keyIDs.add(ID);
    }
