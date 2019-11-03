@@ -6,7 +6,7 @@ package unsw.dungeon;
  *
  */
 public class Boulder extends MovableEntity {
-	
+
    private Dungeon dungeon;
    private FloorSwitch floorSwitch;
 
@@ -16,32 +16,32 @@ public class Boulder extends MovableEntity {
     * @param x x position of boulder
     * @param y y position of boulder
     */
-	public Boulder(Dungeon dungeon, int x, int y) {
-		super(dungeon, x, y, false);
-		this.dungeon = dungeon;
-		this.floorSwitch = null;
-	}
-	
-	/**
-	 * push the boulder in a direction
-	 * @param d the direction to push
-	 */
-	public void push(Direction d) {
-		makeMove(d);
-	}
+   public Boulder(Dungeon dungeon, int x, int y) {
+      super(dungeon, x, y, false);
+      this.dungeon = dungeon;
+      this.floorSwitch = null;
+   }
 
-	/**
-	 * get the dungeon the boulder is contained in
-	 * @return the dungeon
-	 */
-	public Dungeon getDungeon() {
-		return dungeon;
-	}
+   /**
+    * push the boulder in a direction
+    * @param d the direction to push
+    */
+   public void push(Direction d) {
+      makeMove(d);
+   }
 
-	/**
-	 * trigger a floor switch when the boulder is on top
-	 * @param s
-	 */
+   /**
+    * get the dungeon the boulder is contained in
+    * @return the dungeon
+    */
+   public Dungeon getDungeon() {
+      return dungeon;
+   }
+
+   /**
+    * trigger a floor switch when the boulder is on top
+    * @param s
+    */
    public void activateSwitch(FloorSwitch s) {
       this.floorSwitch = s;
       this.floorSwitch.activate();
@@ -64,7 +64,7 @@ public class Boulder extends MovableEntity {
    public void makeMove(Direction d) {
       // Deactivate floorSwitch before moving
       this.deactivateSwitch();
-      
+
       super.makeMove(d);
    }
 

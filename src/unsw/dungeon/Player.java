@@ -33,7 +33,7 @@ public class Player extends MovableEntity {
    public int getSwordHits() {
       return this.swordHits;
    }
-   
+
    /**
     * get the number of tiles left the player can traverse before their invincibility expires
     * @return
@@ -48,7 +48,7 @@ public class Player extends MovableEntity {
    public void pickupSword() {
       this.swordHits += 5;
    }
-   
+
    /**
     * hit an enemy with a sword, taking one hit point away from the sword
     */
@@ -72,7 +72,7 @@ public class Player extends MovableEntity {
    public boolean isInvincible() {
       return this.invincibilityLeft > 0;
    }
-   
+
    /**
     * check if the player has a sword
     * @return whether or not the player has a sword
@@ -80,7 +80,7 @@ public class Player extends MovableEntity {
    public boolean hasSword() {
       return this.swordHits > 0;
    }
-   
+
    /**
     * add a new key id to the player's inventory
     * @param ID the id of the key to add
@@ -96,8 +96,8 @@ public class Player extends MovableEntity {
    public void makeMove(Direction d) {
       // Decrease invincibility when you move
       if (this.invincibilityLeft > 0) this.invincibilityLeft--;
-         
+
       super.makeMove(d);
-      
+
    }
 }

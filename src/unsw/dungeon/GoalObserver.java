@@ -7,12 +7,12 @@ package unsw.dungeon;
  *
  */
 public interface GoalObserver {
-	/**
-	 * increase the progress of the goal's completion by 1
-	 */
-	public void increaseProgress();
-	/**
-	 * decrease the progress of the goal's completion by 1
-	 */
-	public void decreaseProgress();
+   /**
+    * increase the progress of the goal's completion by 1
+    */
+   public void increaseProgress();
+   /**
+    * decrease the progress of the goal's completion by 1
+    */
+   public void decreaseProgress();
 }

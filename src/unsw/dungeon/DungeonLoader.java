@@ -45,19 +45,19 @@ public class DungeonLoader {
       for (int i = 0; i < jsonEntities.length(); i++) {
          loadEntity(dungeon, jsonEntities.getJSONObject(i));
       }
-      
+
       // 3. Alert enemies of players
       dungeon.alertEnemies();
-      
+
       // 4. Link portals
       dungeon.linkPortals();
-      
+
       // 5. Set dungeon goals
       dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
-      
+
       // 6. Start dungeon
       dungeon.setState(DungeonState.INPROGRESS);
-      
+
       return dungeon;
    }
 
@@ -70,49 +70,49 @@ public class DungeonLoader {
    private GoalComponent loadGoal(Dungeon dungeon, JSONObject json) {
       String name = json.getString("goal");
       GoalComponent gc;
-      
+
       if (name.equals("AND") || name.equals("OR")) {
-         
+
          ArrayList<GoalComponent> subgoals = new ArrayList<GoalComponent>();
          JSONArray jsonSubgoals = json.getJSONArray("subgoals");
          for (int i = 0; i < jsonSubgoals.length(); i++) {
             subgoals.add(loadGoal(dungeon, jsonSubgoals.getJSONObject(i)));
          }
-         
+
          if (name.equals("AND")) gc = new GoalAnd(subgoals);
          else gc = new GoalOr(subgoals);
-         
+
       } else {
-         
+
          ArrayList<Entity> entities = new ArrayList<Entity>();
-         
+
          switch (name) {
-            case "exit":
-               // Get goal relevant entity list
-               entities.addAll(dungeon.getEntityArrayList("exit"));
-               break;
-            case "enemies":
-               // Get goal relevant entity list
-               entities.addAll(dungeon.getEntityArrayList("enemy"));
-               break;
-            case "boulders":
-               // Get goal relevant entity list
-               entities.addAll(dungeon.getEntityArrayList("boulder"));
-               break;
-            case "treasure":
-               // Get goal relevant entity list
-               entities.addAll(dungeon.getEntityArrayList("treasure"));
-               break;
+         case "exit":
+            // Get goal relevant entity list
+            entities.addAll(dungeon.getEntityArrayList("exit"));
+            break;
+         case "enemies":
+            // Get goal relevant entity list
+            entities.addAll(dungeon.getEntityArrayList("enemy"));
+            break;
+         case "boulders":
+            // Get goal relevant entity list
+            entities.addAll(dungeon.getEntityArrayList("boulder"));
+            break;
+         case "treasure":
+            // Get goal relevant entity list
+            entities.addAll(dungeon.getEntityArrayList("treasure"));
+            break;
          }
-         
+
          gc = new Goal(name, entities.size());
          // Pass this Goal (that implements GoalObserver) into all the relevant entities (that implement GoalSubject)
          for (Entity e : entities) {
             ((GoalSubject) e).addObserver((GoalObserver) gc);
          }
-         
+
       }
-      
+
       return gc;
    }
 
@@ -128,71 +128,71 @@ public class DungeonLoader {
 
       Entity entity = null;
       switch (type) {
-         case "player":
-            Player player = new Player(dungeon, x, y);
-            dungeon.setPlayer(player);
-//            onLoad(player);
-            entity = player;
-            break;
-         case "wall":
-            Wall wall = new Wall(x, y);
-//            onLoad(wall);
-            entity = wall;
-            break;
-         case "exit":
-            Exit exit = new Exit(x, y);
-            entity = exit;
-            break;
-         case "treasure":
-            Treasure treasure = new Treasure();
-            Collectable cTreasure = new Collectable(x, y, treasure);
-            entity = cTreasure;
-            break;
-         case "door":
-            int doorID = json.getInt("id");;
-            Door door = new Door(x, y, doorID);
-            entity = door;
-            break;
-         case "key":
-            int keyID = json.getInt("id");;
-            Key key = new Key(keyID);
-            Collectable cKey = new Collectable(x, y, key);
-            entity = cKey;
-            break;
-         case "boulder":
-            Boulder boulder = new Boulder(dungeon, x, y);
-            entity = boulder;
-            break;
-         case "floorSwitch":
-            FloorSwitch floorSwitch = new FloorSwitch(x, y);
-            entity = floorSwitch;
-            break;
-         case "portal":
-            int portalID = json.getInt("id");
-            Portal portal = new Portal(x, y, portalID);
-            entity = portal;
-            break;
-         case "enemy":
-            Enemy enemy = new Enemy(dungeon, x, y);
-            entity = enemy;
-            break;
-         case "sword":
-            Sword sword = new Sword();
-            Collectable cSword = new Collectable(x, y, sword);
-            entity = cSword;
-            break;
-         case "invincibility":
-            Invincibility invincibility = new Invincibility();
-            Collectable cInvincibility = new Collectable(x, y, invincibility);
-            entity = cInvincibility;
-            break;
+      case "player":
+         Player player = new Player(dungeon, x, y);
+         dungeon.setPlayer(player);
+         //            onLoad(player);
+         entity = player;
+         break;
+      case "wall":
+         Wall wall = new Wall(x, y);
+         //            onLoad(wall);
+         entity = wall;
+         break;
+      case "exit":
+         Exit exit = new Exit(x, y);
+         entity = exit;
+         break;
+      case "treasure":
+         Treasure treasure = new Treasure();
+         Collectable cTreasure = new Collectable(x, y, treasure);
+         entity = cTreasure;
+         break;
+      case "door":
+         int doorID = json.getInt("id");;
+         Door door = new Door(x, y, doorID);
+         entity = door;
+         break;
+      case "key":
+         int keyID = json.getInt("id");;
+         Key key = new Key(keyID);
+         Collectable cKey = new Collectable(x, y, key);
+         entity = cKey;
+         break;
+      case "boulder":
+         Boulder boulder = new Boulder(dungeon, x, y);
+         entity = boulder;
+         break;
+      case "floorSwitch":
+         FloorSwitch floorSwitch = new FloorSwitch(x, y);
+         entity = floorSwitch;
+         break;
+      case "portal":
+         int portalID = json.getInt("id");
+         Portal portal = new Portal(x, y, portalID);
+         entity = portal;
+         break;
+      case "enemy":
+         Enemy enemy = new Enemy(dungeon, x, y);
+         entity = enemy;
+         break;
+      case "sword":
+         Sword sword = new Sword();
+         Collectable cSword = new Collectable(x, y, sword);
+         entity = cSword;
+         break;
+      case "invincibility":
+         Invincibility invincibility = new Invincibility();
+         Collectable cInvincibility = new Collectable(x, y, invincibility);
+         entity = cInvincibility;
+         break;
       }
       dungeon.addEntity(entity);
    }
 
-//   public abstract void onLoad(Entity player);
-//
-//   public abstract void onLoad(Wall wall);
+   //   public abstract void onLoad(Entity player);
+   //
+   //   public abstract void onLoad(Wall wall);
 
    // TODO MILESTONE 3: Create additional abstract methods for the other entities
 

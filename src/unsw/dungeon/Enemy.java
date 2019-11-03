@@ -12,7 +12,7 @@ public class Enemy extends MovableEntity implements GoalSubject {
    private Dungeon dungeon;
    private Player player;
    private ArrayList<GoalObserver> goalObservers;
-   
+
    /**
     * create a new enemy
     * @param dungeon the dungeon the enemy is contained within
@@ -25,7 +25,7 @@ public class Enemy extends MovableEntity implements GoalSubject {
       this.goalObservers = new ArrayList<GoalObserver>();
       this.player = null;
    }
-   
+
    /**
     * set the target player of the enemy
     * @param player the player to target
@@ -33,18 +33,18 @@ public class Enemy extends MovableEntity implements GoalSubject {
    public void setPlayer(Player player) {
       this.player = player;
    }
-   
+
    /**
     * pathfind one step towards the current position of the player
     */
    public void moveTowardsPlayer() {
-      
+
       if (this.player != null) {         
          Direction d = null;
-         
+
          int xDist = Math.abs(this.getX()-this.player.getX());
          int yDist = Math.abs(this.getY()-this.player.getY());
-         
+
          if (xDist > yDist) {
             if (this.player.getX() < this.getX()) d = Direction.LEFT;
             else d = Direction.RIGHT;
@@ -52,7 +52,7 @@ public class Enemy extends MovableEntity implements GoalSubject {
             if (this.player.getY() < this.getY()) d = Direction.UP;
             else d = Direction.DOWN;
          }
-         
+
          // If player is invincible move in the opposite direction
          if (this.player.isInvincible()) {
             switch (d) {
@@ -70,25 +70,25 @@ public class Enemy extends MovableEntity implements GoalSubject {
                break;
             }
          }
-         
+
          makeMove(d);
       }
    }
-   
+
    /**
     * get the dungeon the enemy is contained within
     * @return dungeon the dungeon
     */
-	public Dungeon getDungeon() {
-		return dungeon;
-	}
-	
-	/**
-	 * kill off the enemy
-	 */
-	public void die() {
-		notifyObserversOfIncrease();
-	}
+   public Dungeon getDungeon() {
+      return dungeon;
+   }
+
+   /**
+    * kill off the enemy
+    */
+   public void die() {
+      notifyObserversOfIncrease();
+   }
 
    @Override
    public void addObserver(GoalObserver o) {
@@ -106,7 +106,7 @@ public class Enemy extends MovableEntity implements GoalSubject {
          go.increaseProgress();
       }  
    }
-   
+
    @Override
    public void notifyObserversOfDecrease() {
       for (GoalObserver go : this.goalObservers) {

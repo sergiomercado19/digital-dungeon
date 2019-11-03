@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GoalAnd implements GoalComponent {
 
    private ArrayList<GoalComponent> goals;
-   
+
    /**
     * create a new composite-and goal
     * @param goals the goals within the composite
@@ -19,7 +19,7 @@ public class GoalAnd implements GoalComponent {
    public GoalAnd(ArrayList<GoalComponent> goals) {
       this.goals = goals;
    }
-   
+
    @Override
    public boolean isComplete() {
       for (GoalComponent gc : this.goals) {
@@ -27,7 +27,7 @@ public class GoalAnd implements GoalComponent {
       }
       return true;
    }
-   
+
    @Override
    public ArrayList<String> getProgress() {
       ArrayList<String> res = new ArrayList<String>();
@@ -36,5 +36,5 @@ public class GoalAnd implements GoalComponent {
       }
       return res;
    }
-   
+
 }

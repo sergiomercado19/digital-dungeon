@@ -42,7 +42,7 @@ public class Dungeon {
    public void setGoals(GoalComponent goals) {      
       this.goals = goals;
    }
-   
+
    /**
     * set the current state of the dungeon
     * @param state
@@ -50,15 +50,15 @@ public class Dungeon {
    public void setState(DungeonState state) {
       this.state = state;
    }
-   
+
    /**
     * get the current state of the dungeon
     * @return the current state of the dungeon
     */
    public DungeonState getState() {
-	   return state;
+      return state;
    }
-   
+
    /**
     * get the count of a certain entity within the dungeon
     * @param type the type of entity
@@ -71,7 +71,7 @@ public class Dungeon {
       }
       return count;
    }
-   
+
    /**
     * get all entities of a certain type within the dungeon
     * @param type the type of entity
@@ -95,7 +95,7 @@ public class Dungeon {
          }
       }
    }
-   
+
    /**
     * get the width of the dungeon
     * @return the width of the dungeon
@@ -135,7 +135,7 @@ public class Dungeon {
    public void addEntity(Entity entity) {
       entities.add(entity);
    }
-   
+
    /**
     * remove an entity from the dungeon
     * @param entity the entity to remove
@@ -143,7 +143,7 @@ public class Dungeon {
    public void removeEntity(Entity entity) {
       entities.remove(entity);
    }
-   
+
    /**
     * when an entity has moved, update parts of the dungeon
     * @param x the new x position
@@ -152,48 +152,48 @@ public class Dungeon {
     * @param me the entity
     */
    public void registerMove(int x, int y, Direction d, MovableEntity me) {
-      
-      
-	   ArrayList<Entity> tileEntities = checkTile(x, y);
-	   // FIXME horrible code
-	   for (Entity e : tileEntities) {
-	      if (!((Entity) me).equals(e)) {    
-	         if (e instanceof Collectable && me instanceof Player) {
-	            // Don't pick up Sword if Player already has one
-	            if (((Collectable) e).getItem() instanceof Sword && ((Player) me).hasSword())
-	               continue;
-	            
-	            ((Collectable) e).collect(player);
-	            removeEntity(e);
-	         } else if (e instanceof Player && me instanceof Enemy) {
-	            attack((Player) e, (Enemy) me);
-	         } else if (me instanceof Player && e instanceof Enemy) {
-	            attack((Player) me, (Enemy) e);
-	         } else if (e instanceof Boulder) {
-	            ((Boulder) e).push(d);
-	         } else if (e instanceof Exit) {
-	            ((Exit) e).trigger();
-	         } else if (e instanceof Portal) {
-	            ((Portal) e).teleport(player);
-	         } else if (e instanceof FloorSwitch && me instanceof Boulder) {
-	            ((Boulder) me).activateSwitch((FloorSwitch) e);
-	         }
-	      }
-	   }
-	   
-	   // If the player attempts moves, enemies move as well
+
+
+      ArrayList<Entity> tileEntities = checkTile(x, y);
+      // FIXME horrible code
+      for (Entity e : tileEntities) {
+         if (!((Entity) me).equals(e)) {    
+            if (e instanceof Collectable && me instanceof Player) {
+               // Don't pick up Sword if Player already has one
+               if (((Collectable) e).getItem() instanceof Sword && ((Player) me).hasSword())
+                  continue;
+
+               ((Collectable) e).collect(player);
+               removeEntity(e);
+            } else if (e instanceof Player && me instanceof Enemy) {
+               attack((Player) e, (Enemy) me);
+            } else if (me instanceof Player && e instanceof Enemy) {
+               attack((Player) me, (Enemy) e);
+            } else if (e instanceof Boulder) {
+               ((Boulder) e).push(d);
+            } else if (e instanceof Exit) {
+               ((Exit) e).trigger();
+            } else if (e instanceof Portal) {
+               ((Portal) e).teleport(player);
+            } else if (e instanceof FloorSwitch && me instanceof Boulder) {
+               ((Boulder) me).activateSwitch((FloorSwitch) e);
+            }
+         }
+      }
+
+      // If the player attempts moves, enemies move as well
       if (me instanceof Player) {
          ArrayList<Enemy> enemies = getEnemies();
          for (Enemy e : enemies) {
             e.moveTowardsPlayer();
          }
       }
-      
-	   
-	   // Check if game was won
-	   if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
+
+
+      // Check if game was won
+      if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
    }
-   
+
    /**
     * determines the outcome of a player and enemy coming into contact to see who dies
     * @param player the player in contact
@@ -209,65 +209,65 @@ public class Dungeon {
          this.setState(DungeonState.LOST);
       }
    }
-   
+
    /**
     * link all portals together with corresponding ids
     */
    public void linkPortals() {
-	   ArrayList<Portal> portals = getPortals();
-	   for(Portal p1 : portals) {
-		   for(Portal p2 : portals) {
-			   if(!p1.equals(p2) && p1.getID() == p2.getID()) {
-				   p1.linkTo(p2);
-				   p2.linkTo(p1);
-			   }
-		   }
-	   }
+      ArrayList<Portal> portals = getPortals();
+      for(Portal p1 : portals) {
+         for(Portal p2 : portals) {
+            if(!p1.equals(p2) && p1.getID() == p2.getID()) {
+               p1.linkTo(p2);
+               p2.linkTo(p1);
+            }
+         }
+      }
    }
-   
+
    /**
     * get a list of portals in the dungeon
     * @return a list of portals
     */
    public ArrayList<Portal> getPortals() {
-	   ArrayList<Portal> res = new ArrayList<Portal>();
+      ArrayList<Portal> res = new ArrayList<Portal>();
       for (Entity e : this.entities) {
          if (e.getClass().getName().equals("unsw.dungeon.Portal")) res.add((Portal) e); 
       }
       return res;
    }
-   
+
    /**
     * get a list of doors in the dungeon
     * @return a list of doors
     */
    public ArrayList<Door> getDoors() {
-	   ArrayList<Door> res = new ArrayList<Door>();
+      ArrayList<Door> res = new ArrayList<Door>();
       for (Entity e : this.entities) {
          if (e.getClass().getName().equals("unsw.dungeon.Door")) res.add((Door) e); 
       }
       return res;
    }
-   
+
    /**
     * get a list of keys in the dungeon
     * @return a list of keys
     */
    public ArrayList<Key> getKeys() {
-	   ArrayList<Key> res = new ArrayList<Key>();
-	   for (Entity e : this.entities) {
-		   if(e.getClass().getName().equals("unsw.dungeon.Collectable")) {
-			   Collectable c = (Collectable) e;
-			   Item i = c.getItem();
-			   if(c.getItem().getClass().getName().equals("unsw.dungeon.Key")) {
-				   res.add((Key) i);
-			   }
-		   }
-	   }
-	   
-	   return res;
+      ArrayList<Key> res = new ArrayList<Key>();
+      for (Entity e : this.entities) {
+         if(e.getClass().getName().equals("unsw.dungeon.Collectable")) {
+            Collectable c = (Collectable) e;
+            Item i = c.getItem();
+            if(c.getItem().getClass().getName().equals("unsw.dungeon.Key")) {
+               res.add((Key) i);
+            }
+         }
+      }
+
+      return res;
    }
-   
+
    /**
     * get a list of enemies in the dungeon
     * @return a list of enemies
@@ -279,22 +279,22 @@ public class Dungeon {
       }
       return res;
    }
-   
+
    /**
     * link all keys to doors with corresponding ids
     */
    public void linkKeysToDoors() {
-	   ArrayList<Key> keys = getKeys();
-	   ArrayList<Door> doors = getDoors();
-	   for(Key k : keys) {
-		   for(Door d : doors) {
-			   if(k.getID() == d.getID()) {
-				   k.linkDoor(d);
-			   }
-		   }
-	   }
+      ArrayList<Key> keys = getKeys();
+      ArrayList<Door> doors = getDoors();
+      for(Key k : keys) {
+         for(Door d : doors) {
+            if(k.getID() == d.getID()) {
+               k.linkDoor(d);
+            }
+         }
+      }
    }
-   
+
    /**
     * check if an entity can move to a given location
     * @param x the new x position
@@ -304,48 +304,48 @@ public class Dungeon {
     */
    public boolean canMove(int x, int y, Direction d, MovableEntity me) {
 
-   
+
       boolean validMove = true;
 
-	   // Entities can't go outside the dungeon border
-	   if (y < 0 || y > getHeight() - 1 || x < 0 || x > getWidth() - 1) {
-	      validMove = false;
-	   }
+      // Entities can't go outside the dungeon border
+      if (y < 0 || y > getHeight() - 1 || x < 0 || x > getWidth() - 1) {
+         validMove = false;
+      }
 
-	   ArrayList<Entity> tileEntities = checkTile(x, y);
-	   for (Entity e : tileEntities) {
-	      // Boulders can't push boulders
-		   if (me instanceof Boulder && e instanceof Boulder) {
-		      validMove = false;
-		   } else if (e instanceof Boulder) {
-		      int newX = x;
-		      int newY = y;
-		      
-		      if (d == Direction.UP) newY--;
-		      else if (d == Direction.DOWN) newY++;
-		      else if (d == Direction.LEFT) newX--;
-		      else if (d == Direction.RIGHT) newX++;
-		      
-		      if (!canMove(newX, newY, d, (MovableEntity) e)) validMove = false;
-		   } else if (e.isSolid()) {
-		      // Movable entities can't go in solid entities
-		      validMove = false;
-		   }
-	   }
-	   
-	   if (!validMove) {
-	      // If the player makes an invalid move, enemies move as well
-	      if (me instanceof Player) {
-	         ArrayList<Enemy> enemies = getEnemies();
-	         for (Enemy e : enemies) {
-	            e.moveTowardsPlayer();
-	         }
-	      }
-	   }
-	   
-	   return validMove;
+      ArrayList<Entity> tileEntities = checkTile(x, y);
+      for (Entity e : tileEntities) {
+         // Boulders can't push boulders
+         if (me instanceof Boulder && e instanceof Boulder) {
+            validMove = false;
+         } else if (e instanceof Boulder) {
+            int newX = x;
+            int newY = y;
+
+            if (d == Direction.UP) newY--;
+            else if (d == Direction.DOWN) newY++;
+            else if (d == Direction.LEFT) newX--;
+            else if (d == Direction.RIGHT) newX++;
+
+            if (!canMove(newX, newY, d, (MovableEntity) e)) validMove = false;
+         } else if (e.isSolid()) {
+            // Movable entities can't go in solid entities
+            validMove = false;
+         }
+      }
+
+      if (!validMove) {
+         // If the player makes an invalid move, enemies move as well
+         if (me instanceof Player) {
+            ArrayList<Enemy> enemies = getEnemies();
+            for (Enemy e : enemies) {
+               e.moveTowardsPlayer();
+            }
+         }
+      }
+
+      return validMove;
    }
-   
+
    /**
     * get a list of entities occupying a given tile
     * @param x the x position of the tile
@@ -353,12 +353,12 @@ public class Dungeon {
     * @return a list of entities
     */
    public ArrayList<Entity> checkTile(int x, int y) {
-	   ArrayList<Entity> tileEntities = new ArrayList<Entity>();
-	   for (Entity e : entities) {
-		   if (e.getX() == x && e.getY() == y) {
-			   tileEntities.add(e);
-		   }
-	   }
-	   return tileEntities;
+      ArrayList<Entity> tileEntities = new ArrayList<Entity>();
+      for (Entity e : entities) {
+         if (e.getX() == x && e.getY() == y) {
+            tileEntities.add(e);
+         }
+      }
+      return tileEntities;
    }
 }
