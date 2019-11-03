@@ -57,6 +57,10 @@ public class Enemy extends MovableEntity implements GoalSubject {
 	public Dungeon getDungeon() {
 		return dungeon;
 	}
+	
+	public void die() {
+		notifyObserversOfIncrease();
+	}
 
    @Override
    public void addObserver(GoalObserver o) {

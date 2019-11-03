@@ -127,7 +127,7 @@ public class Dungeon {
    
    public void attack(Player player, Enemy enemy) {
       if (player.isInvincible() || player.hasSword()) {
-         enemy.notifyObserversOfIncrease();
+         enemy.die();
          this.removeEntity(enemy);
       } else {
          this.removeEntity(player);
