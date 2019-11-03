@@ -33,6 +33,7 @@ public class MovableEntity implements Entity {
 	}
 	
 	public void makeMove(Direction d) {
+	   
 	  int x = this.getX();
       int y = this.getY();
       
