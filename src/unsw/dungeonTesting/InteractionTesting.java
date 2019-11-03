@@ -70,7 +70,7 @@ public class InteractionTesting {
       dungeon.addEntity(portal2);
       dungeon.linkPortals();
       
-      int preX = player.getX();
+//      int preX = player.getX();
       int preY = player.getY();
       
       player.makeMove(Direction.RIGHT);
