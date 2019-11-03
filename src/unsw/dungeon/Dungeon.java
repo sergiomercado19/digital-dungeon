@@ -302,7 +302,7 @@ public class Dungeon {
     * @param me the entity
     * @return whether the entity can move or not
     */
-   public boolean canMove(int x, int y, MovableEntity me) {
+   public boolean canMove(int x, int y, Direction d, MovableEntity me) {
 
    
       boolean validMove = true;
@@ -315,9 +315,22 @@ public class Dungeon {
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   for (Entity e : tileEntities) {
 	      // Boulders can't push boulders
-		   if (me instanceof Boulder && e instanceof Boulder) validMove = false;
-		   // Movable entities can't go in solid entities
-		   else if (e.isSolid()) validMove = false;
+		   if (me instanceof Boulder && e instanceof Boulder) {
+		      validMove = false;
+		   } else if (e instanceof Boulder) {
+		      int newX = x;
+		      int newY = y;
+		      
+		      if (d == Direction.UP) newY--;
+		      else if (d == Direction.DOWN) newY++;
+		      else if (d == Direction.LEFT) newX--;
+		      else if (d == Direction.RIGHT) newX++;
+		      
+		      if (!canMove(newX, newY, d, (MovableEntity) e)) validMove = false;
+		   } else if (e.isSolid()) {
+		      // Movable entities can't go in solid entities
+		      validMove = false;
+		   }
 	   }
 	   
 	   if (!validMove) {

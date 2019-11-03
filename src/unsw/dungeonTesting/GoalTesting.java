@@ -95,7 +95,7 @@ public class GoalTesting {
    
    @Test
    void testBoulderGoal() {
-      System.out.println("--------");
+
       // Add boulder
       Boulder boulder = new Boulder(dungeon, 3, 2);
       dungeon.addEntity(boulder);
@@ -112,10 +112,6 @@ public class GoalTesting {
       player.makeMove(Direction.DOWN);
       player.makeMove(Direction.RIGHT);
       player.makeMove(Direction.UP);
-
-      System.out.println("fs: " + floorSwitch.getX() + " " + floorSwitch.getY());
-      System.out.println("boulder: " + boulder.getX() + " " + boulder.getY());
-      System.out.println("player: " + player.getX() + " " + player.getY());
       
       assertEquals(DungeonState.WON, dungeon.getState(), "Player wins when goal is completed");
    }
