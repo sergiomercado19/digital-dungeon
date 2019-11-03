@@ -12,6 +12,7 @@ public class Enemy extends MovableEntity implements GoalSubject {
       super(dungeon, x, y, false);
       this.dungeon = dungeon;
       this.goalObservers = new ArrayList<GoalObserver>();
+      this.player = null;
    }
    
    public void setPlayer(Player player) {
@@ -20,38 +21,40 @@ public class Enemy extends MovableEntity implements GoalSubject {
    
    public void moveTowardsPlayer() {
       
-      Direction d = null;
-      
-      int xDist = Math.abs(this.getX()-this.player.getX());
-      int yDist = Math.abs(this.getY()-this.player.getY());
-      
-      if (xDist > yDist) {
-         if (this.player.getX() < this.getX()) d = Direction.LEFT;
-         else d = Direction.RIGHT;
-      } else {
-         if (this.player.getY() < this.getY()) d = Direction.UP;
-         else d = Direction.DOWN;
-      }
-      
-      // If player is invincible move in the opposite direction
-      if (this.player.isInvincible()) {
-         switch (d) {
-         case UP:
-            d = Direction.DOWN;
-            break;
-         case DOWN:
-            d = Direction.UP;
-            break;
-         case LEFT:
-            d = Direction.RIGHT;
-            break;
-         case RIGHT:
-            d = Direction.LEFT;
-            break;
+      if (this.player != null) {         
+         Direction d = null;
+         
+         int xDist = Math.abs(this.getX()-this.player.getX());
+         int yDist = Math.abs(this.getY()-this.player.getY());
+         
+         if (xDist > yDist) {
+            if (this.player.getX() < this.getX()) d = Direction.LEFT;
+            else d = Direction.RIGHT;
+         } else {
+            if (this.player.getY() < this.getY()) d = Direction.UP;
+            else d = Direction.DOWN;
          }
+         
+         // If player is invincible move in the opposite direction
+         if (this.player.isInvincible()) {
+            switch (d) {
+            case UP:
+               d = Direction.DOWN;
+               break;
+            case DOWN:
+               d = Direction.UP;
+               break;
+            case LEFT:
+               d = Direction.RIGHT;
+               break;
+            case RIGHT:
+               d = Direction.LEFT;
+               break;
+            }
+         }
+         
+         makeMove(d);
       }
-      
-      makeMove(d);
    }
    
 	public Dungeon getDungeon() {
