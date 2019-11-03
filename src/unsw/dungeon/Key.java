@@ -23,8 +23,6 @@ public class Key implements Item {
 	public void collect(Player player) {
 		player.addKey(ID);
 		door.unlock();
-		//FIXME
-		// delete item
 	}
 
 	/**
