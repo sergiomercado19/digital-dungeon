@@ -122,7 +122,7 @@ public class Dungeon {
 	   }
 	   
 	   // Check if game was won
-	   if (this.goals.isComplete()) this.state = DungeonState.WON;
+	   if (this.goals == null || this.goals.isComplete()) this.state = DungeonState.WON;
    }
    
    public void attack(Player player, Enemy enemy) {
