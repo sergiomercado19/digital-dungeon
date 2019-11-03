@@ -82,6 +82,36 @@ public class InteractionTesting {
       assertEquals(preY, postY, "Player teleports to the corresponding portal");
    }
    
+   @Test
+   void testInteractionTreasure() {
+	   // add some treasure
+	   Treasure treasure1 = new Treasure();
+       Collectable cTreasure1 = new Collectable(3, 2, treasure1);
+       dungeon.addEntity(cTreasure1);
+       Treasure treasure2 = new Treasure();
+       Collectable cTreasure2 = new Collectable(1, 2, treasure2);
+       dungeon.addEntity(cTreasure2);
+       
+       assertEquals(true, dungeon.checkTile(3, 2).contains(cTreasure1), "First treasure is in dungeon");
+       player.makeMove(Direction.RIGHT);
+       assertEquals(false, dungeon.checkTile(3, 2).contains(cTreasure1), "Player picks up first treasure");
+       
+       assertEquals(true, dungeon.checkTile(1, 2).contains(cTreasure2), "Second treasure is in dungeon");
+       player.makeMove(Direction.LEFT);
+       player.makeMove(Direction.LEFT);
+       assertEquals(false, dungeon.checkTile(1, 2).contains(cTreasure2), "Player picks up second treasure");
+   }
+   
+   @Test
+   void testInteractionBoulder() {
+	   // add a boulder
+	   Boulder boulder = new Boulder(dungeon, 3, 2);
+	   dungeon.addEntity(boulder);
+	   
+	   // add a floor switch
+	   FloorSwitch
+   }
+   
    
    
    
