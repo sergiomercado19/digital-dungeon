@@ -14,7 +14,7 @@ import org.json.JSONTokener;
  * By extending this class, a subclass can hook into entity creation. This is
  * useful for creating UI elements with corresponding entities.
  *
- * @author Robert Clifton-Everest
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  *
  * For milestone 3 we will change this to an abstract class, extended by 
@@ -30,7 +30,7 @@ public class DungeonLoader {
 
    /**
     * Parses the JSON to create a dungeon.
-    * @return
+    * @return the newly created dungeon
     */
    public Dungeon load() {
       int width = json.getInt("width");
@@ -61,6 +61,12 @@ public class DungeonLoader {
       return dungeon;
    }
 
+   /**
+    * load a goal from json into a dungeon
+    * @param dungeon the dungeon to load the goal into
+    * @param json the supplied json
+    * @return the newly created goal component
+    */
    private GoalComponent loadGoal(Dungeon dungeon, JSONObject json) {
       String name = json.getString("goal");
       GoalComponent gc;
@@ -92,6 +98,11 @@ public class DungeonLoader {
       return gc;
    }
 
+   /**
+    * load an entity from json into a dungeon
+    * @param dungeon the dungeon to load the entity into
+    * @param json the supplied json
+    */
    private void loadEntity(Dungeon dungeon, JSONObject json) {
       String type = json.getString("type");
       int x = json.getInt("x");

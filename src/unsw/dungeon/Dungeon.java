@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * A dungeon can contain many entities, each occupy a square. More than one
  * entity can occupy the same square.
  *
- * @author Robert Clifton-Everest
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class Dungeon {
@@ -294,7 +294,11 @@ public class Dungeon {
     * @return whether the entity can move or not
     */
    public boolean canMove(int x, int y, MovableEntity me) {
-	   // FIXME can't go outside the border
+	   // can't go outside border
+	   if (me.getY() <= 0 || me.getY() >= getHeight() - 1 || me.getX() <= 0 || me.getX() >= getWidth() - 1) {
+		   return false;
+	   }
+
 	   ArrayList<Entity> tileEntities = checkTile(x, y);
 	   for (Entity e : tileEntities) {
 	      // Boulders can't push boulders

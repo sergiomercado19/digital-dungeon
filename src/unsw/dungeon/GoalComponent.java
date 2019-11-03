@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * interface for a goal tree by the composite pattern
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public interface GoalComponent {

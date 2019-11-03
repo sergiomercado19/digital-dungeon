@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * a composite goal made up of multiple goals within the GoalComponent composite pattern
  * players must achieve all goals within to complete the goal
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class GoalAnd implements GoalComponent {

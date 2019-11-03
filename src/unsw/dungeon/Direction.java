@@ -2,7 +2,7 @@ package unsw.dungeon;
 
 /**
  * directions entities can move within the dungeon
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public enum Direction {

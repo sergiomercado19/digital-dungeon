@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * a goal that a player must achieve within the dungeon
  * leaf node of a GoalComponent in the composite pattern
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class Goal implements GoalComponent, GoalObserver {

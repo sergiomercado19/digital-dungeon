@@ -2,7 +2,7 @@ package unsw.dungeon;
 
 /**
  * a door, which can be opened with a key
- * @author Rory
+ * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
 public class Door extends InertEntity {
