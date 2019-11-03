@@ -4,8 +4,17 @@ import java.util.ArrayList;
 
 public class GoalOr implements GoalComponent {
 
+/**
+ * a composite goal made up of multiple goals within the GoalComponent composite pattern
+ * players must achieve at least one goal within to complete the goal
+ * @author Rory
+ *
+ */
 private ArrayList<GoalComponent> goals;
-   
+   /**
+    * create a new composite-or goal
+    * @param goals the goals within the composite
+    */
    public GoalOr(ArrayList<GoalComponent> goals) {
       this.goals = goals;
    }
