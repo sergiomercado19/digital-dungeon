@@ -84,8 +84,26 @@ public class DungeonLoader {
          
       } else {
          
-         // Get goal relevant entity list
-         ArrayList<Entity> entities = dungeon.getEntityArrayList(name);
+         ArrayList<Entity> entities = new ArrayList<Entity>();
+         
+         switch (name) {
+            case "exit":
+               // Get goal relevant entity list
+               entities.addAll(dungeon.getEntityArrayList("exit"));
+               break;
+            case "enemies":
+               // Get goal relevant entity list
+               entities.addAll(dungeon.getEntityArrayList("enemy"));
+               break;
+            case "boulders":
+               // Get goal relevant entity list
+               entities.addAll(dungeon.getEntityArrayList("boulder"));
+               break;
+            case "treasure":
+               // Get goal relevant entity list
+               entities.addAll(dungeon.getEntityArrayList("treasure"));
+               break;
+         }
          
          gc = new Goal(name, entities.size());
          // Pass this Goal (that implements GoalObserver) into all the relevant entities (that implement GoalSubject)
