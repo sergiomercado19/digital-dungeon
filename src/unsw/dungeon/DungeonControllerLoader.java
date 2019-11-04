@@ -50,7 +50,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 		portalImage = new Image("/portal.png");
 		enemyImage = new Image("/deep_elf_master_archer.png");
 		floorSwitchImage = new Image("/pressure_plate.png");
-		exitImage = new Image("exit.png");
+		exitImage = new Image("/exit.png");
 	}
 
 	@Override
@@ -66,37 +66,37 @@ public class DungeonControllerLoader extends DungeonLoader {
 	}
 	
 	@Override
-	protected void onLoad(Enemy enemy) {
+	public void onLoad(Enemy enemy) {
 		ImageView view = new ImageView(enemyImage);
 		addEntity(enemy, view);
 	}
 
 	@Override
-	protected void onLoad(Portal portal) {
+	public void onLoad(Portal portal) {
 		ImageView view = new ImageView(portalImage);
 		addEntity(portal, view);
 	}
 
 	@Override
-	protected void onLoad(FloorSwitch floorSwitch) {
+	public void onLoad(FloorSwitch floorSwitch) {
 		ImageView view = new ImageView(floorSwitchImage);
 		addEntity(floorSwitch, view);
 	}
 
 	@Override
-	protected void onLoad(Boulder boulder) {
+	public void onLoad(Boulder boulder) {
 		ImageView view = new ImageView(boulderImage);
 		addEntity(boulder, view);
 	}
 
 	@Override
-	protected void onLoad(Door door) {
+	public void onLoad(Door door) {
 		ImageView view = new ImageView(doorImage);
 		addEntity(door, view);
 	}
 
 	@Override
-	protected void onLoad(Collectable c) {
+	public void onLoad(Collectable c) {
 		ImageView view = null;
 		
 		Item i = c.getItem();
@@ -114,7 +114,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	}
 
 	@Override
-	protected void onLoad(Exit exit) {
+	public void onLoad(Exit exit) {
 		ImageView view = new ImageView(exitImage);
 		addEntity(exit, view);
 	}

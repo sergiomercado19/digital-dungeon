@@ -51,11 +51,14 @@ public abstract class DungeonLoader {
 
 		// 4. Link portals
 		dungeon.linkPortals();
+		
+		// 5. Link keys to doors
+		dungeon.linkKeysToDoors();
 
-		// 5. Set dungeon goals
+		// 6. Set dungeon goals
 		dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
 
-		// 6. Start dungeon
+		// 7. Start dungeon
 		dungeon.setState(DungeonState.INPROGRESS);
 
 		return dungeon;
@@ -200,13 +203,13 @@ public abstract class DungeonLoader {
 		dungeon.addEntity(entity);
 	}
 
-	protected abstract void onLoad(Enemy enemy);
-	protected abstract void onLoad(Portal portal);
-	protected abstract void onLoad(FloorSwitch floorSwitch);
-	protected abstract void onLoad(Boulder boulder);
-	protected abstract void onLoad(Door door);
-	protected abstract void onLoad(Collectable cTreasure);
-	protected abstract void onLoad(Exit exit);
+	public abstract void onLoad(Enemy enemy);
+	public abstract void onLoad(Portal portal);
+	public abstract void onLoad(FloorSwitch floorSwitch);
+	public abstract void onLoad(Boulder boulder);
+	public abstract void onLoad(Door door);
+	public abstract void onLoad(Collectable cTreasure);
+	public abstract void onLoad(Exit exit);
 	public abstract void onLoad(Player player);
 	public abstract void onLoad(Wall wall);
 
