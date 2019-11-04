@@ -100,7 +100,7 @@ public abstract class DungeonLoader {
 				break;
 			case "boulders":
 				// Get goal relevant entity list
-				entities.addAll(dungeon.getEntityArrayList("boulder"));
+				entities.addAll(dungeon.getEntityArrayList("floorSwitch"));
 				break;
 			case "treasure":
 				// Get goal relevant entity list
@@ -171,7 +171,7 @@ public abstract class DungeonLoader {
 			onLoad(boulder);
 			entity = boulder;
 			break;
-		case "floorSwitch":
+		case "switch":
 			FloorSwitch floorSwitch = new FloorSwitch(x, y);
 			onLoad(floorSwitch);
 			entity = floorSwitch;
