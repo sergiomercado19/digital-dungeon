@@ -6,12 +6,21 @@ package unsw.dungeon;
  * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
-public class Invincibility implements Item {
+public class Invincibility extends Entity implements Item {
 
-   @Override
-   public void collect(Player player) {
-      player.becomeInvincible();
-      // delete item
-   }
+	public Invincibility(int x, int y) {
+		super(x, y, false);
+	}
+
+	@Override
+	public void collect(Player player) {
+		player.becomeInvincible();
+		// delete item
+	}
+	
+	@Override
+	public void collide(Player p, Direction d) {
+		collect(p);
+	}
 
 }

@@ -148,10 +148,9 @@ public abstract class DungeonLoader {
 			entity = exit;
 			break;
 		case "treasure":
-			Treasure treasure = new Treasure();
-			Collectable cTreasure = new Collectable(x, y, treasure);
-			onLoad(cTreasure);
-			entity = cTreasure;
+			Treasure treasure = new Treasure(x, y);
+			onLoad(treasure);
+			entity = treasure;
 			break;
 		case "door":
 			int doorID = json.getInt("id");;
@@ -161,10 +160,9 @@ public abstract class DungeonLoader {
 			break;
 		case "key":
 			int keyID = json.getInt("id");;
-			Key key = new Key(keyID);
-			Collectable cKey = new Collectable(x, y, key);
-			onLoad(cKey);
-			entity = cKey;
+			Key key = new Key(x, y, keyID);
+			onLoad(key);
+			entity = key;
 			break;
 		case "boulder":
 			Boulder boulder = new Boulder(dungeon, x, y);
@@ -188,16 +186,14 @@ public abstract class DungeonLoader {
 			entity = enemy;
 			break;
 		case "sword":
-			Sword sword = new Sword();
-			Collectable cSword = new Collectable(x, y, sword);
-			onLoad(cSword);
-			entity = cSword;
+			Sword sword = new Sword(x, y);
+			onLoad(sword);
+			entity = sword;
 			break;
 		case "invincibility":
-			Invincibility invincibility = new Invincibility();
-			Collectable cInvincibility = new Collectable(x, y, invincibility);
-			onLoad(cInvincibility);
-			entity = cInvincibility;
+			Invincibility invincibility = new Invincibility(x, y);
+			onLoad(invincibility);
+			entity = invincibility;
 			break;
 		}
 		dungeon.addEntity(entity);
@@ -208,10 +204,14 @@ public abstract class DungeonLoader {
 	public abstract void onLoad(FloorSwitch floorSwitch);
 	public abstract void onLoad(Boulder boulder);
 	public abstract void onLoad(Door door);
-	public abstract void onLoad(Collectable cTreasure);
 	public abstract void onLoad(Exit exit);
 	public abstract void onLoad(Player player);
 	public abstract void onLoad(Wall wall);
+	public abstract void onLoad(Key key);
+	public abstract void onLoad(Treasure treasure);
+	public abstract void onLoad(Sword sword);
+	public abstract void onLoad(Invincibility invincibility);
+
 
 	// TODO MILESTONE 3: Create additional abstract methods for the other entities
 
