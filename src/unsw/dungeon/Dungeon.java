@@ -193,13 +193,22 @@ public class Dungeon {
 //		// Check if game was won
 //		if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
 //	}
+	
+	public void registerPlayerMove() {
+		ArrayList<Enemy> enemies = getEnemies();
+		for (Enemy e : enemies) {
+			e.moveTowardsPlayer();
+		}
+		
+		if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
+	}
 
 	/**
 	 * determines the outcome of a player and enemy coming into contact to see who dies
 	 * @param player the player in contact
 	 * @param enemy the enemy in contact
 	 */
-	public void attack(Player player, Enemy enemy) {
+	public void fight(Player player, Enemy enemy) {
 		if (player.isInvincible() || player.hasSword()) {
 			player.hitEnemy();
 			enemy.die();

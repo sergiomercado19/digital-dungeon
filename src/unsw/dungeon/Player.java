@@ -128,13 +128,18 @@ public class Player extends Entity implements Movable {
 			for(Entity e : tileEntities) {
 				e.collide(this, d);
 			}
+			
+			// tell the dungeon we moved
+			dungeon.registerPlayerMove();
 		}
 	}
 	
 	
 	@Override
 	public void collide(Enemy e, Direction d) {
-		// work out death stuff
+		// they gotta fight
+		System.out.println("player registered");
+		dungeon.fight(this, e);
 	}
 
 	@Override

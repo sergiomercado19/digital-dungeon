@@ -37,53 +37,43 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	/**
 	 * pathfind one step towards the current position of the player
 	 */
-	// TODO THIS IS NEVER TRIGGERED
-//	public void moveTowardsPlayer() {
-//
-//		if (this.player != null) {         
-//			Direction d = null;
-//
-//			int xDist = Math.abs(this.getX()-this.player.getX());
-//			int yDist = Math.abs(this.getY()-this.player.getY());
-//
-//			if (xDist > yDist) {
-//				if (this.player.getX() < this.getX()) d = Direction.LEFT;
-//				else d = Direction.RIGHT;
-//			} else {
-//				if (this.player.getY() < this.getY()) d = Direction.UP;
-//				else d = Direction.DOWN;
-//			}
-//
-//			// If player is invincible move in the opposite direction
-//			if (this.player.isInvincible()) {
-//				switch (d) {
-//				case UP:
-//					d = Direction.DOWN;
-//					break;
-//				case DOWN:
-//					d = Direction.UP;
-//					break;
-//				case LEFT:
-//					d = Direction.RIGHT;
-//					break;
-//				case RIGHT:
-//					d = Direction.LEFT;
-//					break;
-//				}
-//			}
-//
-//			makeMove(d);
-//		}
-//	}
+	public void moveTowardsPlayer() {
 
-	/**
-	 * get the dungeon the enemy is contained within
-	 * @return dungeon the dungeon
-	 */
-//	@Override
-//	public Dungeon getDungeon() {
-//		return dungeon;
-//	}
+		if (this.player != null) {         
+			Direction d = null;
+
+			int xDist = Math.abs(this.getX()-this.player.getX());
+			int yDist = Math.abs(this.getY()-this.player.getY());
+
+			if (xDist > yDist) {
+				if (this.player.getX() < this.getX()) d = Direction.LEFT;
+				else d = Direction.RIGHT;
+			} else {
+				if (this.player.getY() < this.getY()) d = Direction.UP;
+				else d = Direction.DOWN;
+			}
+
+			// If player is invincible move in the opposite direction
+			if (this.player.isInvincible()) {
+				switch (d) {
+				case UP:
+					d = Direction.DOWN;
+					break;
+				case DOWN:
+					d = Direction.UP;
+					break;
+				case LEFT:
+					d = Direction.RIGHT;
+					break;
+				case RIGHT:
+					d = Direction.LEFT;
+					break;
+				}
+			}
+
+			makeMove(d);
+		}
+	}
 
 	/**
 	 * kill off the enemy
@@ -122,40 +112,38 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 		y().set(y);
 	}
 
-	// TODO never triggered
-//	@Override
-//	public void makeMove(Direction d) {
-//		int x, y;
-//		x = getX();
-//		y = getY();
-//		
-//		switch (d) {
-//		case UP:
-//			y = y - 1;
-//			break;
-//		case DOWN:
-//			y = y + 1;
-//			break;
-//		case LEFT:
-//			x = x - 1;
-//			break;
-//		case RIGHT:
-//			x = x + 1;
-//			break;
-//		}
-//
-//		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
-//		boolean canMove = true;
-//		for(Entity e : tileEntities) {
-//			if(!e.canCollide(this, d)) canMove = false;
-//		}
-//		if(canMove) {
-//			setPosition(x, y);
-//			for(Entity e : tileEntities) {
-//				e.collide(this, d);
-//			}
-//		}
-//	}
+	public void makeMove(Direction d) {
+		int x, y;
+		x = getX();
+		y = getY();
+		
+		switch (d) {
+		case UP:
+			y = y - 1;
+			break;
+		case DOWN:
+			y = y + 1;
+			break;
+		case LEFT:
+			x = x - 1;
+			break;
+		case RIGHT:
+			x = x + 1;
+			break;
+		}
+
+		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
+		boolean canMove = true;
+		for(Entity e : tileEntities) {
+			if(!e.canCollide(this, d)) canMove = false;
+		}
+		if(canMove) {
+			setPosition(x, y);
+			for(Entity e : tileEntities) {
+				e.collide(this, d);
+			}
+		}
+	}
 	
 	@Override
 	public boolean canCollide(Enemy e, Direction d) {
@@ -170,5 +158,7 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	@Override
 	public void collide(Player p, Direction d) {
 		// work out death stuff
+		System.out.println("enemy registered");
+		dungeon.fight(p, this);
 	}
 }
