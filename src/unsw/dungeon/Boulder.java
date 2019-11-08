@@ -25,23 +25,6 @@ public class Boulder extends Entity implements Movable {
 	}
 
 	/**
-	 * push the boulder in a direction
-	 * @param d the direction to push
-	 */
-//	public void push(Direction d) {
-//		makeMove(d);
-//	}
-
-	/**
-	 * get the dungeon the boulder is contained in
-	 * @return the dungeon
-	 */
-//	@Override
-//	public Dungeon getDungeon() {
-//		return dungeon;
-//	}
-
-	/**
 	 * trigger a floor switch when the boulder is on top
 	 * @param s
 	 */
@@ -59,49 +42,6 @@ public class Boulder extends Entity implements Movable {
 			this.floorSwitch = null;
 		}
 	}
-
-	/**
-	 * when the boulder is moved, the floor switch is also untriggered
-	 */
-//	@Override
-//	public void makeMove(Direction d) {
-		// do nothing?
-//	}
-//		int x, y;
-//		x = getX();
-//		y = getY();
-//
-//		switch (d) {
-//		case UP:
-//			y = y - 1;
-//			break;
-//		case DOWN:
-//			y = y + 1;
-//			break;
-//		case LEFT:
-//			x = x - 1;
-//			break;
-//		case RIGHT:
-//			x = x + 1;
-//			break;
-//		}
-//
-//		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
-//		boolean canMove = true;
-//		for(Entity e : tileEntities) {
-//			if(!e.canCollide(this, d)) canMove = false;
-//		}
-//		if(canMove) {
-//			setPosition(x, y);
-//
-//			// Deactivate floorSwitch before moving
-//			deactivateSwitch();
-//
-//			for(Entity e : tileEntities) {
-//				e.collide(this, d);
-//			}
-//		}
-//	}
 	
 	@Override
 	public boolean canCollide(Player p, Direction d) {
@@ -174,5 +114,4 @@ public class Boulder extends Entity implements Movable {
 		x().set(x);
 		y().set(y);
 	}
-
 }
