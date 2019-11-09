@@ -7,36 +7,30 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class DungeonScreen {
+public class DungeonScreen extends Stage {
 
-   private Stage stage;
-   private String title;
    private DungeonControllerLoader dungeonLoader;
    private DungeonController controller;
 
    private Scene scene;
 
-   public DungeonScreen(Stage stage) throws IOException {
-       this.stage = stage;
-       title = "Digital Dungeon";
+   public DungeonScreen(String name) throws IOException {
+      this.setTitle("Digital Dungeon - " + name);
 
-       dungeonLoader = new DungeonControllerLoader("boulders.json");
-       controller = dungeonLoader.loadController();
-       
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
-       loader.setController(controller);
-       Parent root = loader.load();
-       scene = new Scene(root);
-       root.requestFocus();
-   }
+      dungeonLoader = new DungeonControllerLoader(name + ".json");
+      controller = dungeonLoader.loadController();
 
-   public void show() {
-       stage.setTitle(title);
-       stage.setScene(scene);
-       stage.show();
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
+      loader.setController(controller);
+      Parent root = loader.load();
+      scene = new Scene(root);
+      root.requestFocus();
+      
+      this.setScene(scene);
+      this.show();
    }
 
    public DungeonController getController() {
-       return controller;
+      return controller;
    }
 }
