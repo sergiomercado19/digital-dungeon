@@ -16,7 +16,7 @@
         </rowConstraints>
       </GridPane>
       <Pane fx:id="gameTitle" layoutX="17.0" layoutY="32.0" prefHeight="78.0" prefWidth="766.0" />
-      <Pane fx:id="playButton" layoutX="244.0" layoutY="220.0" onMouseClicked="#handlePlay" prefHeight="96.0" prefWidth="96.0" style="-fx-border-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" />
-      <Pane fx:id="settingsButton" layoutX="460.0" layoutY="220.0" prefHeight="96.0" prefWidth="96.0" style="-fx-border-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" />
+      <Pane fx:id="playButton" layoutX="244.0" layoutY="220.0" onMouseClicked="#handlePlay" prefHeight="96.0" prefWidth="96.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" />
+      <Pane fx:id="settingsButton" layoutX="460.0" layoutY="220.0" prefHeight="96.0" prefWidth="96.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" />
    </children>
 </Pane>

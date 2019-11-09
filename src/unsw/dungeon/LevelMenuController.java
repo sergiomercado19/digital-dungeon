@@ -3,6 +3,7 @@ package unsw.dungeon;
 import java.io.File;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -16,6 +17,10 @@ import javafx.scene.text.TextAlignment;
 public class LevelMenuController {
 
    private MainMenuScreen mainScreen;
+   private File[] dirListing;
+   private ImageView[] previews;
+   private Label[] labels;
+   private int pageNum;
 
    @FXML
    private GridPane background;
@@ -25,12 +30,35 @@ public class LevelMenuController {
 
    @FXML
    private Pane backButton;
+   @FXML
+   private Pane prevPage;
+   @FXML
+   private Pane nextPage;
 
    @FXML
-   private HBox levelBoxContainer;
+   private ImageView preview1;
+   @FXML
+   private ImageView preview2;
+   @FXML
+   private ImageView preview3;
+   @FXML
+   private ImageView preview4;
+   
+   @FXML
+   private Label label1;
+   @FXML
+   private Label label2;
+   @FXML
+   private Label label3;
+   @FXML
+   private Label label4;
 
    @FXML
    public void initialize() {
+      // Group labels and previews
+      this.previews = new ImageView[] {preview1, preview2, preview3, preview4};
+      this.labels = new Label[] {label1, label2, label3, label4};
+      
       // Setup background
       Image brick = new Image("/brick_brown_0.png");
       for (int x = 0; x <= 25; x++) {
@@ -43,37 +71,30 @@ public class LevelMenuController {
       ImageView title = new ImageView(new Image("/digital_dungeon.png"));
       gameTitle.getChildren().add(title);
 
-      // Setup button
+      // Setup control buttons
       ImageView backIcon = new ImageView(new Image("/icon_back.png"));
       backButton.getChildren().add(backIcon);
+      ImageView prevIcon = new ImageView(new Image("/icon_arrow.png"));
+      prevPage.getChildren().add(prevIcon);
+      ImageView nextIcon = new ImageView(new Image("/icon_arrow.png"));
+      nextPage.getChildren().add(nextIcon);
+      nextPage.setRotate(nextPage.getRotate() + 180);
 
       // Setup levels: iterate through dungeons directory and display
+      this.pageNum = 0;
       File dir = new File("dungeons");
-      File[] dirListing = dir.listFiles();
-      if (dirListing != null) {
-         for (File dungeon : dirListing) {
+      this.dirListing = dir.listFiles();
+      this.showLevels();
+   }
+   
+   public void showLevels() {
+      if (this.dirListing != null) {
+         for (int i = this.pageNum*4; i < this.dirListing.length && i < 4; i++) {
+            File dungeon = this.dirListing[i];
             String name = dungeon.getName().substring(0, dungeon.getName().length()-5);
 
-            Pane p1 = new Pane();
-            p1.prefHeight(350);
-            ImageView preview = new ImageView(new Image("/preview_" + name + ".png"));
-            preview.fitHeightProperty();
-            p1.getChildren().add(preview); 
-
-            Pane p2 = new Pane();
-            p2.setStyle("-fx-border-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;");
-            Text text = new Text();
-            text.setTextAlignment(TextAlignment.CENTER);
-            text.setText(name);
-            p2.getChildren().add(text);
-
-            // Create VBox and add both panes
-            VBox card = new VBox();
-            HBox.setHgrow(card, Priority.ALWAYS);
-            card.getChildren().addAll(p1, p2);
-
-            // Add card to display
-            levelBoxContainer.getChildren().add(card);
+            previews[i].setImage(new Image("/preview_" + name + ".png"));
+            labels[i].setText(name);
          }
       }
    }
@@ -85,5 +106,17 @@ public class LevelMenuController {
    @FXML
    public void handleBack() {
       this.mainScreen.start();
+   }
+   
+   @FXML
+   public void handlePrevPage() {
+      if (this.pageNum > 0) this.pageNum--;
+      this.showLevels();
+   }
+   
+   @FXML
+   public void handleNextPage() {
+      if (this.pageNum < Math.ceil(this.pageNum/4.0)) this.pageNum++;
+      this.showLevels();
    }
 }
