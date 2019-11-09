@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.io.File;
+import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -118,5 +119,41 @@ public class LevelMenuController {
    public void handleNextPage() {
       if (this.pageNum < Math.ceil(this.pageNum/4.0)) this.pageNum++;
       this.showLevels();
+   }
+   
+   @FXML
+   public void handleDungeon0() {
+      try {         
+         new DungeonScreen(this.labels[0].getText());
+      } catch (IOException e) {
+         // do nothing
+      }
+   }
+
+   @FXML
+   public void handleDungeon1() {
+      try {         
+         new DungeonScreen(this.labels[1].getText());
+      } catch (IOException e) {
+         // do nothing
+      }
+   }
+
+   @FXML
+   public void handleDungeon2() {
+      try {         
+         new DungeonScreen(this.labels[2].getText());
+      } catch (IOException e) {
+         // do nothing
+      }
+   }
+
+   @FXML
+   public void handleDungeon3() {
+      try {         
+         new DungeonScreen(this.labels[3].getText());
+      } catch (IOException e) {
+         // do nothing
+      }
    }
 }

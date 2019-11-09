@@ -32,7 +32,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;">
+            <HBox onMouseClicked="#handleDungeon0" prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;">
                <children>
                   <Pane prefHeight="90.0" prefWidth="90.0" HBox.hgrow="NEVER">
                      <HBox.margin>
@@ -59,7 +59,7 @@
                   </Pane>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" GridPane.columnIndex="1">
+            <HBox onMouseClicked="#handleDungeon1" prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" GridPane.columnIndex="1">
                <children>
                   <Pane prefHeight="90.0" prefWidth="90.0" HBox.hgrow="NEVER">
                      <HBox.margin>
@@ -86,7 +86,7 @@
                   </Pane>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" GridPane.rowIndex="1">
+            <HBox onMouseClicked="#handleDungeon2" prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" GridPane.rowIndex="1">
                <children>
                   <Pane prefHeight="90.0" prefWidth="90.0" HBox.hgrow="NEVER">
                      <HBox.margin>
@@ -113,7 +113,7 @@
                   </Pane>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <HBox onMouseClicked="#handleDungeon3" prefHeight="100.0" prefWidth="200.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Pane prefHeight="90.0" prefWidth="90.0" HBox.hgrow="NEVER">
                      <HBox.margin>
