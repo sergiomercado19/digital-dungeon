@@ -10,9 +10,15 @@ public class DungeonApplication extends Application {
    @Override
    public void start(Stage primaryStage) throws IOException {
       
+      // Initialize menu pages
       MainMenuScreen menuScreen = new MainMenuScreen(primaryStage);
+      LevelMenuScreen levelScreen = new LevelMenuScreen(primaryStage);
       
-      menuScreen.show();
+      // Link menu pages
+      menuScreen.setLevelScreen(levelScreen);
+      levelScreen.setMainScreen(menuScreen);
+      
+      menuScreen.start();
 
    }
 

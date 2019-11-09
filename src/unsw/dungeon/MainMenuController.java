@@ -8,18 +8,20 @@ import javafx.scene.layout.Pane;
 
 public class MainMenuController {
    
+   private LevelMenuScreen levelScreen;
+
    @FXML
    private GridPane background;
-   
+
    @FXML
    private Pane gameTitle;
-   
+
    @FXML
    private Pane playButton;
-   
+
    @FXML
    private Pane settingsButton;
-   
+
    @FXML
    public void initialize() {
       // Setup background
@@ -29,16 +31,25 @@ public class MainMenuController {
             background.add(new ImageView(brick), x, y);
          }
       }
-      
+
       // Setup title
       ImageView title = new ImageView(new Image("/digital_dungeon.png"));
       gameTitle.getChildren().add(title);
-      
+
       // Setup buttons
       ImageView playIcon = new ImageView(new Image("/icon_play.png"));
       playButton.getChildren().add(playIcon);
       ImageView settingsIcon = new ImageView(new Image("/icon_settings.png"));
       settingsButton.getChildren().add(settingsIcon);
    }
-   
+
+   public void setLevelScreen(LevelMenuScreen levelScreen) {
+      this.levelScreen = levelScreen;
+   }
+
+   @FXML
+   public void handlePlay() {
+      this.levelScreen.start();
+   }
+
 }
