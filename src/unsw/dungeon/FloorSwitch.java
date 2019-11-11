@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
-public class FloorSwitch extends InertEntity implements GoalSubject {
+public class FloorSwitch extends Entity implements GoalSubject {
 
    private ArrayList<GoalObserver> goalObservers;
 

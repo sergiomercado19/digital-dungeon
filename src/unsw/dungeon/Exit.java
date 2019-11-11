@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
-public class Exit extends InertEntity implements GoalSubject {
+public class Exit extends Entity implements GoalSubject {
 
    private ArrayList<GoalObserver> goalObservers;
 
@@ -51,5 +51,10 @@ public class Exit extends InertEntity implements GoalSubject {
          go.decreaseProgress();
       }  
    }
+   
+   @Override
+	public void collide(Player p, Direction d) {
+		trigger();
+	}
 
 }
