@@ -8,19 +8,18 @@ package unsw.dungeon;
  */
 public class Invincibility extends Entity implements Item {
 
-	public Invincibility(int x, int y) {
-		super(x, y, false);
-	}
+   public Invincibility(int x, int y) {
+      super(x, y, false);
+   }
 
-	@Override
-	public void collect(Player player) {
-		player.becomeInvincible();
-		// delete item
-	}
-	
-	@Override
-	public void collide(Player p, Direction d) {
-		collect(p);
-	}
+   @Override
+   public void collect(Player player) {
+      player.becomeInvincible(this);
+   }
+
+   @Override
+   public void collide(Player p, Direction d) {
+      collect(p);
+   }
 
 }

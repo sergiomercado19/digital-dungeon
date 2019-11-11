@@ -10,46 +10,46 @@ import java.util.ArrayList;
  */
 public class Treasure extends Entity implements Item, GoalSubject {
 
-	private ArrayList<GoalObserver> goalObservers;
+   private ArrayList<GoalObserver> goalObservers;
 
-	public Treasure(int x, int y) {
-		super(x, y, false);
-		this.goalObservers = new ArrayList<GoalObserver>();
-	}
+   public Treasure(int x, int y) {
+      super(x, y, false);
+      this.goalObservers = new ArrayList<GoalObserver>();
+   }
 
-	@Override
-	public void collect(Player player) {
-		notifyObserversOfIncrease();
-		// delete item
-	}
+   @Override
+   public void collect(Player player) {
+      notifyObserversOfIncrease();
+      player.pickupTreasure(this);
+   }
 
-	@Override
-	public void addObserver(GoalObserver o) {
-		this.goalObservers.add(o);
-	}
+   @Override
+   public void addObserver(GoalObserver o) {
+      this.goalObservers.add(o);
+   }
 
-	@Override
-	public void removeObserver(GoalObserver o) {
-		this.goalObservers.remove(o);
-	}
+   @Override
+   public void removeObserver(GoalObserver o) {
+      this.goalObservers.remove(o);
+   }
 
-	@Override
-	public void notifyObserversOfIncrease() {
-		for (GoalObserver go : this.goalObservers) {
-			go.increaseProgress();
-		}  
-	}
+   @Override
+   public void notifyObserversOfIncrease() {
+      for (GoalObserver go : this.goalObservers) {
+         go.increaseProgress();
+      }  
+   }
 
-	@Override
-	public void notifyObserversOfDecrease() {
-		for (GoalObserver go : this.goalObservers) {
-			go.decreaseProgress();
-		}  
-	}
-	
-	@Override
-	public void collide(Player p, Direction d) {
-		collect(p);
-	}
+   @Override
+   public void notifyObserversOfDecrease() {
+      for (GoalObserver go : this.goalObservers) {
+         go.decreaseProgress();
+      }  
+   }
+
+   @Override
+   public void collide(Player p, Direction d) {
+      collect(p);
+   }
 
 }
