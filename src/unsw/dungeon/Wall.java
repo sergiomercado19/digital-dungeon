@@ -5,7 +5,7 @@ package unsw.dungeon;
  * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
-public class Wall extends InertEntity {
+public class Wall extends Entity {
 
    /**
     * create a new wall

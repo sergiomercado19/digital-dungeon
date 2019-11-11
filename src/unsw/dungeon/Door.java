@@ -5,7 +5,7 @@ package unsw.dungeon;
  * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
-public class Door extends InertEntity {
+public class Door extends Entity {
 
    private int ID;
 

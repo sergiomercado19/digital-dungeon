@@ -20,6 +20,7 @@ public class DungeonApplication extends Application {
       
       menuScreen.start();
 
+
    }
 
    public static void main(String[] args) {

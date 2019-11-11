@@ -1,39 +1,78 @@
 package unsw.dungeon;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
- * interface for an entity in the dungeon.
+ * An entity in the dungeon.
  * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
-public interface Entity {
-   /**
-    * integer property for x
-    */
-   public IntegerProperty x();
-   /**
-    * integer property for y
-    */
-   public IntegerProperty y();
-   /**
-    * get the current y position of the entity
-    * @return the current y position
-    */
-   public int getY();
-   /**
-    * get the current x position of the entity
-    * @return the current x position
-    */
-   public int getX();
-   /**
-    * check if the entity is solid (if it allows other entities to pass through)
-    * @return whether or not the entity is solid
-    */
-   public boolean isSolid();
-   /**
-    * set the solidity state of an entity
-    * @param isSolid the solidity state to set
-    */
-   public void setSolid(boolean isSolid);
+public class Entity {
+
+	// IntegerProperty is used so that changes to the entities position can be
+	// externally observed.
+	private IntegerProperty x, y;
+	protected boolean isSolid;
+
+	/**
+	 * create a new entity
+	 * @param x x position of the entity
+	 * @param y y position of the entity
+	 */
+	public Entity(int x, int y, boolean isSolid) {
+		this.x = new SimpleIntegerProperty(x);
+		this.y = new SimpleIntegerProperty(y);
+		this.isSolid = isSolid;
+	}
+
+	public IntegerProperty x() {
+		return x;
+	}
+
+	public IntegerProperty y() {
+		return y;
+	}
+
+	public int getY() {
+		return y().get();
+	}
+
+	public int getX() {
+		return x().get();
+	}
+
+	public boolean isSolid() {
+		return isSolid;
+	}
+
+	public void setSolid(boolean isSolid) {
+		this.isSolid = isSolid;
+	}
+
+	// These 3 can be overridden
+	public boolean canCollide(Enemy e, Direction d) {
+		return !isSolid;
+	}
+
+	public boolean canCollide(Player p, Direction d) {
+		return !isSolid;
+	}
+
+	public boolean canCollide(Boulder b, Direction d) {
+		return !isSolid;
+	}
+	
+	// these 3 must be overridden
+	public void collide(Enemy e, Direction d) {
+		// do nothing
+	}
+
+	public void collide(Player p, Direction d) {
+		// do nothing
+	}
+
+	public void collide(Boulder b, Direction d) {
+		// do nothing
+	}
 }

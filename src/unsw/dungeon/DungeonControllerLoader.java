@@ -94,23 +94,29 @@ public class DungeonControllerLoader extends DungeonLoader {
 		ImageView view = new ImageView(doorImage);
 		addEntity(door, view);
 	}
-
+	
 	@Override
-	public void onLoad(Collectable c) {
-		ImageView view = null;
-		
-		Item i = c.getItem();
-		if (i instanceof Treasure) {
-			view = new ImageView(treasureImage);
-		} else if (i instanceof Key) {
-			view = new ImageView(keyImage);
-		} else if (i instanceof Sword) {
-			view = new ImageView(swordImage);
-		} else if (i instanceof Invincibility) {
-			view = new ImageView(invincibilityImage);
-		}
-		
-		addEntity(c, view);
+	public void onLoad(Key key) {
+		ImageView view = new ImageView(keyImage);
+		addEntity(key, view);
+	}
+	
+	@Override
+	public void onLoad(Treasure treasure) {
+		ImageView view = new ImageView(treasureImage);
+		addEntity(treasure, view);
+	}
+	
+	@Override
+	public void onLoad(Sword sword) {
+		ImageView view = new ImageView(swordImage);
+		addEntity(sword, view);
+	}
+	
+	@Override
+	public void onLoad(Invincibility invincibility) {
+		ImageView view = new ImageView(invincibilityImage);
+		addEntity(invincibility, view);
 	}
 
 	@Override

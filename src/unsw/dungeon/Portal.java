@@ -5,7 +5,7 @@ package unsw.dungeon;
  * @author Sergio Mercado Ruiz & Rory Madden
  *
  */
-public class Portal extends InertEntity {
+public class Portal extends Entity {
 
    private Portal link;
    private int ID;
@@ -47,4 +47,9 @@ public class Portal extends InertEntity {
    public Object getID() {
       return ID;
    }
+   
+   @Override
+	public void collide(Player p, Direction d) {
+		teleport(p);
+	}
 }
