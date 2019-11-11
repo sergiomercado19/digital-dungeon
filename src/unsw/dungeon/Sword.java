@@ -8,18 +8,18 @@ package unsw.dungeon;
  */
 public class Sword extends Entity implements Item {
 
-	public Sword(int x, int y) {
-		super(x, y, false);
-	}
+   public Sword(int x, int y) {
+      super(x, y, false);
+   }
 
-	@Override
-	public void collect(Player player) {
-		player.pickupSword();
-	}
-	
-	@Override
-	public void collide(Player p, Direction d) {
-		collect(p);
-	}
+   @Override
+   public void collect(Player player) {
+      player.pickupSword(this);
+   }
+
+   @Override
+   public void collide(Player p, Direction d) {
+      collect(p);
+   }
 
 }
