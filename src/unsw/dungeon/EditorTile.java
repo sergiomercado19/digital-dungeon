@@ -1,7 +1,11 @@
 package unsw.dungeon;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+//import unsw.venues.Reservation;
 
 public class EditorTile {
 	private int x, y;
@@ -110,18 +114,19 @@ public class EditorTile {
 	public ImageView getTile() {
 		return new ImageView(image);
 	}
-
-	public void exportTile() {
-
-	}
-
-	public String getJSON() {
-		if (type == null) {
-			return null;
-		} else if (ID == -1) {
-			return "String " + this.x + " " + this.y + " " + " " + this.type;
+	
+	public JSONObject toJSON() {
+		JSONObject tileInfo = new JSONObject();
+		if (type != null) {
+			tileInfo.put("x", x);
+			tileInfo.put("y", y);
+			tileInfo.put("type", type);
+			if (ID != -1) {
+				tileInfo.put("id", ID);
+			}
+			return tileInfo;
 		} else {
-			return "String " + this.x + " " + this.y + " " + this.ID + " " + this.type;
+			return null;
 		}
 	}
 }
