@@ -133,22 +133,12 @@ public class Dungeon {
       entities.remove(entity);
    }
 
-<<<<<<< HEAD
+
    public void registerPlayerMove() {
       ArrayList<Enemy> enemies = getEnemies();
       for (Enemy e : enemies) {
          e.moveTowardsPlayer();
       }
-=======
-	public void registerPlayerMove() {
-		ArrayList<Enemy> enemies = getEnemies();
-		for (Enemy e : enemies) {
-			e.moveTowardsPlayer();
-		}
-
-		if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
-	}
->>>>>>> refactor
 
       if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
    }
