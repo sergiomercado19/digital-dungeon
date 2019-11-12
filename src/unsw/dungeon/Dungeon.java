@@ -59,42 +59,28 @@ public class Dungeon {
       return state;
    }
 
-   /**
-    * get the count of a certain entity within the dungeon
-    * @param type the type of entity
-    * @return the count for of the entity
-    */
-   public int getEntityQuantity(String type) {
-      int count = 0;
-      for (Entity e : this.entities) {
-         if (e.getClass().getName().equals(type)) count++; 
-      }
-      return count;
-   }
+	/**
+	 * get all entities of a certain type within the dungeon
+	 * @param type the type of entity
+	 * @return the list of all entities of the type
+	 */
+	public ArrayList<Entity> getEntityArrayList(String type) {
+		ArrayList<Entity> res = new ArrayList<Entity>();
+		for (Entity e : this.entities) {
+			if (e.getClass().getName().toLowerCase().equals("unsw.dungeon." + type)) res.add(e); 
+		}
+		return res;
+	}
 
-   /**
-    * get all entities of a certain type within the dungeon
-    * @param type the type of entity
-    * @return the list of all entities of the type
-    */
-   public ArrayList<Entity> getEntityArrayList(String type) {
-      ArrayList<Entity> res = new ArrayList<Entity>();
-      for (Entity e : this.entities) {
-         if (e.getClass().getName().toLowerCase().equals("unsw.dungeon." + type)) res.add(e); 
-      }
-      return res;
-   }
-
-   /**
-    * alert enemies of the player so they will begin to pathfind to them
-    */
-   public void alertEnemies() {
-      for (Entity e : this.entities) {
-         if (e instanceof Enemy) {
-            ((Enemy) e).setPlayer(this.player);
-         }
-      }
-   }
+	/**
+	 * alert enemies of the player so they will begin to pathfind to them
+	 */
+	public void alertEnemies() {
+		ArrayList<Enemy> enemies = getEnemies();
+		for (Enemy e : enemies) {
+			e.setPlayer(player);
+		}
+	}
 
    /**
     * get the width of the dungeon
@@ -147,11 +133,22 @@ public class Dungeon {
       entities.remove(entity);
    }
 
+<<<<<<< HEAD
    public void registerPlayerMove() {
       ArrayList<Enemy> enemies = getEnemies();
       for (Enemy e : enemies) {
          e.moveTowardsPlayer();
       }
+=======
+	public void registerPlayerMove() {
+		ArrayList<Enemy> enemies = getEnemies();
+		for (Enemy e : enemies) {
+			e.moveTowardsPlayer();
+		}
+
+		if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
+	}
+>>>>>>> refactor
 
       if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
    }
