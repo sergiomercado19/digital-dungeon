@@ -60,19 +60,6 @@ public class Dungeon {
 	}
 
 	/**
-	 * get the count of a certain entity within the dungeon
-	 * @param type the type of entity
-	 * @return the count for of the entity
-	 */
-	public int getEntityQuantity(String type) {
-		int count = 0;
-		for (Entity e : this.entities) {
-			if (e.getClass().getName().equals(type)) count++; 
-		}
-		return count;
-	}
-
-	/**
 	 * get all entities of a certain type within the dungeon
 	 * @param type the type of entity
 	 * @return the list of all entities of the type
@@ -89,10 +76,9 @@ public class Dungeon {
 	 * alert enemies of the player so they will begin to pathfind to them
 	 */
 	public void alertEnemies() {
-		for (Entity e : this.entities) {
-			if (e instanceof Enemy) {
-				((Enemy) e).setPlayer(this.player);
-			}
+		ArrayList<Enemy> enemies = getEnemies();
+		for (Enemy e : enemies) {
+			e.setPlayer(player);
 		}
 	}
 
@@ -149,7 +135,7 @@ public class Dungeon {
 		for (Enemy e : enemies) {
 			e.moveTowardsPlayer();
 		}
-		
+
 		if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
 	}
 
