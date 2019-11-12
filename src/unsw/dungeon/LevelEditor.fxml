@@ -3,40 +3,49 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<SplitPane dividerPositions="0.5" orientation="VERTICAL" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <items>
-      <AnchorPane>
-         <GridPane fx:id="squares">
-            <columnConstraints>
-               <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-               <RowConstraints />
-            </rowConstraints>
-            <children>
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab text="Editor">
+         <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL">
+            <items>
+               <AnchorPane>
+                  <GridPane fx:id="squares">
+                     <columnConstraints>
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                     </rowConstraints>
+                     <children>
 
-            </children>
-         </GridPane>
-      </AnchorPane>
-      <AnchorPane>
-         <children>
-            <MenuButton fx:id="dropDown" text="Wall">
-               <items>
+                     </children>
+                  </GridPane>
+               </AnchorPane>
+               <AnchorPane>
+                  <children>
+                     <MenuButton fx:id="dropDown" text="Wall">
+                        <items>
 
-               </items>
-            </MenuButton>
-            <TextField fx:id="tileID" layoutX="96.0" prefHeight="25.0" prefWidth="56.0" promptText="Tile ID" />
-            <Button layoutX="153.0" mnemonicParsing="false" onAction="#doExport" text="Export" />
-            <!-- <TextField fx:id="dimX" />
-            <TextField fx:id="dimY" />
-            <Button alignment="CENTER_RIGHT" layoutX="52.0" onAction="#setDims" text="Set dimensions" /> -->
-         </children>
-      </AnchorPane>
-   </items>
-</SplitPane>
+                        </items>
+                     </MenuButton>
+                     <TextField fx:id="tileID" layoutX="96.0" prefHeight="25.0" prefWidth="56.0" promptText="Tile ID" />
+                     <Button layoutX="153.0" mnemonicParsing="false" onAction="#doExport" text="Export" />
+                     <!-- <TextField fx:id="dimX" />
+                     <TextField fx:id="dimY" />
+                     <Button alignment="CENTER_RIGHT" layoutX="52.0" onAction="#setDims" text="Set dimensions" /> -->
+                  </children>
+               </AnchorPane>
+            </items>
+         </SplitPane>
+      </Tab>
+      <Tab text="Preferences" />
+   </tabs>
+</TabPane>
