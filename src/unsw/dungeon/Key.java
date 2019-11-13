@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import javafx.scene.media.AudioClip;
+
 /**
  * a key item, when picked up it will unlock a door of the same id
  * Collectable under the strategy pattern
@@ -24,6 +26,10 @@ public class Key extends Entity implements Item {
    public void collect(Player player) {
       this.door.unlock();
       player.pickupKey(this);
+      
+      // Play sound
+      AudioClip audio = new AudioClip(getClass().getResource("/door_open.mp3").toExternalForm());
+      audio.play();
    }
 
    /**
