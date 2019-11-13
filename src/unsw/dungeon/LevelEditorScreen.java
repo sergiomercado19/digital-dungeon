@@ -14,7 +14,7 @@ public class LevelEditorScreen extends Stage {
    private Scene scene;
 
    public LevelEditorScreen() throws IOException {
-      this.setTitle("Digital Dungeon - Level Editor");
+      this.setTitle("Level Creator");
 
       controller = new LevelEditorController();
       FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelEditor.fxml"));
