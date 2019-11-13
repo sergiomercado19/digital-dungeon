@@ -2,6 +2,9 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * interface for a goal tree by the composite pattern
  * @author Sergio Mercado Ruiz & Rory Madden
@@ -18,5 +21,11 @@ public interface GoalComponent {
     * strings are formatted like "goalName: currentValue/targetValue"
     * @return an array of strings of goal progress
     */
-   public ArrayList<String> getProgress();
+   public String getProgress();
+   
+   public BooleanProperty goalAchieved();
+   
+   public StringProperty goalProgress();
+   
+   public ArrayList<GoalComponent> getSubgoals();
 }

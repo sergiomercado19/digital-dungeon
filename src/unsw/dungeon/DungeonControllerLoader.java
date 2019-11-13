@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -19,7 +20,8 @@ import javafx.scene.layout.GridPane;
  */
 public class DungeonControllerLoader extends DungeonLoader {
 
-	private List<ImageView> entities;
+	private ArrayList<ImageView> entities;
+   private TreeItem<String> goal;
 
 	//Images
 	private Image playerImage;
@@ -132,7 +134,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	}
 
 	private void addEntity(Entity entity, ImageView view) {
-		trackPosition(entity, view);
+	   trackEntity(entity, view);
 		entities.add(view);
 	}
 
@@ -146,7 +148,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	 * @param entity
 	 * @param node
 	 */
-	private void trackPosition(Entity entity, Node node) {
+	private void trackEntity(Entity entity, Node node) {
 		GridPane.setColumnIndex(node, entity.getX());
 		GridPane.setRowIndex(node, entity.getY());
 		entity.x().addListener(new ChangeListener<Number>() {
@@ -223,6 +225,47 @@ public class DungeonControllerLoader extends DungeonLoader {
 
 	}
 
+	@Override
+	public void addGoal(GoalComponent goals) {
+	   if (goals == null) return;
+	   
+	   this.goal = trackGoal(goals);
+	   goal.setExpanded(true);
+	}
+	
+	public TreeItem<String> trackGoal(GoalComponent goal) {
+	   TreeItem<String> node = new TreeItem<String>();
+	   
+	   if (goal.getSubgoals() == null) {
+	      // Single goal
+	      node.setValue(goal.goalProgress().get());
+	      goal.goalProgress().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                  String oldValue, String newValue) {
+               node.setValue(newValue);
+            }
+         });
+	      
+	   } else {
+	      // Composite goal
+	      node.setValue(goal.goalProgress().get());
+	      goal.goalProgress().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                  String oldValue, String newValue) {
+               node.setValue(newValue);
+            }
+         });
+	      
+	      for (GoalComponent gc : goal.getSubgoals()) {
+	         node.getChildren().add(trackGoal(gc));
+	      }
+	   }
+	   
+	   return node;
+	}
+	
 	/**
 	 * Create a controller that can be attached to the DungeonView with all the
 	 * loaded entities.
@@ -230,6 +273,6 @@ public class DungeonControllerLoader extends DungeonLoader {
 	 * @throws FileNotFoundException
 	 */
 	public DungeonController loadController() throws FileNotFoundException {
-		return new DungeonController(load(), entities);
+		return new DungeonController(load(), this.entities, this.goal);
 	}
 }
