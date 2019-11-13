@@ -27,7 +27,7 @@ public class MainMenuScreen {
       scene = new Scene(root, 800, 480);
    }
 
-   public void setLevelScreen(LevelMenuScreen levelScreen) {
+   public void setLevelMenuScreen(LevelMenuScreen levelScreen) {
       controller.setLevelScreen(levelScreen);
    }
    
