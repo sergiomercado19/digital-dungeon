@@ -20,6 +20,7 @@ public class DungeonApplication extends Application {
       // Link menu pages
 	   mainMenuScreen.setLevelMenuScreen(levelMenuScreen);
       levelMenuScreen.setMainScreen(mainMenuScreen);
+      mainMenuScreen.setEditorScreen(levelEditorScreen);
 
       // Play music
       AudioClip audio = new AudioClip(getClass().getResource("/background.wav").toExternalForm());
