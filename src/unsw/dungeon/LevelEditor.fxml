@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -9,12 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <tabs>
       <Tab text="Editor">
-         <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL">
+         <SplitPane dividerPositions="0.5" orientation="VERTICAL">
             <items>
                <AnchorPane>
                   <GridPane fx:id="squares">
@@ -46,6 +48,20 @@
             </items>
          </SplitPane>
       </Tab>
-      <Tab text="Preferences" />
+      <Tab text="Preferences">
+         <content>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <CheckBox fx:id="exitGoal" layoutX="14.0" layoutY="44.0" mnemonicParsing="false" text="Exit" />
+                  <CheckBox fx:id="enemiesGoal" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" text="Enemies" />
+                  <CheckBox fx:id="treasureGoal" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" text="Treasure" />
+                  <CheckBox fx:id="switchGoal" layoutX="14.0" layoutY="95.0" mnemonicParsing="false" text="Floor switches" />
+                  <TextField fx:id="dWidth" layoutX="14.0" layoutY="118.0" promptText="Width" />
+                  <TextField fx:id="dHeight" layoutX="14.0" layoutY="143.0" promptText="Height" />
+                  <Button layoutX="14.0" layoutY="168.0" mnemonicParsing="false" onAction="#setDim" text="Set dimensions (resets editor!)" />
+                  <TextField fx:id="dName" layoutX="14.0" layoutY="14.0" promptText="Dungeon name" />
+               </children>
+            </Pane>
+         </content></Tab>
    </tabs>
 </TabPane>
