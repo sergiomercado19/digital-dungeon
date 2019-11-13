@@ -46,7 +46,7 @@ public class EditorTile {
 		
 	}
 
-	public void setTile(String tileName, String ID) {
+	public void setTile(String tileName, int ID) {
 		switch(tileName) {
 		case "Eraser":
 			this.ID = -1;
@@ -74,12 +74,12 @@ public class EditorTile {
 			type = "treasure";
 			break;
 		case "Key":
-			this.ID = Integer.parseInt(ID);
+			this.ID = ID;
 			image = keyImage;
 			type = "key";
 			break;
 		case "Door":
-			this.ID = Integer.parseInt(ID);
+			this.ID = ID;
 			image = doorImage;
 			type = "door";
 			break;
@@ -94,7 +94,7 @@ public class EditorTile {
 			type = "invincibility";
 			break;
 		case "Portal":
-			this.ID = Integer.parseInt(ID);
+			this.ID = ID;
 			image = portalImage;
 			type = "portal";
 			break;
