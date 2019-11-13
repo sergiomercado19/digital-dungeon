@@ -94,22 +94,6 @@ public class Player extends Entity implements Movable {
 		this.isInvincible.set(true);
 	}
 
-	//	/**
-	//	 * check if the player is invincible
-	//	 * @return whether or not the player is invincible
-	//	 */
-	//	public boolean isInvincible() {
-	//		return this.invincibilityLeft > 0;
-	//	}
-	//
-	//	/**
-	//	 * check if the player has a sword
-	//	 * @return whether or not the player has a sword
-	//	 */
-	//	public boolean hasSword() {
-	//		return this.swordHits > 0;
-	//	}
-
 	/**
 	 * add a new key id to the player's inventory
 	 * @param ID the id of the key to add
