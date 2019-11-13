@@ -5,7 +5,6 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -69,8 +68,9 @@
                   <TextField fx:id="dHeight" layoutX="14.0" layoutY="181.0" promptText="Height" />
                   <Button layoutX="14.0" layoutY="209.0" mnemonicParsing="false" onAction="#setDim" text="Set dimensions (resets editor!)" />
                   <TextField fx:id="dName" layoutX="14.0" layoutY="14.0" promptText="Dungeon name" />
-                  <Text layoutX="14.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dungeon goals:" />
+                  <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dungeon goals:" />
                   <Text layoutX="14.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions:" />
+                  <Text layoutX="14.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIP: You can also erase by right-clicking!" />
                </children>
             </Pane>
          </content>
