@@ -2,15 +2,18 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.BooleanProperty;
+
+/**
+ * a composite goal made up of multiple goals within the GoalComponent composite pattern
+ * players must achieve at least one goal within to complete the goal
+ * @author Sergio Mercado Ruiz & Rory Madden
+ *
+ */
 public class GoalOr implements GoalComponent {
 
-   /**
-    * a composite goal made up of multiple goals within the GoalComponent composite pattern
-    * players must achieve at least one goal within to complete the goal
-    * @author Sergio Mercado Ruiz & Rory Madden
-    *
-    */
    private ArrayList<GoalComponent> goals;
+   private BooleanProperty goalAchieved;
    /**
     * create a new composite-or goal
     * @param goals the goals within the composite
@@ -22,7 +25,10 @@ public class GoalOr implements GoalComponent {
    @Override
    public boolean isComplete() {
       for (GoalComponent gc : this.goals) {
-         if (gc.isComplete()) return true;
+         if (gc.isComplete()) {
+            this.goalAchieved.set(true);
+            return true;
+         }
       }
       return false;
    }
@@ -35,6 +41,11 @@ public class GoalOr implements GoalComponent {
          str = str.concat("\n\t" + gc.getProgress() + ",");
       }
       return res;
+   }
+
+   @Override
+   public BooleanProperty goalAchieved() {
+      return this.goalAchieved;
    }
 
 }

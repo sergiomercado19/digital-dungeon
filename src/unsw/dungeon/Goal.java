@@ -2,6 +2,8 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.BooleanProperty;
+
 /**
  * a goal that a player must achieve within the dungeon
  * leaf node of a GoalComponent in the composite pattern
@@ -13,7 +15,8 @@ public class Goal implements GoalComponent, GoalObserver {
    private String name;
    private int currentValue;
    private int targetValue;
-
+   private BooleanProperty goalAchieved;
+   
    /**
     * create a new goal
     * @param name the name of the goal
@@ -40,10 +43,17 @@ public class Goal implements GoalComponent, GoalObserver {
    @Override
    public void increaseProgress() {
       this.currentValue++;
+      if (this.currentValue == this.targetValue) this.goalAchieved.set(true);
    }
 
    @Override
    public void decreaseProgress() {
       this.currentValue--;
+      if (this.currentValue == this.targetValue) this.goalAchieved.set(true);
+   }
+
+   @Override
+   public BooleanProperty goalAchieved() {
+      return this.goalAchieved;
    }
 }
