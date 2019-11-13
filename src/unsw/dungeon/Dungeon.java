@@ -165,7 +165,13 @@ public class Dungeon {
     * @param enemy the enemy in contact
     */
    public void fight(Player player, Enemy enemy) {
-      if (player.isInvincible().get() || player.hasSword().get()) {
+      if (player.isInvincible().get()) {
+         enemy.die();
+         this.removeEntity((Entity) enemy);
+         
+         // Play sound
+         SoundEffects.playSwordKill();
+      } else if (player.hasSword().get()) {
          player.hitEnemy();
          enemy.die();
          this.removeEntity((Entity) enemy);
