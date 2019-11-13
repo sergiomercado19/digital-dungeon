@@ -18,6 +18,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 
 public class LevelEditorController {
 	private ArrayList<EditorTile> tiles;
@@ -42,7 +44,7 @@ public class LevelEditorController {
 	private MenuButton dropDown;
 
 	@FXML
-	private TextField tileID;
+	private Spinner tileID;
 
 	@FXML
 	private CheckBox exitGoal;
@@ -144,18 +146,21 @@ public class LevelEditorController {
 				Pane p = new Pane();
 				GridPane.setConstraints(p, x, y);
 				squares.add(p, x, y);
+				
+				// keep track of the item in the pane
 				EditorTile e = new EditorTile(x, y);
 				tiles.add(e);
 				p.getChildren().add(e.getTile());
-				
-				// keep track of the item in the pane
 				p.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 					p.getChildren().clear();
-					e.setTile(selected, tileID.getText());
+					e.setTile(selected, (int)tileID.getValue());
 					p.getChildren().add(e.getTile());
 				});
 			}
 		}
+		
+		dWidth.setText(Integer.toString(width));
+		dHeight.setText(Integer.toString(height));
 	}
 
 	@FXML
@@ -164,6 +169,8 @@ public class LevelEditorController {
 		width = 10;
 		selected = "Wall";
 		dirtImage = new Image("/dirt_0_new.png");
+		tileID.setVisible(false);
+		dName.setText("My New Dungeon");
 
 		tiles = new ArrayList<>();
 
@@ -184,12 +191,23 @@ public class LevelEditorController {
 
 		// Setup background
 		setUpSquares();
+		
+		ArrayList<String> idList = new ArrayList<>();
+		idList.add("Key");
+		idList.add("Door");
+		idList.add("Portal");
 
 		for (String e : entities) {
 			MenuItem m = new MenuItem(e);
 			m.setOnAction(event -> {
 				dropDown.setText(e);
 				selected = e;
+				if (idList.contains(selected)) {
+					tileID.setVisible(true);
+//					tileID.managedProperty
+				} else {
+					tileID.setVisible(false);
+				}
 			});
 			dropDown.getItems().add(m);
 		}
