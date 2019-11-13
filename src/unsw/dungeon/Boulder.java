@@ -52,6 +52,15 @@ public class Boulder extends Entity implements Movable {
 
 	@Override
 	public boolean canCollide(Player p, Direction d) {
+		return canMove(d);
+	}
+	
+	@Override
+	public boolean canCollide(Enemy en, Direction d) {
+		return canMove(d);
+	}
+	
+	public boolean canMove(Direction d) {
 		int x, y;
 		x = getX();
 		y = getY();
