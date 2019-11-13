@@ -108,19 +108,22 @@ public class Player extends Entity implements Movable {
       int x, y;
       x = getX();
       y = getY();
+      int width, height;
+      width = dungeon.getWidth();
+      height = dungeon.getHeight();
 
       switch (d) {
       case UP:
-         y = y - 1;
+         y = Math.floorMod(y - 1, height);
          break;
       case DOWN:
-         y = y + 1;
+    	  y = Math.floorMod(y + 1, height);
          break;
       case LEFT:
-         x = x - 1;
+         x = Math.floorMod(x - 1, width);
          break;
       case RIGHT:
-         x = x + 1;
+    	  x = Math.floorMod(x + 1, width);
          break;
       }
 

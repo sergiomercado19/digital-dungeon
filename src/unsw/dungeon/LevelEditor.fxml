@@ -35,7 +35,7 @@
                </AnchorPane>
                <AnchorPane>
                   <children>
-                     <MenuButton fx:id="dropDown" text="Wall">
+                     <MenuButton fx:id="dropDown" text="Wall" prefWidth="100.0">
                         <items>
 
                         </items>

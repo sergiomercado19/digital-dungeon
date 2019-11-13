@@ -116,21 +116,24 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 		int x, y;
 		x = getX();
 		y = getY();
-		
-		switch (d) {
-		case UP:
-			y = y - 1;
-			break;
-		case DOWN:
-			y = y + 1;
-			break;
-		case LEFT:
-			x = x - 1;
-			break;
-		case RIGHT:
-			x = x + 1;
-			break;
-		}
+		int width, height;
+	      width = dungeon.getWidth();
+	      height = dungeon.getHeight();
+
+	      switch (d) {
+	      case UP:
+	         y = Math.floorMod(y - 1, height);
+	         break;
+	      case DOWN:
+	    	  y = Math.floorMod(y + 1, height);
+	         break;
+	      case LEFT:
+	         x = Math.floorMod(x - 1, width);
+	         break;
+	      case RIGHT:
+	    	  x = Math.floorMod(x + 1, width);
+	         break;
+	      }
 
 		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
 		boolean canMove = true;
