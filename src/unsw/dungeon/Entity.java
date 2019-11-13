@@ -75,7 +75,7 @@ public class Entity {
       return !isSolid;
    }
 
-   // these 3 must be overridden
+   // these 3 can also be overridden
    public void collide(Enemy e, Direction d) {
       // do nothing
    }

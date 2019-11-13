@@ -240,7 +240,7 @@ public class LevelEditorController {
 	@FXML
 	public void initialize() {
 		// load in all the images
-		dirtImage = new Image("/dirt_grid.png");
+		dirtImage = new Image("/dirt_0_new.png");
 		playerImage = new Image("/human_new.png");
 		wallImage = new Image("/brick_brown_0.png");
 		boulderImage = new Image("/boulder.png");
