@@ -26,7 +26,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 
 public class LevelEditorController {
 	private ArrayList<EditorTile> tiles;
@@ -44,6 +43,7 @@ public class LevelEditorController {
 	@FXML
 	private MenuButton dropDown;
 
+	@SuppressWarnings("rawtypes")
 	@FXML
 	private Spinner tileID;
 
