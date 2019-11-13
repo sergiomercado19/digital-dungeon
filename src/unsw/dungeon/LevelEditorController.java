@@ -168,8 +168,17 @@ public class LevelEditorController {
 				EditorTile e = new EditorTile(x, y);
 				tiles.add(e);
 				trackChanges(e, l);
-
-				p.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+				
+				p.setOnMouseDragEntered(event -> {
+					if (selected.contentEquals("eraser")) selected = "empty";
+					if (tileID.isDisable()) {
+						e.setTile(selected);
+					} else {
+						e.setTile(selected, (int)tileID.getValue());
+					}
+				});
+				
+				p.setOnMouseClicked(event -> {
 					if (selected.contentEquals("eraser")) selected = "empty";
 					if (tileID.isDisable()) {
 						e.setTile(selected);
@@ -299,5 +308,8 @@ public class LevelEditorController {
 			});
 			dropDown.getItems().add(m);
 		}
+		
+		// set up drag event
+		squares.setOnDragDetected(e -> squares.startFullDrag());
 	}
 }
