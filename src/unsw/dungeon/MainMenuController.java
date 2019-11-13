@@ -20,7 +20,7 @@ public class MainMenuController {
    private Pane playButton;
 
    @FXML
-   private Pane settingsButton;
+   private Pane editorButton;
 
    @FXML
    public void initialize() {
@@ -39,8 +39,12 @@ public class MainMenuController {
       // Setup buttons
       ImageView playIcon = new ImageView(new Image("/icon_play.png"));
       playButton.getChildren().add(playIcon);
-      ImageView settingsIcon = new ImageView(new Image("/icon_settings.png"));
-      settingsButton.getChildren().add(settingsIcon);
+      ImageView editorIcon = new ImageView(new Image("/icon_editor.png"));
+      editorIcon.setFitHeight(70);
+      editorIcon.setFitWidth(70);
+      editorIcon.layoutXProperty().bind(editorButton.widthProperty().subtract(editorIcon.getFitWidth()).divide(2));
+      editorIcon.layoutYProperty().bind(editorButton.heightProperty().subtract(editorIcon.getFitHeight()).divide(2));
+      editorButton.getChildren().add(editorIcon);
    }
 
    public void setLevelScreen(LevelMenuScreen levelScreen) {
