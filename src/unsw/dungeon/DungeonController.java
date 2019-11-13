@@ -105,6 +105,9 @@ public class DungeonController {
                   victoryBanner.layoutXProperty().bind(banner.widthProperty().subtract(victoryBanner.getFitWidth()).divide(2));
                   victoryBanner.layoutYProperty().bind(banner.heightProperty().subtract(victoryBanner.getFitHeight()).divide(2));
                   banner.getChildren().add(victoryBanner);
+                  
+                  // Play sound
+                  SoundEffects.playVictoryTune();
                } else if (dungeon.getState() == DungeonState.LOST) {
                   Image defeat = new Image("/defeat.png");
                   ImageView defeatBanner = new ImageView(defeat);
@@ -113,6 +116,9 @@ public class DungeonController {
                   defeatBanner.layoutXProperty().bind(banner.widthProperty().subtract(defeatBanner.getFitWidth()).divide(2));
                   defeatBanner.layoutYProperty().bind(banner.heightProperty().subtract(defeatBanner.getFitHeight()).divide(2));
                   banner.getChildren().add(defeatBanner);
+                  
+                  // Play sound
+                  SoundEffects.playDefeatTune();
                }
                
             }
