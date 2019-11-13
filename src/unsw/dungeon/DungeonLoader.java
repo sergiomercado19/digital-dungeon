@@ -57,6 +57,7 @@ public abstract class DungeonLoader {
 
 		// 6. Set dungeon goals
 		dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
+		addGoal(dungeon.getGoal());
 
 		// 7. Start dungeon
 		dungeon.setState(DungeonState.INPROGRESS);
@@ -100,7 +101,7 @@ public abstract class DungeonLoader {
 				break;
 			case "boulders":
 				// Get goal relevant entity list
-				entities.addAll(dungeon.getEntityArrayList("floorSwitch"));
+				entities.addAll(dungeon.getEntityArrayList("floorswitch"));
 				break;
 			case "treasure":
 				// Get goal relevant entity list
@@ -212,7 +213,6 @@ public abstract class DungeonLoader {
 	public abstract void onLoad(Sword sword);
 	public abstract void onLoad(Invincibility invincibility);
 
-
-	// TODO MILESTONE 3: Create additional abstract methods for the other entities
-
+	public abstract void addGoal(GoalComponent goals);
+	
 }

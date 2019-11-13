@@ -19,7 +19,7 @@ public class Dungeon {
    private int width, height;
    private ArrayList<Entity> entities;
    private Player player;
-   private GoalComponent goals;
+   private GoalComponent goal;
    private DungeonState state;
 
    /**
@@ -32,6 +32,7 @@ public class Dungeon {
       this.height = height;
       this.entities = new ArrayList<Entity>();
       this.player = null;
+      this.goal = null;
       this.state = DungeonState.INITIALIZING;
    }
 
@@ -40,9 +41,13 @@ public class Dungeon {
     * @param goals
     */
    public void setGoals(GoalComponent goals) {      
-      this.goals = goals;
+      this.goal = goals;
    }
 
+   public GoalComponent getGoal() {
+      return this.goal;
+   }
+   
    /**
     * set the current state of the dungeon
     * @param state
@@ -139,7 +144,7 @@ public class Dungeon {
          e.moveTowardsPlayer();
       }
 
-      if (this.goals != null && this.goals.isComplete()) this.state = DungeonState.WON;
+      if (this.goal != null && this.goal.isComplete()) this.state = DungeonState.WON;
    }
 
    /**
