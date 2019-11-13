@@ -11,9 +11,12 @@ import javax.imageio.ImageIO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuButton;
@@ -26,7 +29,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 
 public class LevelEditorController {
 	private ArrayList<EditorTile> tiles;
@@ -34,9 +36,21 @@ public class LevelEditorController {
 	private String selected;
 	private int width;
 	private int height;
-	
-	// used for the floor
+
+	// load all imgs
 	private Image dirtImage;
+	private Image playerImage;
+	private Image wallImage;
+	private Image boulderImage;
+	private Image treasureImage;
+	private Image keyImage;
+	private Image doorImage;
+	private Image swordImage;
+	private Image invincibilityImage;
+	private Image portalImage;
+	private Image enemyImage;
+	private Image floorSwitchImage;
+	private Image exitImage;
 
 	@FXML
 	private GridPane squares;
@@ -44,6 +58,7 @@ public class LevelEditorController {
 	@FXML
 	private MenuButton dropDown;
 
+	@SuppressWarnings("rawtypes")
 	@FXML
 	private Spinner tileID;
 
@@ -142,75 +157,144 @@ public class LevelEditorController {
 				// add dirt floor under everything
 				ImageView i = new ImageView(dirtImage);
 				squares.add(i, x, y);
-				
+
 				// add a pane on top to hold other items
 				Pane p = new Pane();
 				GridPane.setConstraints(p, x, y);
 				squares.add(p, x, y);
 				
 				// keep track of the item in the pane
+				ImageView l = new ImageView();
+				p.getChildren().add(l);
 				EditorTile e = new EditorTile(x, y);
 				tiles.add(e);
-				p.getChildren().add(e.getTile());
+				trackChanges(e, l);
+
 				p.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-					p.getChildren().clear();
-					e.setTile(selected, (int)tileID.getValue());
-					p.getChildren().add(e.getTile());
+					if (selected.contentEquals("eraser")) selected = "empty";
+					if (tileID.isDisable()) {
+						e.setTile(selected);
+					} else {
+						e.setTile(selected, (int)tileID.getValue());
+					}
 				});
 			}
 		}
-		
+
 		dWidth.setText(Integer.toString(width));
 		dHeight.setText(Integer.toString(height));
 	}
 
+	// if an image is updated
+	public void trackChanges(EditorTile t, Node node) {
+		t.currType().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable,
+					String oldValue, String newValue) {
+				if (!oldValue.equals(newValue)) {
+					switch(newValue) {
+					case "empty":
+						((ImageView) node).setImage(null);
+						break;
+					case "player":
+						((ImageView) node).setImage(playerImage);
+						break;
+					case "wall":
+						((ImageView) node).setImage(wallImage);
+						break;
+					case "boulder":
+						((ImageView) node).setImage(boulderImage);
+						break;
+					case "treasure":
+						((ImageView) node).setImage(treasureImage);
+						break;
+					case "key":
+						((ImageView) node).setImage(keyImage);
+						break;
+					case "door":
+						((ImageView) node).setImage(doorImage);
+						break;
+					case "sword":
+						((ImageView) node).setImage(swordImage);
+						break;
+					case "invincibility":
+						((ImageView) node).setImage(invincibilityImage);
+						break;
+					case "portal":
+						((ImageView) node).setImage(portalImage);
+						break;
+					case "enemy":
+						((ImageView) node).setImage(enemyImage);
+						break;
+					case "switch":
+						((ImageView) node).setImage(floorSwitchImage);
+						break;
+					case "exit":
+						((ImageView) node).setImage(exitImage);
+						break;		
+					}
+				}
+			}
+		});
+	}
+
 	@FXML
 	public void initialize() {
+		// load in all the images
+		dirtImage = new Image("/dirt_0_new.png");
+		playerImage = new Image("/human_new.png");
+		wallImage = new Image("/brick_brown_0.png");
+		boulderImage = new Image("/boulder.png");
+		treasureImage = new Image("/gold_pile.png");
+		keyImage = new Image("/key.png");
+		doorImage = new Image("/closed_door.png");
+		swordImage = new Image("/greatsword_1_new.png");
+		invincibilityImage = new Image("/brilliant_blue_new.png");
+		portalImage = new Image("/portal.png");
+		enemyImage = new Image("/deep_elf_master_archer.png");
+		floorSwitchImage = new Image("/pressure_plate.png");
+		exitImage = new Image("/exit.png");
+		
+		// set up properties
 		height = 10;
 		width = 10;
-		selected = "Wall";
-		dirtImage = new Image("/dirt_0_new.png");
-		tileID.setVisible(false);
+		selected = "eraser";
 		dName.setText("New Dungeon");
-
+		tileID.setDisable(true);
+		
+		// holds info on all the tiles
 		tiles = new ArrayList<>();
 
 		entities = new ArrayList<>();
-		entities.add("Eraser");
-		entities.add("Player");
-		entities.add("Wall");
-		entities.add("Boulder");
-		entities.add("Treasure");
-		entities.add("Key");
-		entities.add("Door");
-		entities.add("Sword");
-		entities.add("Invincibility");
-		entities.add("Portal");
-		entities.add("Enemy");
-		entities.add("Floor switch");
-		entities.add("Exit");
+		entities.add("eraser");
+		entities.add("player");
+		entities.add("wall");
+		entities.add("boulder");
+		entities.add("treasure");
+		entities.add("key");
+		entities.add("door");
+		entities.add("sword");
+		entities.add("invincibility");
+		entities.add("portal");
+		entities.add("enemy");
+		entities.add("switch");
+		entities.add("exit");
 
 		// Setup background
 		setUpSquares();
-		
-		// these entities need an id!
-		ArrayList<String> idList = new ArrayList<>();
-		idList.add("Key");
-		idList.add("Door");
-		idList.add("Portal");
-		
+
 		// create menu options for each entity
 		for (String e : entities) {
 			MenuItem m = new MenuItem(e);
-			
+
 			// when an entity is selected
 			m.setOnAction(event -> {
 				dropDown.setText(e);
 				selected = e;
-				if (idList.contains(selected)) {
-					tileID.setVisible(true);
+				if (selected.equals("key") || selected.equals("door") || selected.equals("portal")) {
+					tileID.setDisable(false);
 				} else {
-					tileID.setVisible(false);
+					tileID.setDisable(true);
 				}
 			});
 			dropDown.getItems().add(m);
