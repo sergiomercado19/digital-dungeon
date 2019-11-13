@@ -54,7 +54,7 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 			}
 
 			// If player is invincible move in the opposite direction
-			if (this.player.isInvincible()) {
+			if (this.player.isInvincible().get()) {
 				switch (d) {
 				case UP:
 					d = Direction.DOWN;
