@@ -136,8 +136,7 @@ public class LevelEditorController {
 			out.print(dungeon.toString(2));
 			out.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("File not found");
 		}
 
 		// generate preview image
@@ -146,7 +145,7 @@ public class LevelEditorController {
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
 		} catch (IOException e) {
-			// TODO: handle exception here
+			System.out.println("Error writing to file");
 		}
 	}
 
@@ -241,7 +240,7 @@ public class LevelEditorController {
 	@FXML
 	public void initialize() {
 		// load in all the images
-		dirtImage = new Image("/dirt_0_new.png");
+		dirtImage = new Image("/dirt_grid.png");
 		playerImage = new Image("/human_new.png");
 		wallImage = new Image("/brick_brown_0.png");
 		boulderImage = new Image("/boulder.png");
@@ -258,7 +257,8 @@ public class LevelEditorController {
 		// set up properties
 		height = 10;
 		width = 10;
-		selected = "eraser";
+		selected = "wall";
+		dropDown.setText(selected);
 		dName.setText("New Dungeon");
 		tileID.setDisable(true);
 		

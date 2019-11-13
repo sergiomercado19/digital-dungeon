@@ -14,13 +14,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <tabs>
       <Tab text="Editor">
-         <SplitPane dividerPositions="0.5" orientation="VERTICAL">
-            <items>
+         <VBox>
+            <children>
                <AnchorPane>
                   <GridPane fx:id="squares">
                      <columnConstraints>
@@ -53,22 +54,23 @@
                      <Button alignment="CENTER_RIGHT" layoutX="52.0" onAction="#setDims" text="Set dimensions" /> -->
                   </children>
                </AnchorPane>
-            </items>
-         </SplitPane>
+            </children>
+         </VBox>
       </Tab>
       <Tab text="Preferences">
          <content>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <Pane>
                <children>
                   <CheckBox fx:id="exitGoal" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" text="Exit" />
                   <CheckBox fx:id="enemiesGoal" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" text="Enemies" />
                   <CheckBox fx:id="treasureGoal" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" text="Treasure" />
                   <CheckBox fx:id="switchGoal" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" text="Floor switches" />
-                  <TextField fx:id="dWidth" layoutX="14.0" layoutY="136.0" promptText="Width" />
-                  <TextField fx:id="dHeight" layoutX="14.0" layoutY="161.0" promptText="Height" />
-                  <Button layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#setDim" text="Set dimensions (resets editor!)" />
+                  <TextField fx:id="dWidth" layoutX="14.0" layoutY="153.0" promptText="Width" />
+                  <TextField fx:id="dHeight" layoutX="14.0" layoutY="181.0" promptText="Height" />
+                  <Button layoutX="14.0" layoutY="209.0" mnemonicParsing="false" onAction="#setDim" text="Set dimensions (resets editor!)" />
                   <TextField fx:id="dName" layoutX="14.0" layoutY="14.0" promptText="Dungeon name" />
                   <Text layoutX="14.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dungeon goals:" />
+                  <Text layoutX="14.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions:" />
                </children>
             </Pane>
          </content></Tab>
