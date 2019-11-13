@@ -1,19 +1,29 @@
 package unsw.dungeon;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -35,6 +45,34 @@ public class LevelEditorController {
 	@FXML
 	private TextField tileID;
 
+	@FXML
+	private CheckBox exitGoal;
+
+	@FXML
+	private CheckBox enemiesGoal;
+
+	@FXML
+	private CheckBox treasureGoal;
+
+	@FXML
+	private CheckBox switchGoal;
+
+	@FXML
+	private TextField dWidth;
+
+	@FXML
+	private TextField dHeight;
+
+	@FXML
+	private TextField dName;
+
+	@FXML
+	void setDim(ActionEvent event) {
+		width = Integer.parseInt(dWidth.getText());
+		height = Integer.parseInt(dHeight.getText());
+		setUpSquares();
+	}
+
 	//    @FXML
 	//    private TextField dimX;
 	//
@@ -50,7 +88,7 @@ public class LevelEditorController {
 		JSONObject dungeon = new JSONObject();
 		dungeon.put("width", width);
 		dungeon.put("height", height);
-		
+
 		JSONArray entities = new JSONArray();
 
 		for (EditorTile t : tiles) {
@@ -58,13 +96,59 @@ public class LevelEditorController {
 			if (j != null) entities.put(j);
 		}
 		dungeon.put("entities", entities);
-		
+
+		JSONObject goals = new JSONObject();
+		goals.put("goal", "AND");
+		JSONArray subgoals = new JSONArray();
+		if (exitGoal.isSelected()) {
+			JSONObject jExitGoal = new JSONObject();
+			jExitGoal.put("goal", "exit");
+			subgoals.put(jExitGoal);
+		}
+		if (enemiesGoal.isSelected()) {
+			JSONObject jEnemiesGoal = new JSONObject();
+			jEnemiesGoal.put("goal", "enemies");
+			subgoals.put(jEnemiesGoal);
+		}
+		if (treasureGoal.isSelected()) {
+			JSONObject jTreasureGoal = new JSONObject();
+			jTreasureGoal.put("goal", "treasure");
+			subgoals.put(jTreasureGoal);
+		}
+		if (switchGoal.isSelected()) {
+			JSONObject jSwitchGoal = new JSONObject();
+			jSwitchGoal.put("goal", "boulders");
+			subgoals.put(jSwitchGoal);
+		}
+		goals.put("subgoals", subgoals);
+		dungeon.put("goal-condition", goals);
+
 		System.out.println(dungeon.toString(2));
-		
-//		setUpSquares(15,15);
+
+		try {
+			PrintWriter out = new PrintWriter("dungeons/" + dName.getText() + ".json");
+			out.print(dungeon.toString(2));
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		WritableImage image = squares.snapshot(new SnapshotParameters(), null);
+
+		// TODO: probably use a file chooser here
+		File file = new File("images/preview_" + dName.getText() + ".png");
+
+		try {
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+		} catch (IOException e) {
+			// TODO: handle exception here
+		}
+
+		//		setUpSquares(15,15);
 	}
-	
-	public void setUpSquares(int width, int height) {
+
+	public void setUpSquares() {
 		squares.getChildren().clear();
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -109,7 +193,7 @@ public class LevelEditorController {
 		entities.add("Exit");
 
 		// Setup background
-		setUpSquares(width, height);
+		setUpSquares();
 
 		for (String e : entities) {
 			MenuItem m = new MenuItem(e);
