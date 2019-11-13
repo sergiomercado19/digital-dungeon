@@ -24,11 +24,13 @@ public class DungeonControllerLoader extends DungeonLoader {
 	//Images
 	private Image playerImage;
 	private Image playerSwordImage;
+	private Image playerInvincibleImage;
 	private Image wallImage;
 	private Image boulderImage;
 	private Image treasureImage;
 	private Image keyImage;
 	private Image doorImage;
+	private Image doorOpenImage;
 	private Image swordImage;
 	private Image invincibilityImage;
 	private Image portalImage;
@@ -42,11 +44,13 @@ public class DungeonControllerLoader extends DungeonLoader {
 		entities = new ArrayList<>();
 		playerImage = new Image("/human_new.png");
 		playerSwordImage = new Image("/human_sword.png");
+		playerInvincibleImage = new Image("/human_new_invincible.png");
 		wallImage = new Image("/brick_brown_0.png");
 		boulderImage = new Image("/boulder.png");
 		treasureImage = new Image("/gold_pile.png");
 		keyImage = new Image("/key.png");
 		doorImage = new Image("/closed_door.png");
+		doorOpenImage = new Image("/open_door.png");
 		swordImage = new Image("/greatsword_1_new.png");
 		invincibilityImage = new Image("/brilliant_blue_new.png");
 		portalImage = new Image("/portal.png");
@@ -171,19 +175,52 @@ public class DungeonControllerLoader extends DungeonLoader {
 		});
 		if (entity instanceof Player) {
 			Player p = (Player) entity;
-			p.hasSwordBool().addListener(new ChangeListener<Boolean>() {
+			p.hasSword().addListener(new ChangeListener<Boolean>() {
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable,
 						Boolean oldValue, Boolean newValue) {
 					if (oldValue == false && newValue == true) {
-						((ImageView) node).setImage(playerSwordImage);
+						if (!p.isInvincible().get()) {
+							((ImageView) node).setImage(playerSwordImage);
+						}
 					} else if (oldValue == true && newValue == false) {
-						((ImageView) node).setImage(playerImage);
+						if (p.isInvincible().get()) {
+							((ImageView) node).setImage(playerInvincibleImage);
+						} else {
+							((ImageView) node).setImage(playerImage);						
+						}
 					}
 				}
 			});
-
+			p.isInvincible().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable,
+						Boolean oldValue, Boolean newValue) {
+					if (oldValue == false && newValue == true) {
+						((ImageView) node).setImage(playerInvincibleImage);
+					} else if (oldValue == true && newValue == false) {
+						if (p.hasSword().get()) {
+							((ImageView) node).setImage(playerSwordImage);
+						} else {
+							((ImageView) node).setImage(playerImage);						
+						}
+					}
+				}
+			});
 		}
+		if (entity instanceof Door) {
+			Door d = (Door) entity;
+			d.isUnlocked().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable,
+						Boolean oldValue, Boolean newValue) {
+					if (oldValue == false && newValue == true) {
+						((ImageView) node).setImage(doorOpenImage);
+					}
+				}
+			});
+		}
+
 	}
 
 	/**
