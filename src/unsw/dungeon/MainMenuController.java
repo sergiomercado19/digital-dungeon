@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 public class MainMenuController {
    
    private LevelMenuScreen levelScreen;
+   private LevelEditorScreen editorScreen;
 
    @FXML
    private GridPane background;
@@ -50,10 +51,19 @@ public class MainMenuController {
    public void setLevelScreen(LevelMenuScreen levelScreen) {
       this.levelScreen = levelScreen;
    }
+   
+   public void setEditorScreen(LevelEditorScreen editorScreen) {
+	   this.editorScreen = editorScreen;
+   }
 
    @FXML
    public void handlePlay() {
       this.levelScreen.start();
+   }
+   
+   @FXML
+   public void handleEdit() {
+      this.editorScreen.start();
    }
 
 }
