@@ -16,7 +16,8 @@ public class Player extends Entity implements Movable {
 	private ArrayList<Integer> keyIDs; 
 	private int swordHits;
 	private int invincibilityLeft;
-	private BooleanProperty hasSwordBool;
+	private BooleanProperty hasSword;
+	private BooleanProperty isInvincible;
 
 	/**
 	 * create a new player
@@ -30,8 +31,9 @@ public class Player extends Entity implements Movable {
 		this.keyIDs = new ArrayList<>();
 		this.swordHits = 0;
 		this.invincibilityLeft = 0;
-		
-		this.hasSwordBool = new SimpleBooleanProperty(false);
+
+		this.hasSword = new SimpleBooleanProperty(false);
+		this.isInvincible = new SimpleBooleanProperty(false);
 	}
 
 	/**
@@ -58,7 +60,7 @@ public class Player extends Entity implements Movable {
 		if (this.swordHits == 0) {
 			this.swordHits += 5;
 			this.dungeon.removeEntity(s);
-			this.hasSwordBool.set(true);
+			this.hasSword.set(true);
 		}
 	}
 
@@ -69,15 +71,19 @@ public class Player extends Entity implements Movable {
 		if (this.swordHits > 0) {
 			this.swordHits--;
 			if (swordHits == 0) {
-				this.hasSwordBool.set(false);
+				this.hasSword.set(false);
 			}
 		}
 	}
-	
+
 	// FIXME observable
-	public BooleanProperty hasSwordBool() {
-	      return this.hasSwordBool;
-	   }
+	public BooleanProperty hasSword() {
+		return this.hasSword;
+	}
+	
+	public BooleanProperty isInvincible() {
+		return this.isInvincible;
+	}
 
 	/**
 	 * turn the player invincible for a certain length of time (tiles travelled)
@@ -85,23 +91,24 @@ public class Player extends Entity implements Movable {
 	public void becomeInvincible(Invincibility i) {
 		this.invincibilityLeft += 15;
 		this.dungeon.removeEntity(i);
+		this.isInvincible.set(true);
 	}
 
-	/**
-	 * check if the player is invincible
-	 * @return whether or not the player is invincible
-	 */
-	public boolean isInvincible() {
-		return this.invincibilityLeft > 0;
-	}
-
-	/**
-	 * check if the player has a sword
-	 * @return whether or not the player has a sword
-	 */
-	public boolean hasSword() {
-		return this.swordHits > 0;
-	}
+//	/**
+//	 * check if the player is invincible
+//	 * @return whether or not the player is invincible
+//	 */
+//	public boolean isInvincible() {
+//		return this.invincibilityLeft > 0;
+//	}
+//
+//	/**
+//	 * check if the player has a sword
+//	 * @return whether or not the player has a sword
+//	 */
+//	public boolean hasSword() {
+//		return this.swordHits > 0;
+//	}
 
 	/**
 	 * add a new key id to the player's inventory
@@ -151,7 +158,12 @@ public class Player extends Entity implements Movable {
 			setPosition(x, y);
 
 			// Decrease invincibility when you move
-			if (this.invincibilityLeft > 0) this.invincibilityLeft--;
+			if (this.invincibilityLeft > 0) {
+				this.invincibilityLeft--;
+				if (this.invincibilityLeft == 0) {
+					this.isInvincible.set(false);
+				}
+			}
 
 			for(Entity e : tileEntities) {
 				e.collide(this, d);

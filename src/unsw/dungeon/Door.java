@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 /**
  * a door, which can be opened with a key
  * @author Sergio Mercado Ruiz & Rory Madden
@@ -8,6 +11,7 @@ package unsw.dungeon;
 public class Door extends Entity {
 
    private int ID;
+   private BooleanProperty isUnlocked;
 
    /**
     * create a new door
@@ -18,6 +22,11 @@ public class Door extends Entity {
    public Door(int x, int y, int ID) {
       super(x, y, true);
       this.ID = ID;
+      this.isUnlocked = new SimpleBooleanProperty(false);
+   }
+   
+   public BooleanProperty isUnlocked() {
+	   return this.isUnlocked;
    }
 
    /**
@@ -33,5 +42,6 @@ public class Door extends Entity {
     */
    public void unlock() {
       super.setSolid(false);
+      isUnlocked.set(true);
    }
 }
