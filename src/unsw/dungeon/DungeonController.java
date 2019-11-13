@@ -1,9 +1,10 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -18,17 +19,22 @@ public class DungeonController {
 
    @FXML
    private GridPane squares;
+   
+   @FXML
+   private TreeView<String> goalsTree;
 
-   private List<ImageView> initialEntities;
+   private ArrayList<ImageView> initialEntities;
+   private TreeItem<String> initialGoal;
 
    private Player player;
 
    private Dungeon dungeon;
 
-   public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
+   public DungeonController(Dungeon dungeon, ArrayList<ImageView> initialEntities, TreeItem<String> initialGoal) {
       this.dungeon = dungeon;
       this.player = dungeon.getPlayer();
-      this.initialEntities = new ArrayList<>(initialEntities);
+      this.initialEntities = initialEntities;
+      this.initialGoal = initialGoal;
    }
 
    @FXML
@@ -44,6 +50,8 @@ public class DungeonController {
 
       for (ImageView entity : initialEntities)
          squares.getChildren().add(entity);
+
+      this.goalsTree.setRoot(this.initialGoal);
 
    }
 
