@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox onKeyPressed="#handleKeyPress" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-   <GridPane fx:id="squares">
-      <columnConstraints>
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-   </GridPane>
-   <TreeView fx:id="goalsTree" />
-   </children>
-</VBox>
+<SplitPane dividerPositions="0.5" onKeyPressed="#handleKeyPress" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <AnchorPane>
+         <children>
+         <GridPane fx:id="squares">
+            <columnConstraints>
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+            </rowConstraints>
+         </GridPane>
+         </children>
+      </AnchorPane>
+    <AnchorPane>
+         <children>
+         <TreeView fx:id="goalsTree" prefHeight="88.0" />
+         </children>
+      </AnchorPane>
+  </items>
+</SplitPane>
