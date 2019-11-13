@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Boulder extends Entity implements Movable {
 
 	private Dungeon dungeon;
-	private FloorSwitch floorSwitch;
+	//	private FloorSwitch floorSwitch;
 
 	/**
 	 * create a new boulder
@@ -21,27 +21,34 @@ public class Boulder extends Entity implements Movable {
 	public Boulder(Dungeon dungeon, int x, int y) {
 		super(x, y, false);
 		this.dungeon = dungeon;
-		this.floorSwitch = null;
+		//		this.floorSwitch = null;
+
+		// check if we already on top of a floor switch
+		// FIXME Doesn't work if a floor switch is loaded after? idk
+		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
+		for(Entity e : tileEntities) {
+			if(e instanceof FloorSwitch) ((FloorSwitch) e).activate();
+		}
 	}
 
 	/**
 	 * trigger a floor switch when the boulder is on top
 	 * @param s
 	 */
-	public void activateSwitch(FloorSwitch s) {
-		this.floorSwitch = s;
-		this.floorSwitch.activate();
-	}
+	//	public void activateSwitch(FloorSwitch s) {
+	//		this.floorSwitch = s;
+	//		this.floorSwitch.activate();
+	//	}
 
 	/**
 	 * untrigger a floor switch when a boulder is moved off it
 	 */
-	public void deactivateSwitch() {
-		if (this.floorSwitch != null) {         
-			this.floorSwitch.deactivate();
-			this.floorSwitch = null;
-		}
-	}
+	//	public void deactivateSwitch() {
+	//		if (this.floorSwitch != null) {         
+	//			this.floorSwitch.deactivate();
+	//			this.floorSwitch = null;
+	//		}
+	//	}
 
 	@Override
 	public boolean canCollide(Player p, Direction d) {
@@ -75,14 +82,19 @@ public class Boulder extends Entity implements Movable {
 		return canMove;
 	}
 
-	@Override
-	public void collide(Player p, Direction d) {
+	public void doMove(Direction d) {
 		int x, y;
 		x = getX();
 		y = getY();
 		int width, height;
 		width = dungeon.getWidth();
 		height = dungeon.getHeight();
+
+		// check if we already on top of a floor switch, and are moving off
+		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
+		for(Entity e : tileEntities) {
+			if(e instanceof FloorSwitch) ((FloorSwitch) e).deactivate();
+		}
 
 		switch (d) {
 		case UP:
@@ -98,10 +110,23 @@ public class Boulder extends Entity implements Movable {
 			x = Math.floorMod(x + 1, width);
 			break;
 		}
-		// already been checked so should be safe to move?
-				setPosition(x, y);
-		// Deactivate floorSwitch before moving
-				deactivateSwitch();
+
+		setPosition(x, y);
+
+		for(Entity e : tileEntities) {
+			e.collide(this, d);
+		}
+		
+		// check if we're now on a floor switch
+		tileEntities = dungeon.checkTile(x, y);
+		for(Entity e : tileEntities) {
+			if(e instanceof FloorSwitch) ((FloorSwitch) e).activate();
+		}
+	}
+
+	@Override
+	public void collide(Player p, Direction d) {
+		doMove(d);
 	}
 
 	@Override
@@ -110,64 +135,8 @@ public class Boulder extends Entity implements Movable {
 	}
 
 	@Override
-	public boolean canCollide(Enemy e, Direction d) {
-		int x, y;
-		x = getX();
-		y = getY();
-		int width, height;
-		width = dungeon.getWidth();
-		height = dungeon.getHeight();
-
-		switch (d) {
-		case UP:
-			y = Math.floorMod(y - 1, height);
-			break;
-		case DOWN:
-			y = Math.floorMod(y + 1, height);
-			break;
-		case LEFT:
-			x = Math.floorMod(x - 1, width);
-			break;
-		case RIGHT:
-			x = Math.floorMod(x + 1, width);
-			break;
-		}
-
-		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
-		boolean canMove = true;
-		for(Entity e1 : tileEntities) {
-			if(!e1.canCollide(this, d)) canMove = false;
-		}
-		return canMove;
-	}
-
-	@Override
 	public void collide(Enemy e, Direction d) {
-		int x, y;
-		x = getX();
-		y = getY();
-		int width, height;
-		width = dungeon.getWidth();
-		height = dungeon.getHeight();
-
-		switch (d) {
-		case UP:
-			y = Math.floorMod(y - 1, height);
-			break;
-		case DOWN:
-			y = Math.floorMod(y + 1, height);
-			break;
-		case LEFT:
-			x = Math.floorMod(x - 1, width);
-			break;
-		case RIGHT:
-			x = Math.floorMod(x + 1, width);
-			break;
-		}
-		// already been checked so should be safe to move?
-				setPosition(x, y);
-		// Deactivate floorSwitch before moving
-				deactivateSwitch();
+		doMove(d);
 	}
 
 	@Override

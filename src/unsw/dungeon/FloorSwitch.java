@@ -9,54 +9,53 @@ import java.util.ArrayList;
  */
 public class FloorSwitch extends Entity implements GoalSubject {
 
-   private ArrayList<GoalObserver> goalObservers;
+	private ArrayList<GoalObserver> goalObservers;
 
-   /**
-    * create a new floor switch
-    * @param x x position of the floor switch
-    * @param y y position of the floor switch
-    */
-   public FloorSwitch(int x, int y) {
-      super(x, y, false);
-      this.goalObservers = new ArrayList<GoalObserver>();
-   }
+	/**
+	 * create a new floor switch
+	 * @param x x position of the floor switch
+	 * @param y y position of the floor switch
+	 */
+	public FloorSwitch(int x, int y) {
+		super(x, y, false);
+		this.goalObservers = new ArrayList<GoalObserver>();
+	}
 
-   /**
-    * activate the floor switch (when a boulder is on top)
-    */
-   public void activate() {
-      notifyObserversOfIncrease();
-   }
+	/**
+	 * activate the floor switch (when a boulder is on top)
+	 */
+	public void activate() {
+		notifyObserversOfIncrease();
+	}
 
-   /**
-    * deactivate the floor switch (when a boulder is no longer on top)
-    */
-   public void deactivate() {
-      notifyObserversOfDecrease();
-   }
+	/**
+	 * deactivate the floor switch (when a boulder is no longer on top)
+	 */
+	public void deactivate() {
+		notifyObserversOfDecrease();
+	}
 
-   @Override
-   public void addObserver(GoalObserver o) {
-      this.goalObservers.add(o);
-   }
+	@Override
+	public void addObserver(GoalObserver o) {
+		this.goalObservers.add(o);
+	}
 
-   @Override
-   public void removeObserver(GoalObserver o) {
-      this.goalObservers.remove(o);
-   }
+	@Override
+	public void removeObserver(GoalObserver o) {
+		this.goalObservers.remove(o);
+	}
 
-   @Override
-   public void notifyObserversOfIncrease() {
-      for (GoalObserver go : this.goalObservers) {
-         go.increaseProgress();
-      }  
-   }
+	@Override
+	public void notifyObserversOfIncrease() {
+		for (GoalObserver go : this.goalObservers) {
+			go.increaseProgress();
+		}  
+	}
 
-   @Override
-   public void notifyObserversOfDecrease() {
-      for (GoalObserver go : this.goalObservers) {
-         go.decreaseProgress();
-      }  
-   }
-
+	@Override
+	public void notifyObserversOfDecrease() {
+		for (GoalObserver go : this.goalObservers) {
+			go.decreaseProgress();
+		}  
+	}
 }
