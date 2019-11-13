@@ -35,6 +35,7 @@ public class LevelEditorController {
 	private int width;
 	private int height;
 	
+	// used for the floor
 	private Image dirtImage;
 
 	@FXML
@@ -170,7 +171,7 @@ public class LevelEditorController {
 		selected = "Wall";
 		dirtImage = new Image("/dirt_0_new.png");
 		tileID.setVisible(false);
-		dName.setText("My New Dungeon");
+		dName.setText("New Dungeon");
 
 		tiles = new ArrayList<>();
 
@@ -192,19 +193,22 @@ public class LevelEditorController {
 		// Setup background
 		setUpSquares();
 		
+		// these entities need an id!
 		ArrayList<String> idList = new ArrayList<>();
 		idList.add("Key");
 		idList.add("Door");
 		idList.add("Portal");
-
+		
+		// create menu options for each entity
 		for (String e : entities) {
 			MenuItem m = new MenuItem(e);
+			
+			// when an entity is selected
 			m.setOnAction(event -> {
 				dropDown.setText(e);
 				selected = e;
 				if (idList.contains(selected)) {
 					tileID.setVisible(true);
-//					tileID.managedProperty
 				} else {
 					tileID.setVisible(false);
 				}
