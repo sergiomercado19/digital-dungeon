@@ -42,25 +42,28 @@ public class Boulder extends Entity implements Movable {
 			this.floorSwitch = null;
 		}
 	}
-	
+
 	@Override
 	public boolean canCollide(Player p, Direction d) {
 		int x, y;
 		x = getX();
 		y = getY();
-		
+		int width, height;
+		width = dungeon.getWidth();
+		height = dungeon.getHeight();
+
 		switch (d) {
 		case UP:
-			y = y - 1;
+			y = Math.floorMod(y - 1, height);
 			break;
 		case DOWN:
-			y = y + 1;
+			y = Math.floorMod(y + 1, height);
 			break;
 		case LEFT:
-			x = x - 1;
+			x = Math.floorMod(x - 1, width);
 			break;
 		case RIGHT:
-			x = x + 1;
+			x = Math.floorMod(x + 1, width);
 			break;
 		}
 
@@ -71,42 +74,100 @@ public class Boulder extends Entity implements Movable {
 		}
 		return canMove;
 	}
-	
+
 	@Override
 	public void collide(Player p, Direction d) {
 		int x, y;
 		x = getX();
 		y = getY();
-		
+		int width, height;
+		width = dungeon.getWidth();
+		height = dungeon.getHeight();
+
 		switch (d) {
 		case UP:
-			y = y - 1;
+			y = Math.floorMod(y - 1, height);
 			break;
 		case DOWN:
-			y = y + 1;
+			y = Math.floorMod(y + 1, height);
 			break;
 		case LEFT:
-			x = x - 1;
+			x = Math.floorMod(x - 1, width);
 			break;
 		case RIGHT:
-			x = x + 1;
+			x = Math.floorMod(x + 1, width);
 			break;
 		}
 		// already been checked so should be safe to move?
-		setPosition(x, y);
+				setPosition(x, y);
 		// Deactivate floorSwitch before moving
-		deactivateSwitch();
+				deactivateSwitch();
 	}
-	
+
 	@Override
 	public boolean canCollide(Boulder b, Direction d) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean canCollide(Enemy e, Direction d) {
-		// for now, enemies cannot collide
-		return false;
+		int x, y;
+		x = getX();
+		y = getY();
+		int width, height;
+		width = dungeon.getWidth();
+		height = dungeon.getHeight();
+
+		switch (d) {
+		case UP:
+			y = Math.floorMod(y - 1, height);
+			break;
+		case DOWN:
+			y = Math.floorMod(y + 1, height);
+			break;
+		case LEFT:
+			x = Math.floorMod(x - 1, width);
+			break;
+		case RIGHT:
+			x = Math.floorMod(x + 1, width);
+			break;
+		}
+
+		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
+		boolean canMove = true;
+		for(Entity e1 : tileEntities) {
+			if(!e1.canCollide(this, d)) canMove = false;
+		}
+		return canMove;
+	}
+
+	@Override
+	public void collide(Enemy e, Direction d) {
+		int x, y;
+		x = getX();
+		y = getY();
+		int width, height;
+		width = dungeon.getWidth();
+		height = dungeon.getHeight();
+
+		switch (d) {
+		case UP:
+			y = Math.floorMod(y - 1, height);
+			break;
+		case DOWN:
+			y = Math.floorMod(y + 1, height);
+			break;
+		case LEFT:
+			x = Math.floorMod(x - 1, width);
+			break;
+		case RIGHT:
+			x = Math.floorMod(x + 1, width);
+			break;
+		}
+		// already been checked so should be safe to move?
+				setPosition(x, y);
+		// Deactivate floorSwitch before moving
+				deactivateSwitch();
 	}
 
 	@Override
