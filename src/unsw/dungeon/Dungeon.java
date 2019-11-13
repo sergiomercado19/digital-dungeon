@@ -5,6 +5,9 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 /**
  * A dungeon in the interactive dungeon player.
  *
@@ -21,6 +24,7 @@ public class Dungeon {
    private Player player;
    private GoalComponent goal;
    private DungeonState state;
+   private BooleanProperty isGameOver;
 
    /**
     * create a new dungeon
@@ -34,6 +38,11 @@ public class Dungeon {
       this.player = null;
       this.goal = null;
       this.state = DungeonState.INITIALIZING;
+      this.isGameOver = new SimpleBooleanProperty(false);
+   }
+   
+   public BooleanProperty isGameOver() {
+      return this.isGameOver;
    }
 
    /**
@@ -144,7 +153,10 @@ public class Dungeon {
          e.moveTowardsPlayer();
       }
 
-      if (this.goal != null && this.goal.isComplete()) this.state = DungeonState.WON;
+      if (this.goal != null && this.goal.isComplete()) {
+         this.state = DungeonState.WON;
+         this.isGameOver.set(true);
+      }
    }
 
    /**
@@ -163,6 +175,7 @@ public class Dungeon {
       } else {
          this.removeEntity(player);
          this.setState(DungeonState.LOST);
+         this.isGameOver.set(true);
       }
    }
 
