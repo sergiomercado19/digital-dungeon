@@ -279,14 +279,14 @@ public class LevelEditorController {
 		entities.add("player");
 		entities.add("wall");
 		entities.add("boulder");
+		entities.add("switch");
 		entities.add("treasure");
 		entities.add("key");
 		entities.add("door");
+		entities.add("enemy");
 		entities.add("sword");
 		entities.add("invincibility");
 		entities.add("portal");
-		entities.add("enemy");
-		entities.add("switch");
 		entities.add("exit");
 
 		// Setup background

@@ -61,10 +61,10 @@
          <content>
             <Pane>
                <children>
-                  <CheckBox fx:id="exitGoal" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" text="Exit" />
-                  <CheckBox fx:id="enemiesGoal" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" text="Enemies" />
-                  <CheckBox fx:id="treasureGoal" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" text="Treasure" />
-                  <CheckBox fx:id="switchGoal" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" text="Floor switches" />
+                  <CheckBox fx:id="exitGoal" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" text="Exit dungeon" />
+                  <CheckBox fx:id="enemiesGoal" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" text="Kill all enemies" />
+                  <CheckBox fx:id="treasureGoal" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" text="Collect all treasure" />
+                  <CheckBox fx:id="switchGoal" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" text="Trigger all switches" />
                   <TextField fx:id="dWidth" layoutX="14.0" layoutY="153.0" promptText="Width" />
                   <TextField fx:id="dHeight" layoutX="14.0" layoutY="181.0" promptText="Height" />
                   <Button layoutX="14.0" layoutY="209.0" mnemonicParsing="false" onAction="#setDim" text="Set dimensions (resets editor!)" />
