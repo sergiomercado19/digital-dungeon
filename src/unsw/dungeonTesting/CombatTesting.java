@@ -98,7 +98,7 @@ public class CombatTesting {
 
       assertEquals(preX - 1, post1X, "Chase player");
       assertEquals(preY, post1Y, "Chase player");
-      assertEquals(true, player.hasSword(), "Player picks up sword");
+      assertEquals(true, player.hasSword().get(), "Player picks up sword");
       assertEquals(5, player.getSwordHits(), "Player has 5 sword hits left");
 
       player.makeMove(Direction.RIGHT);
@@ -156,7 +156,7 @@ public class CombatTesting {
       assertEquals(0, player.getSwordHits(), "Player kills enemy and has 0 sword hits left");
 
       // Sword breaks
-      assertEquals(false, player.hasSword(), "Sword breaks after being used 5 times");
+      assertEquals(false, player.hasSword().get(), "Sword breaks after being used 5 times");
    }
 
    // US14
@@ -177,7 +177,7 @@ public class CombatTesting {
 
       assertEquals(preX + 1, post1X, "Flee from player");
       assertEquals(preY, post1Y, "Flee from player");
-      assertEquals(true, player.isInvincible(), "Player picks up invincibility potion");
+      assertEquals(true, player.isInvincible().get(), "Player picks up invincibility potion");
       assertEquals(15, player.getInvincibilityLeft(), "Invincibility lasts 15 moves");
 
       player.makeMove(Direction.RIGHT);
