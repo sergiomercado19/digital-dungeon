@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
@@ -87,6 +88,10 @@ public class DungeonController {
       resetIcon.layoutYProperty().bind(resetButton.heightProperty().subtract(resetIcon.getFitHeight()).divide(2));
       ImageView exitIcon = new ImageView(new Image("/icon_exit.png"));
       exitButton.getChildren().add(exitIcon);
+      exitIcon.setFitHeight(40);
+      exitIcon.setFitWidth(40);
+      exitIcon.layoutXProperty().bind(resetButton.widthProperty().subtract(exitIcon.getFitWidth()).divide(2));
+      exitIcon.layoutYProperty().bind(resetButton.heightProperty().subtract(exitIcon.getFitHeight()).divide(2));
       
       // Setup DungeonState trackers
       this.dungeon.isGameOver().addListener(new ChangeListener<Boolean>() {
@@ -147,6 +152,12 @@ public class DungeonController {
             break;
          }
       }
+   }
+   
+   // allow the player to click the game screen to regain focus
+   @FXML
+   public void getFocus(Event e) {
+	   ((Node) e.getSource()).requestFocus();
    }
    
    @FXML

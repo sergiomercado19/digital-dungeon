@@ -73,6 +73,7 @@
                   <Text layoutX="14.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions:" />
                </children>
             </Pane>
-         </content></Tab>
+         </content>
+      </Tab>
    </tabs>
 </TabPane>
