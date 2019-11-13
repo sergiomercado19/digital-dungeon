@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <SplitPane dividerPositions="0.5" onKeyPressed="#handleKeyPress" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -21,9 +23,19 @@
          </GridPane>
          </children>
       </AnchorPane>
-    <AnchorPane>
+    <AnchorPane fx:id="statusBar" SplitPane.resizableWithParent="false">
          <children>
-         <TreeView fx:id="goalsTree" prefHeight="88.0" />
+            <HBox fx:id="toolbar" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane fx:id="resetButton" minHeight="48.0" minWidth="48.0" onMouseClicked="#handleReset" prefHeight="48.0" prefWidth="48.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" />
+                  <Pane fx:id="banner" prefHeight="200.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+                     <children>
+                     <TreeView fx:id="goalsTree" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="exitButton" minHeight="48.0" minWidth="48.0" onMouseClicked="#handleExit" prefHeight="48.0" prefWidth="48.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #0d0d0e; -fx-background-color: #beb3b1; -fx-border-width: 3;" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
   </items>

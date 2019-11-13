@@ -19,6 +19,7 @@ public class DungeonScreen extends Stage {
 
       dungeonLoader = new DungeonControllerLoader(name + ".json");
       controller = dungeonLoader.loadController();
+      controller.setDungeonName(name);
 
       FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
       loader.setController(controller);
