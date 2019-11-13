@@ -31,10 +31,6 @@ public class MainMenuScreen {
 		controller.setLevelScreen(levelScreen);
 	}
 
-	public void setEditorScreen(LevelEditorScreen editorScreen) {
-		controller.setEditorScreen(editorScreen);
-	}
-
 	public void start() {
 		stage.setTitle(title);
 		stage.setScene(scene);

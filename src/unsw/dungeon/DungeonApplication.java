@@ -15,12 +15,10 @@ public class DungeonApplication extends Application {
       // Initialize menu pages
       MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
       LevelMenuScreen levelMenuScreen = new LevelMenuScreen(primaryStage);
-	   LevelEditorScreen levelEditorScreen = new LevelEditorScreen(primaryStage);
 
       // Link menu pages
 	   mainMenuScreen.setLevelMenuScreen(levelMenuScreen);
       levelMenuScreen.setMainScreen(mainMenuScreen);
-      mainMenuScreen.setEditorScreen(levelEditorScreen);
 
       // Play music
       AudioClip audio = new AudioClip(getClass().getResource("/background.wav").toExternalForm());
@@ -29,8 +27,6 @@ public class DungeonApplication extends Application {
       audio.play();
       
       mainMenuScreen.start();
-
-//	   levelEditorScreen.start();
 
    }
 
