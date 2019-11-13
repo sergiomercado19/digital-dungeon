@@ -13,20 +13,23 @@ public class DungeonApplication extends Application {
    public void start(Stage primaryStage) throws IOException {
 
       // Initialize menu pages
-      MainMenuScreen menuScreen = new MainMenuScreen(primaryStage);
-      LevelMenuScreen levelScreen = new LevelMenuScreen(primaryStage);
+      MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
+      LevelMenuScreen levelMenuScreen = new LevelMenuScreen(primaryStage);
+	   LevelEditorScreen levelEditorScreen = new LevelEditorScreen(primaryStage);
 
       // Link menu pages
-      menuScreen.setLevelScreen(levelScreen);
-      levelScreen.setMainScreen(menuScreen);
+	   mainMenuScreen.setLevelMenuScreen(levelMenuScreen);
+      levelMenuScreen.setMainScreen(mainMenuScreen);
 
       // Play music
       AudioClip audio = new AudioClip(getClass().getResource("/background.wav").toExternalForm());
       audio.setVolume(0.3f);
       audio.setCycleCount(MediaPlayer.INDEFINITE);
       audio.play();
+      
+      mainMenuScreen.start();
 
-      menuScreen.start();
+//	   levelEditorScreen.start();
 
    }
 
