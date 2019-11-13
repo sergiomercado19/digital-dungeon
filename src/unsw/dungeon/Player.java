@@ -2,6 +2,9 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 /**
  * The player entity
  * @author Sergio Mercado Ruiz & Rory Madden
@@ -13,6 +16,7 @@ public class Player extends Entity implements Movable {
 	private ArrayList<Integer> keyIDs; 
 	private int swordHits;
 	private int invincibilityLeft;
+	private BooleanProperty hasSwordBool;
 
 	/**
 	 * create a new player
@@ -26,6 +30,8 @@ public class Player extends Entity implements Movable {
 		this.keyIDs = new ArrayList<>();
 		this.swordHits = 0;
 		this.invincibilityLeft = 0;
+		
+		this.hasSwordBool = new SimpleBooleanProperty(false);
 	}
 
 	/**
@@ -52,6 +58,7 @@ public class Player extends Entity implements Movable {
 		if (this.swordHits == 0) {
 			this.swordHits += 5;
 			this.dungeon.removeEntity(s);
+			this.hasSwordBool.set(true);
 		}
 	}
 
@@ -61,8 +68,16 @@ public class Player extends Entity implements Movable {
 	public void hitEnemy() {
 		if (this.swordHits > 0) {
 			this.swordHits--;
+			if (swordHits == 0) {
+				this.hasSwordBool.set(false);
+			}
 		}
 	}
+	
+	// FIXME observable
+	public BooleanProperty hasSwordBool() {
+	      return this.hasSwordBool;
+	   }
 
 	/**
 	 * turn the player invincible for a certain length of time (tiles travelled)
