@@ -29,4 +29,14 @@ public class SoundEffects {
       audio.play();
    }
    
+   public static void playVictoryTune() {
+      AudioClip audio = new AudioClip(SoundEffects.class.getResource("/game_won.mp3").toExternalForm());
+      audio.play();
+   }
+   
+   public static void playDefeatTune() {
+      AudioClip audio = new AudioClip(SoundEffects.class.getResource("/game_lost.mp3").toExternalForm());
+      audio.play();
+   }
+   
 }
