@@ -90,12 +90,22 @@ public class LevelMenuController {
    
    public void showLevels() {
       if (this.dirListing != null) {
-         for (int i = this.pageNum*4; i < this.dirListing.length && i < 4; i++) {
-            File dungeon = this.dirListing[i];
+         int i;
+         int start = this.pageNum*4;
+         
+         for (i = 0; start+i < this.dirListing.length && i < 4; i++) {
+            File dungeon = this.dirListing[start+i];
             String name = dungeon.getName().substring(0, dungeon.getName().length()-5);
 
             previews[i].setImage(new Image("/preview_" + name + ".png"));
             labels[i].setText(name);
+         }
+         
+         // Set remaining spaces to nothing
+         while (i < 4) {
+            previews[i].setImage(null);
+            labels[i].setText("");
+            i++;
          }
       }
    }
@@ -117,7 +127,7 @@ public class LevelMenuController {
    
    @FXML
    public void handleNextPage() {
-      if (this.pageNum < Math.ceil(this.pageNum/4.0)) this.pageNum++;
+      if (this.pageNum < Math.ceil(this.dirListing.length/4.0) - 1) this.pageNum++;
       this.showLevels();
    }
    
