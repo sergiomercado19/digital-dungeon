@@ -7,16 +7,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LevelEditorScreen {
-   private Stage stage;
-   private String title;
+public class LevelEditorScreen extends Stage {
+
    private LevelEditorController controller;
 
    private Scene scene;
 
-   public LevelEditorScreen(Stage stage) throws IOException {
-      this.stage = stage;
-      title = "Digital Dungeon - Level Editor";
+   public LevelEditorScreen() throws IOException {
+      this.setTitle("Digital Dungeon - Level Editor");
 
       controller = new LevelEditorController();
       FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelEditor.fxml"));
@@ -25,12 +23,9 @@ public class LevelEditorScreen {
       // load into a Parent node called root
       Parent root = loader.load();
       scene = new Scene(root);
-   }
-   
-   public void start() {
-      stage.setTitle(title);
-      stage.setScene(scene);
-      stage.show();
+
+      this.setScene(scene);
+      this.show();
    }
 
    public LevelEditorController getController() {
