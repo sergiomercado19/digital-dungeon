@@ -15,14 +15,10 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -34,7 +30,6 @@ public class LevelEditorController {
 	private String selected;
 	private int width;
 	private int height;
-	//	private Image dirtImage;
 
 	@FXML
 	private GridPane squares;
@@ -68,21 +63,12 @@ public class LevelEditorController {
 
 	@FXML
 	void setDim(ActionEvent event) {
+		tiles.clear();
 		width = Integer.parseInt(dWidth.getText());
 		height = Integer.parseInt(dHeight.getText());
 		setUpSquares();
 	}
 
-	//    @FXML
-	//    private TextField dimX;
-	//
-	//    @FXML
-	//    private TextField dimY;
-	//
-	//    @FXML
-	//    void setDims(ActionEvent event) {
-	//
-	//    }
 	@FXML
 	void doExport(ActionEvent event) {
 		JSONObject dungeon = new JSONObject();
@@ -136,7 +122,6 @@ public class LevelEditorController {
 
 		WritableImage image = squares.snapshot(new SnapshotParameters(), null);
 
-		// TODO: probably use a file chooser here
 		File file = new File("images/preview_" + dName.getText() + ".png");
 
 		try {
@@ -144,8 +129,6 @@ public class LevelEditorController {
 		} catch (IOException e) {
 			// TODO: handle exception here
 		}
-
-		//		setUpSquares(15,15);
 	}
 
 	public void setUpSquares() {
@@ -171,8 +154,6 @@ public class LevelEditorController {
 	public void initialize() {
 		height = 10;
 		width = 10;
-		//		dirtImage = new Image("/dirt_0_new.png");
-		//		ImageView backg = new ImageView(dirtImage);
 		selected = "Wall";
 
 		tiles = new ArrayList<>();

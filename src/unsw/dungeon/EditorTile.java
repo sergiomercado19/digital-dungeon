@@ -1,11 +1,9 @@
 package unsw.dungeon;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-//import unsw.venues.Reservation;
 
 public class EditorTile {
 	private int x, y;
