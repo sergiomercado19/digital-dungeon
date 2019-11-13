@@ -2,8 +2,6 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
-import javafx.scene.media.AudioClip;
-
 /**
  * a "pile of treasure", which when picked up will go towards the total treasure the player has picked up
  * Collectable under the strategy pattern
@@ -25,8 +23,7 @@ public class Treasure extends Entity implements Item, GoalSubject {
       player.pickupTreasure(this);
       
       // Play sound
-      AudioClip audio = new AudioClip(getClass().getResource("/pickup_treasure.mp3").toExternalForm());
-      audio.play();
+      SoundEffects.playPickupTreasure();
    }
 
    @Override
