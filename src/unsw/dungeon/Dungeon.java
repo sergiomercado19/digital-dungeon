@@ -5,8 +5,6 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
-import javafx.scene.media.AudioClip;
-
 /**
  * A dungeon in the interactive dungeon player.
  *
@@ -156,8 +154,7 @@ public class Dungeon {
          this.removeEntity((Entity) enemy);
          
          // Play sound
-         AudioClip audio = new AudioClip(getClass().getResource("/sword_kill.mp3").toExternalForm());
-         audio.play();
+         SoundEffects.playSwordKill();
       } else {
          this.removeEntity(player);
          this.setState(DungeonState.LOST);
