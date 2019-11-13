@@ -11,7 +11,6 @@ public class EditorTile {
 	private Image image;
 	private String type;
 
-	private Image dirtImage;
 	private Image playerImage;
 	private Image wallImage;
 	private Image boulderImage;
@@ -26,7 +25,6 @@ public class EditorTile {
 	private Image exitImage;
 
 	public EditorTile(int x, int y) {
-		dirtImage = new Image("/dirt_0_new.png");
 		playerImage = new Image("/human_new.png");
 		wallImage = new Image("/brick_brown_0.png");
 		boulderImage = new Image("/boulder.png");
@@ -43,7 +41,7 @@ public class EditorTile {
 		this.x = x;
 		this.y = y;
 		this.ID = -1;
-		this.image = dirtImage;
+		this.image = null;
 		this.type = null;
 		
 	}
@@ -52,22 +50,26 @@ public class EditorTile {
 		switch(tileName) {
 		case "Eraser":
 			this.ID = -1;
-			image = dirtImage;
+			image = null;
 			type = null;
 			break;
 		case "Player":
+			this.ID = -1;
 			image = playerImage;
 			type = "player";
 			break;
 		case "Wall":
+			this.ID = -1;
 			image = wallImage;
 			type = "wall";
 			break;
 		case "Boulder":
+			this.ID = -1;
 			image = boulderImage;
 			type = "boulder";
 			break;
 		case "Treasure":
+			this.ID = -1;
 			image = treasureImage;
 			type = "treasure";
 			break;
@@ -82,10 +84,12 @@ public class EditorTile {
 			type = "door";
 			break;
 		case "Sword":
+			this.ID = -1;
 			image = swordImage;
 			type = "sword";
 			break;
 		case "Invincibility":
+			this.ID = -1;
 			image = invincibilityImage;
 			type = "invincibility";
 			break;
@@ -95,14 +99,17 @@ public class EditorTile {
 			type = "portal";
 			break;
 		case "Enemy":
+			this.ID = -1;
 			image = enemyImage;
 			type = "enemy";
 			break;
 		case "Floor switch":
+			this.ID = -1;
 			image = floorSwitchImage;
 			type = "switch";
 			break;
 		case "Exit":
+			this.ID = -1;
 			image = exitImage;
 			type = "exit";
 			break;

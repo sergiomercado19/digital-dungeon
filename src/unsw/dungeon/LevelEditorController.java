@@ -19,6 +19,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -30,6 +32,8 @@ public class LevelEditorController {
 	private String selected;
 	private int width;
 	private int height;
+	
+	private Image dirtImage;
 
 	@FXML
 	private GridPane squares;
@@ -76,7 +80,6 @@ public class LevelEditorController {
 		dungeon.put("height", height);
 
 		JSONArray entities = new JSONArray();
-
 		for (EditorTile t : tiles) {
 			JSONObject j = t.toJSON();
 			if (j != null) entities.put(j);
@@ -109,8 +112,7 @@ public class LevelEditorController {
 		goals.put("subgoals", subgoals);
 		dungeon.put("goal-condition", goals);
 
-		System.out.println(dungeon.toString(2));
-
+		// generate json
 		try {
 			PrintWriter out = new PrintWriter("dungeons/" + dName.getText() + ".json");
 			out.print(dungeon.toString(2));
@@ -120,10 +122,9 @@ public class LevelEditorController {
 			e.printStackTrace();
 		}
 
+		// generate preview image
 		WritableImage image = squares.snapshot(new SnapshotParameters(), null);
-
 		File file = new File("images/preview_" + dName.getText() + ".png");
-
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
 		} catch (IOException e) {
@@ -135,12 +136,19 @@ public class LevelEditorController {
 		squares.getChildren().clear();
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
+				// add dirt floor under everything
+				ImageView i = new ImageView(dirtImage);
+				squares.add(i, x, y);
+				
+				// add a pane on top to hold other items
 				Pane p = new Pane();
 				GridPane.setConstraints(p, x, y);
 				squares.add(p, x, y);
 				EditorTile e = new EditorTile(x, y);
 				tiles.add(e);
 				p.getChildren().add(e.getTile());
+				
+				// keep track of the item in the pane
 				p.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 					p.getChildren().clear();
 					e.setTile(selected, tileID.getText());
@@ -155,6 +163,7 @@ public class LevelEditorController {
 		height = 10;
 		width = 10;
 		selected = "Wall";
+		dirtImage = new Image("/dirt_0_new.png");
 
 		tiles = new ArrayList<>();
 
