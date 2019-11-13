@@ -26,6 +26,10 @@ public class EditorTile {
 		this.ID = ID;
 	}
 	
+	public boolean isEmpty() {
+		return currType.get().equals("empty");
+	}
+	
 	public StringProperty currType() {
 		return this.currType;
 	}

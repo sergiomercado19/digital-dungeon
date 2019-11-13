@@ -98,8 +98,10 @@ public class LevelEditorController {
 
 		JSONArray entities = new JSONArray();
 		for (EditorTile t : tiles) {
-			JSONObject j = t.toJSON();
-			if (j != null) entities.put(j);
+			if (!t.isEmpty()) {
+				JSONObject j = t.toJSON();				
+				entities.put(j);
+			}
 		}
 		dungeon.put("entities", entities);
 
@@ -169,21 +171,31 @@ public class LevelEditorController {
 				trackChanges(e, l);
 				
 				p.setOnMouseDragEntered(event -> {
-					if (selected.contentEquals("eraser")) selected = "empty";
-					if (tileID.isDisable()) {
-						e.setTile(selected);
-					} else {
-						e.setTile(selected, (int)tileID.getValue());
-					}
+					if (event.isPrimaryButtonDown()) {
+						if (selected.contentEquals("eraser")) selected = "empty";
+						if (tileID.isDisable()) {
+							e.setTile(selected);
+						} else {
+							e.setTile(selected, (int)tileID.getValue());
+						}
+			        }
+			        if (event.isSecondaryButtonDown()) {
+			        	e.setTile("empty");
+			        }
 				});
 				
-				p.setOnMouseClicked(event -> {
-					if (selected.contentEquals("eraser")) selected = "empty";
-					if (tileID.isDisable()) {
-						e.setTile(selected);
-					} else {
-						e.setTile(selected, (int)tileID.getValue());
-					}
+				p.setOnMousePressed(event -> {
+					if (event.isPrimaryButtonDown()) {
+						if (selected.contentEquals("eraser")) selected = "empty";
+						if (tileID.isDisable()) {
+							e.setTile(selected);
+						} else {
+							e.setTile(selected, (int)tileID.getValue());
+						}
+			        }
+			        if (event.isSecondaryButtonDown()) {
+			        	e.setTile("empty");
+			        }
 				});
 			}
 		}
