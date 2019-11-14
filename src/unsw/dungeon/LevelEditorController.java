@@ -18,10 +18,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -81,6 +84,9 @@ public class LevelEditorController {
 
 	@FXML
 	private TextField dName;
+	
+	@FXML
+	private TabPane tabs;
 
 	@FXML
 	void setDim(ActionEvent event) {
@@ -88,6 +94,9 @@ public class LevelEditorController {
 		width = Integer.parseInt(dWidth.getText());
 		height = Integer.parseInt(dHeight.getText());
 		setUpSquares();
+		
+		tabs.getSelectionModel().select(0);
+		tabs.getScene().getWindow().sizeToScene();
 	}
 
 	@FXML
@@ -148,6 +157,15 @@ public class LevelEditorController {
 		} catch (IOException e) {
 			System.out.println("Error writing to file");
 		}
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Level exported");
+		alert.setHeaderText("Level exported");
+		alert.setContentText("Your level was successfully exported! You can now play it from the level menu.");
+		alert.showAndWait();
+		
+		tabs.getScene().getWindow().hide();
+
 	}
 
 	public void setUpSquares() {
