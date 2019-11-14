@@ -76,7 +76,6 @@ public class Player extends Entity implements Movable {
 		}
 	}
 
-	// FIXME observable
 	public BooleanProperty hasSword() {
 		return this.hasSword;
 	}

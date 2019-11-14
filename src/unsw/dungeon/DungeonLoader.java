@@ -3,8 +3,11 @@ package unsw.dungeon;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -38,33 +41,74 @@ public abstract class DungeonLoader {
 
 		// 1. Create dungeon
 		Dungeon dungeon = new Dungeon(width, height);
-
 		JSONArray jsonEntities = json.getJSONArray("entities");
-
-		// 2. Load entities
+		
+		// 2. Sort entities by Z position
+		
+		// Convert JSONArray to ArrayList
+		ArrayList<JSONObject> entitiesList = new ArrayList<JSONObject>();
 		for (int i = 0; i < jsonEntities.length(); i++) {
-			loadEntity(dungeon, jsonEntities.getJSONObject(i));
+		   entitiesList.add(jsonEntities.getJSONObject(i));
+      }
+		
+		// Define comparator based on Z position
+		Collections.sort(entitiesList, new Comparator<JSONObject>() {
+         private static final String KEY_NAME = "type";
+         @Override
+         public int compare(JSONObject a, JSONObject b) {
+            String aType = new String();
+            String bType = new String();
+            try {
+               aType = (String)a.get(KEY_NAME);
+               bType = (String)b.get(KEY_NAME);
+            } catch(JSONException e) {
+               e.printStackTrace();
+            }
+            
+            int aZPos = getTypeZPosition(aType);
+            int bZPos = getTypeZPosition(bType);
+            return aZPos - bZPos;
+         }
+      });
+		
+		// 3. Load entities
+		for (JSONObject entity : entitiesList) {
+			loadEntity(dungeon, entity);
 		}
 
-		// 3. Alert enemies of players
-		dungeon.alertEnemies();
-
-		// 4. Link portals
-		dungeon.linkPortals();
-		
-		// 5. Link keys to doors
-		dungeon.linkKeysToDoors();
-
-		// 6. Set dungeon goals
-		dungeon.setGoals(loadGoal(dungeon, json.getJSONObject("goal-condition")));
+		// 4. Initialize dungeon
+		dungeon.initialize(loadGoal(dungeon, json.getJSONObject("goal-condition")));
 		addGoal(dungeon.getGoal());
 
-		// 7. Start dungeon
+		// 5. Start dungeon
 		dungeon.setState(DungeonState.INPROGRESS);
 
 		return dungeon;
 	}
 
+	private int getTypeZPosition(String type) {
+	   switch (type) {
+	   case "wall":
+	   case "door":
+	   case "portal":
+	   case "exit":
+	   case "switch":
+	      return 0;
+	   case "sword":
+	   case "invincibility":
+	   case "treasure":
+	   case "key":
+	      return 1;
+	   case "player":
+      case "enemy":
+         return 2;
+      case "boulder":
+         return 3;
+      default:
+         return 4;
+      }
+	}
+	
 	/**
 	 * load a goal from json into a dungeon
 	 * @param dungeon the dungeon to load the goal into
