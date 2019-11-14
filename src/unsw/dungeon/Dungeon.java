@@ -41,6 +41,36 @@ public class Dungeon {
       this.isGameOver = new SimpleBooleanProperty(false);
    }
    
+   public void initialize(GoalComponent goals) {
+      // 1. Alert enemies of players
+      this.alertEnemies();
+
+      // 2. Link portals
+      this.linkPortals();
+      
+      // 3. Link keys to doors
+      this.linkKeysToDoors();
+      
+      // 4. Set dungeon goals
+      this.setGoals(goals);
+      
+      // 5. Trigger floorSwitches that start with boulders on them
+      this.checkFloorSwitchState();
+      
+   }
+   
+   
+   private void checkFloorSwitchState() {
+      ArrayList<FloorSwitch> floorSwitches = getFloorSwitches();
+      for (FloorSwitch fs : floorSwitches) {
+         ArrayList<Entity> tileEntities = checkTile(fs.getX(), fs.getY());
+         for (Entity e : tileEntities) {
+            if (e instanceof Boulder) fs.activate();
+         }
+      }
+      
+   }
+
    public BooleanProperty isGameOver() {
       return this.isGameOver;
    }
@@ -247,6 +277,18 @@ public class Dungeon {
       ArrayList<Enemy> res = new ArrayList<Enemy>();
       for (Entity e : this.entities) {
          if (e instanceof Enemy) res.add((Enemy) e); 
+      }
+      return res;
+   }
+   
+   /**
+    * get a list of floorSwitches in the dungeon
+    * @return a list of floor floorSwitches
+    */
+   public ArrayList<FloorSwitch> getFloorSwitches() {
+      ArrayList<FloorSwitch> res = new ArrayList<FloorSwitch>();
+      for (Entity e : this.entities) {
+         if (e instanceof FloorSwitch) res.add((FloorSwitch) e); 
       }
       return res;
    }
