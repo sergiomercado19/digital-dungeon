@@ -80,7 +80,7 @@ public class PatrolStrategy implements EnemyStrategy {
 	private boolean canPatrol(Dungeon d, int x, int y) {
 		ArrayList<Entity> tileEntities = d.checkTile(x, y);
 		for (Entity e : tileEntities) {
-			if (!e.isSolid()) {
+			if (e.isSolid()) {
 				return false;
 			}
 		}
