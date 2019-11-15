@@ -20,13 +20,6 @@ public class Boulder extends Entity implements Movable {
 	public Boulder(Dungeon dungeon, int x, int y) {
 		super(x, y, false);
 		this.dungeon = dungeon;
-
-		if (this.dungeon != null) {		   
-		   ArrayList<Entity> tileEntities = this.dungeon.checkTile(x, y);
-		   for(Entity e : tileEntities) {
-		      if(e instanceof FloorSwitch) ((FloorSwitch) e).activate();
-		   }
-		}
 	}
 
 	@Override
@@ -35,7 +28,7 @@ public class Boulder extends Entity implements Movable {
 	}
 	
 	@Override
-	public boolean canCollide(Enemy en, Direction d) {
+	public boolean canCollide(Enemy e, Direction d) {
 		return canMove(d);
 	}
 	
@@ -78,11 +71,6 @@ public class Boulder extends Entity implements Movable {
 		width = dungeon.getWidth();
 		height = dungeon.getHeight();
 
-		// check if we already on top of a floor switch, and are moving off
-		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
-		for(Entity e : tileEntities) {
-			if(e instanceof FloorSwitch) ((FloorSwitch) e).deactivate();
-		}
 
 		switch (d) {
 		case UP:
@@ -101,14 +89,9 @@ public class Boulder extends Entity implements Movable {
 
 		setPosition(x, y);
 
+		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
 		for(Entity e : tileEntities) {
 			e.collide(this, d);
-		}
-		
-		// check if we're now on a floor switch
-		tileEntities = dungeon.checkTile(x, y);
-		for(Entity e : tileEntities) {
-			if(e instanceof FloorSwitch) ((FloorSwitch) e).activate();
 		}
 	}
 
