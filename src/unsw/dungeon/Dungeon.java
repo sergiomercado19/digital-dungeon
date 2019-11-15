@@ -210,6 +210,7 @@ public class Dungeon {
          SoundEffects.playSwordKill();
       } else {
          this.removeEntity(player);
+         this.player = null;
          this.setState(DungeonState.LOST);
          this.isGameOver.set(true);
       }
