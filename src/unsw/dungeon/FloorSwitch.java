@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class FloorSwitch extends Entity implements GoalSubject {
 
 	private ArrayList<GoalObserver> goalObservers;
+	private boolean isTriggered;
 
 	/**
 	 * create a new floor switch
@@ -19,12 +20,14 @@ public class FloorSwitch extends Entity implements GoalSubject {
 	public FloorSwitch(int x, int y) {
 		super(x, y, false);
 		this.goalObservers = new ArrayList<GoalObserver>();
+		this.isTriggered = false;
 	}
 
 	/**
 	 * activate the floor switch (when a boulder is on top)
 	 */
 	public void activate() {
+		isTriggered = true;
 		notifyObserversOfIncrease();
 	}
 
@@ -32,6 +35,7 @@ public class FloorSwitch extends Entity implements GoalSubject {
 	 * deactivate the floor switch (when a boulder is no longer on top)
 	 */
 	public void deactivate() {
+		isTriggered = false;
 		notifyObserversOfDecrease();
 	}
 
@@ -57,5 +61,24 @@ public class FloorSwitch extends Entity implements GoalSubject {
 		for (GoalObserver go : this.goalObservers) {
 			go.decreaseProgress();
 		}  
+	}
+	
+	@Override
+	public void collide(Boulder b, Direction d) {
+		activate();
+	}
+	
+	@Override
+	public void collide(Enemy e, Direction d) {
+		if (isTriggered) {
+			deactivate();
+		}
+	}
+	
+	@Override
+	public void collide(Player p, Direction d) {
+		if (isTriggered) {
+			deactivate();
+		}
 	}
 }
