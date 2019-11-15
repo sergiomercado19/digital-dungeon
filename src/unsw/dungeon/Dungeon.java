@@ -79,7 +79,7 @@ public class Dungeon {
     * set the goals the player must achieve within the dungeon
     * @param goals
     */
-   public void setGoals(GoalComponent goals) {      
+   public void setGoals(GoalComponent goals) {
       this.goal = goals;
    }
 

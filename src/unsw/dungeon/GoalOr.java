@@ -26,17 +26,16 @@ public class GoalOr implements GoalComponent {
    public GoalOr(ArrayList<GoalComponent> goals) {
       this.subgoals = goals;
       this.goalAchieved = new SimpleBooleanProperty(false);
-      this.goalProgress = new SimpleStringProperty(this.getProgress());
+      this.goalProgress = new SimpleStringProperty(getProgress());
    }
 
    @Override
    public boolean isComplete() {
-      // Update goalProgress
-      this.goalProgress.set(this.getProgress());
-      
       for (GoalComponent gc : this.subgoals) {
          if (gc.isComplete()) {
             this.goalAchieved.set(true);
+            // Update goalProgress
+            this.goalProgress.set("OR Goal: 1 / 1");
             return true;
          }
       }

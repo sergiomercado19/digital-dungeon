@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Boulder extends Entity implements Movable {
 
 	private Dungeon dungeon;
-	//	private FloorSwitch floorSwitch;
 
 	/**
 	 * create a new boulder
@@ -21,34 +20,14 @@ public class Boulder extends Entity implements Movable {
 	public Boulder(Dungeon dungeon, int x, int y) {
 		super(x, y, false);
 		this.dungeon = dungeon;
-		//		this.floorSwitch = null;
 
-		// check if we already on top of a floor switch
-		// FIXME Doesn't work if a floor switch is loaded after? idk
-		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
-		for(Entity e : tileEntities) {
-			if(e instanceof FloorSwitch) ((FloorSwitch) e).activate();
+		if (this.dungeon != null) {		   
+		   ArrayList<Entity> tileEntities = this.dungeon.checkTile(x, y);
+		   for(Entity e : tileEntities) {
+		      if(e instanceof FloorSwitch) ((FloorSwitch) e).activate();
+		   }
 		}
 	}
-
-	/**
-	 * trigger a floor switch when the boulder is on top
-	 * @param s
-	 */
-	//	public void activateSwitch(FloorSwitch s) {
-	//		this.floorSwitch = s;
-	//		this.floorSwitch.activate();
-	//	}
-
-	/**
-	 * untrigger a floor switch when a boulder is moved off it
-	 */
-	//	public void deactivateSwitch() {
-	//		if (this.floorSwitch != null) {         
-	//			this.floorSwitch.deactivate();
-	//			this.floorSwitch = null;
-	//		}
-	//	}
 
 	@Override
 	public boolean canCollide(Player p, Direction d) {
