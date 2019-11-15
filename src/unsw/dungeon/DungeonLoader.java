@@ -42,35 +42,35 @@ public abstract class DungeonLoader {
 		// 1. Create dungeon
 		Dungeon dungeon = new Dungeon(width, height);
 		JSONArray jsonEntities = json.getJSONArray("entities");
-		
+
 		// 2. Sort entities by Z position
-		
+
 		// Convert JSONArray to ArrayList
 		ArrayList<JSONObject> entitiesList = new ArrayList<JSONObject>();
 		for (int i = 0; i < jsonEntities.length(); i++) {
-		   entitiesList.add(jsonEntities.getJSONObject(i));
-      }
-		
+			entitiesList.add(jsonEntities.getJSONObject(i));
+		}
+
 		// Define comparator based on Z position
 		Collections.sort(entitiesList, new Comparator<JSONObject>() {
-         private static final String KEY_NAME = "type";
-         @Override
-         public int compare(JSONObject a, JSONObject b) {
-            String aType = new String();
-            String bType = new String();
-            try {
-               aType = (String)a.get(KEY_NAME);
-               bType = (String)b.get(KEY_NAME);
-            } catch(JSONException e) {
-               e.printStackTrace();
-            }
-            
-            int aZPos = getTypeZPosition(aType);
-            int bZPos = getTypeZPosition(bType);
-            return aZPos - bZPos;
-         }
-      });
-		
+			private static final String KEY_NAME = "type";
+			@Override
+			public int compare(JSONObject a, JSONObject b) {
+				String aType = new String();
+				String bType = new String();
+				try {
+					aType = (String)a.get(KEY_NAME);
+					bType = (String)b.get(KEY_NAME);
+				} catch(JSONException e) {
+					e.printStackTrace();
+				}
+
+				int aZPos = getTypeZPosition(aType);
+				int bZPos = getTypeZPosition(bType);
+				return aZPos - bZPos;
+			}
+		});
+
 		// 3. Load entities
 		for (JSONObject entity : entitiesList) {
 			loadEntity(dungeon, entity);
@@ -86,29 +86,35 @@ public abstract class DungeonLoader {
 		return dungeon;
 	}
 
+	/**
+	 * get the layer number the entity should render on
+	 * e.g. important for boulders to render atop switches
+	 * @param type the type of entity
+	 * @return the layer number of the entity
+	 */
 	private int getTypeZPosition(String type) {
-	   switch (type) {
-	   case "wall":
-	   case "door":
-	   case "portal":
-	   case "exit":
-	   case "switch":
-	      return 0;
-	   case "sword":
-	   case "invincibility":
-	   case "treasure":
-	   case "key":
-	      return 1;
-	   case "player":
-      case "enemy":
-         return 2;
-      case "boulder":
-         return 3;
-      default:
-         return 4;
-      }
+		switch (type) {
+		case "wall":
+		case "door":
+		case "portal":
+		case "exit":
+		case "switch":
+			return 0;
+		case "sword":
+		case "invincibility":
+		case "treasure":
+		case "key":
+			return 1;
+		case "player":
+		case "enemy":
+			return 2;
+		case "boulder":
+			return 3;
+		default:
+			return 4;
+		}
 	}
-	
+
 	/**
 	 * load a goal from json into a dungeon
 	 * @param dungeon the dungeon to load the goal into
@@ -231,15 +237,15 @@ public abstract class DungeonLoader {
 			entity = enemy;
 			break;
 		case "hound":
-         Enemy hound = new Enemy(dungeon, x, y, new IneptStrategy());
-         onLoad(hound);
-         entity = hound;
-         break;
+			Enemy hound = new Enemy(dungeon, x, y, new IneptStrategy());
+			onLoad(hound);
+			entity = hound;
+			break;
 		case "guard":
-         Enemy guard = new Enemy(dungeon, x, y, new PatrolStrategy());
-         onLoad(guard);
-         entity = guard;
-         break;
+			Enemy guard = new Enemy(dungeon, x, y, new PatrolStrategy());
+			onLoad(guard);
+			entity = guard;
+			break;
 		case "sword":
 			Sword sword = new Sword(x, y);
 			onLoad(sword);
@@ -268,5 +274,5 @@ public abstract class DungeonLoader {
 	public abstract void onLoad(Invincibility invincibility);
 
 	public abstract void addGoal(GoalComponent goals);
-	
+
 }

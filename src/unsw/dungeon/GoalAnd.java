@@ -15,54 +15,54 @@ import javafx.beans.property.StringProperty;
  */
 public class GoalAnd implements GoalComponent {
 
-   private ArrayList<GoalComponent> subgoals;
-   private BooleanProperty goalAchieved;
-   private StringProperty goalProgress;
+	private ArrayList<GoalComponent> subgoals;
+	private BooleanProperty goalAchieved;
+	private StringProperty goalProgress;
 
-   /**
-    * create a new composite-and goal
-    * @param goals the goals within the composite
-    */
-   public GoalAnd(ArrayList<GoalComponent> goals) {
-      this.subgoals = goals;
-      this.goalAchieved = new SimpleBooleanProperty(false);
-      this.goalProgress = new SimpleStringProperty(this.getProgress());
-   }
+	/**
+	 * create a new composite-and goal
+	 * @param goals the goals within the composite
+	 */
+	public GoalAnd(ArrayList<GoalComponent> goals) {
+		this.subgoals = goals;
+		this.goalAchieved = new SimpleBooleanProperty(false);
+		this.goalProgress = new SimpleStringProperty(this.getProgress());
+	}
 
-   @Override
-   public boolean isComplete() {
-      // Update goalProgress
-      this.goalProgress.set(this.getProgress());
-      
-      for (GoalComponent gc : this.subgoals) {
-         if (!gc.isComplete()) return false;
-      }
-      this.goalAchieved.set(true);
-      return true;
-   }
+	@Override
+	public boolean isComplete() {
+		// Update goalProgress
+		this.goalProgress.set(this.getProgress());
 
-   @Override
-   public String getProgress() {
-      int count = 0;
-      for (GoalComponent gc : this.subgoals) {
-         if (gc.isComplete()) count++;
-      }
-      return "AND Goal: " + count + " / " + this.subgoals.size();
-   }
+		for (GoalComponent gc : this.subgoals) {
+			if (!gc.isComplete()) return false;
+		}
+		this.goalAchieved.set(true);
+		return true;
+	}
 
-   @Override
-   public BooleanProperty goalAchieved() {
-      return this.goalAchieved;
-   }
+	@Override
+	public String getProgress() {
+		int count = 0;
+		for (GoalComponent gc : this.subgoals) {
+			if (gc.isComplete()) count++;
+		}
+		return "AND Goal: " + count + " / " + this.subgoals.size();
+	}
 
-   @Override
-   public ArrayList<GoalComponent> getSubgoals() {
-      return this.subgoals;
-   }
+	@Override
+	public BooleanProperty goalAchieved() {
+		return this.goalAchieved;
+	}
 
-   @Override
-   public StringProperty goalProgress() {
-      return this.goalProgress;
-   }
+	@Override
+	public ArrayList<GoalComponent> getSubgoals() {
+		return this.subgoals;
+	}
+
+	@Override
+	public StringProperty goalProgress() {
+		return this.goalProgress;
+	}
 
 }

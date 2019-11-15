@@ -7,37 +7,57 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * the visual component of the level menu
+ * @author Sergio Mercado Ruiz & Rory Madden
+ *
+ */
 public class LevelMenuScreen {
-   private Stage stage;
-   private String title;
-   private LevelMenuController controller;
+	private Stage stage;
+	private String title;
+	private LevelMenuController controller;
+	private Scene scene;
 
-   private Scene scene;
+	/**
+	 * create a new level menu screen
+	 * @param stage
+	 * @throws IOException
+	 */
+	public LevelMenuScreen(Stage stage) throws IOException {
+		this.stage = stage;
+		title = "Digital Dungeon";
 
-   public LevelMenuScreen(Stage stage) throws IOException {
-      this.stage = stage;
-      title = "Digital Dungeon";
+		controller = new LevelMenuController();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelMenu.fxml"));
+		loader.setController(controller);
 
-      controller = new LevelMenuController();
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("LevelMenu.fxml"));
-      loader.setController(controller);
+		// load into a Parent node called root
+		Parent root = loader.load();
+		scene = new Scene(root, 800, 480);
+	}
 
-      // load into a Parent node called root
-      Parent root = loader.load();
-      scene = new Scene(root, 800, 480);
-   }
-   
-   public void setMainScreen(MainMenuScreen mainScreen) {
-      controller.setMainScreen(mainScreen);
-   }
+	/**
+	 * attach the associated main menu screen
+	 * @param mainScreen
+	 */
+	public void setMainScreen(MainMenuScreen mainScreen) {
+		controller.setMainScreen(mainScreen);
+	}
 
-   public void start() {
-      stage.setTitle(title);
-      stage.setScene(scene);
-      stage.show();
-   }
+	/**
+	 * pop up and display the screen
+	 */
+	public void start() {
+		stage.setTitle(title);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-   public LevelMenuController getController() {
-      return controller;
-   }
+	/**
+	 * get the controller of the level menu
+	 * @return
+	 */
+	public LevelMenuController getController() {
+		return controller;
+	}
 }

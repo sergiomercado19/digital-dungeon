@@ -62,19 +62,19 @@ public class FloorSwitch extends Entity implements GoalSubject {
 			go.decreaseProgress();
 		}  
 	}
-	
+
 	@Override
 	public void collide(Boulder b, Direction d) {
 		activate();
 	}
-	
+
 	@Override
 	public void collide(Enemy e, Direction d) {
 		if (isTriggered) {
 			deactivate();
 		}
 	}
-	
+
 	@Override
 	public void collide(Player p, Direction d) {
 		if (isTriggered) {

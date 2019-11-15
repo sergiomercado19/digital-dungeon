@@ -76,10 +76,18 @@ public class Player extends Entity implements Movable {
 		}
 	}
 
+	/**
+	 * observable check if the player is holding a sword
+	 * @return
+	 */
 	public BooleanProperty hasSword() {
 		return this.hasSword;
 	}
 
+	/**
+	 * observable check if the player is invincible
+	 * @return
+	 */
 	public BooleanProperty isInvincible() {
 		return this.isInvincible;
 	}
@@ -102,6 +110,10 @@ public class Player extends Entity implements Movable {
 		this.dungeon.removeEntity(k);
 	}
 
+	/**
+	 * collect treasure from the dungeon floor
+	 * @param t
+	 */
 	public void pickupTreasure(Treasure t) {
 		this.dungeon.removeEntity(t);
 	}

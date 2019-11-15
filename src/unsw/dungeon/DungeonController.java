@@ -25,154 +25,180 @@ import javafx.scene.layout.Pane;
  */
 public class DungeonController {
 
-   @FXML
-   private GridPane squares;
-   
-   @FXML
-   private AnchorPane statusBar;
-   
-   @FXML
-   private TreeView<String> goalsTree;
-   
-   @FXML
-   private Pane banner;
-   
-   @FXML
-   private HBox toolbar;
-   
-   @FXML
-   private Pane resetButton;
-   @FXML
-   private Pane exitButton;
+	@FXML
+	private GridPane squares;
 
-   private ArrayList<ImageView> initialEntities;
-   private TreeItem<String> initialGoal;
-   private Player player;
-   private Dungeon dungeon;
-   private String dungeonName;
+	@FXML
+	private AnchorPane statusBar;
 
-   public DungeonController(Dungeon dungeon, ArrayList<ImageView> initialEntities, TreeItem<String> initialGoal) {
-      this.dungeon = dungeon;
-      this.player = dungeon.getPlayer();
-      this.initialEntities = initialEntities;
-      this.initialGoal = initialGoal;
-   }
+	@FXML
+	private TreeView<String> goalsTree;
 
-   public void setDungeonName(String dungeonName) {
-      this.dungeonName = dungeonName;
-   }
-   
-   @FXML
-   public void initialize() {
-      Image ground = new Image("/dirt_0_new.png");
+	@FXML
+	private Pane banner;
 
-      // Add the ground first so it is below all other entities
-      for (int x = 0; x < dungeon.getWidth(); x++) {
-         for (int y = 0; y < dungeon.getHeight(); y++) {
-            squares.add(new ImageView(ground), x, y);
-         }
-      }
+	@FXML
+	private HBox toolbar;
 
-      for (ImageView entity : initialEntities)
-         squares.getChildren().add(entity);
+	@FXML
+	private Pane resetButton;
+	@FXML
+	private Pane exitButton;
 
-      // Show goal progress
-      this.goalsTree.setRoot(this.initialGoal);
-      
-      // Setup buttons
-      ImageView resetIcon = new ImageView(new Image("/icon_reset.png"));
-      resetButton.getChildren().add(resetIcon);
-      resetIcon.setFitHeight(40);
-      resetIcon.setFitWidth(40);
-      resetIcon.layoutXProperty().bind(resetButton.widthProperty().subtract(resetIcon.getFitWidth()).divide(2));
-      resetIcon.layoutYProperty().bind(resetButton.heightProperty().subtract(resetIcon.getFitHeight()).divide(2));
-      ImageView exitIcon = new ImageView(new Image("/icon_exit.png"));
-      exitButton.getChildren().add(exitIcon);
-      exitIcon.setFitHeight(40);
-      exitIcon.setFitWidth(40);
-      exitIcon.layoutXProperty().bind(resetButton.widthProperty().subtract(exitIcon.getFitWidth()).divide(2));
-      exitIcon.layoutYProperty().bind(resetButton.heightProperty().subtract(exitIcon.getFitHeight()).divide(2));
-      
-      // Setup DungeonState trackers
-      this.dungeon.isGameOver().addListener(new ChangeListener<Boolean>() {
-         @Override
-         public void changed(ObservableValue<? extends Boolean> observable,
-               Boolean oldValue, Boolean newValue) {
-            if (oldValue == false && newValue == true) {
-               banner.getChildren().remove(goalsTree);
+	private ArrayList<ImageView> initialEntities;
+	private TreeItem<String> initialGoal;
+	private Player player;
+	private Dungeon dungeon;
+	private String dungeonName;
 
-               
-               if (dungeon.getState() == DungeonState.WON) {
-                  Image victory = new Image("/victory.png");
-                  ImageView victoryBanner = new ImageView(victory);
-                  victoryBanner.setFitHeight(50);
-                  victoryBanner.setFitWidth(200);
-                  victoryBanner.layoutXProperty().bind(banner.widthProperty().subtract(victoryBanner.getFitWidth()).divide(2));
-                  victoryBanner.layoutYProperty().bind(banner.heightProperty().subtract(victoryBanner.getFitHeight()).divide(2));
-                  banner.getChildren().add(victoryBanner);
-                  
-                  // Play sound
-                  SoundEffects.playVictoryTune();
-               } else if (dungeon.getState() == DungeonState.LOST) {
-                  Image defeat = new Image("/defeat.png");
-                  ImageView defeatBanner = new ImageView(defeat);
-                  defeatBanner.setFitHeight(50);
-                  defeatBanner.setFitWidth(200);
-                  defeatBanner.layoutXProperty().bind(banner.widthProperty().subtract(defeatBanner.getFitWidth()).divide(2));
-                  defeatBanner.layoutYProperty().bind(banner.heightProperty().subtract(defeatBanner.getFitHeight()).divide(2));
-                  banner.getChildren().add(defeatBanner);
-                  
-                  // Play sound
-                  SoundEffects.playDefeatTune();
-               }
-               
-            }
-         }
-      });
+	/**
+	 * create a new controller for the dungeon
+	 * @param dungeon
+	 * @param initialEntities initial entities within the dungeon
+	 * @param initialGoal the initial goal of the dungeon
+	 */
+	public DungeonController(Dungeon dungeon, ArrayList<ImageView> initialEntities, TreeItem<String> initialGoal) {
+		this.dungeon = dungeon;
+		this.player = dungeon.getPlayer();
+		this.initialEntities = initialEntities;
+		this.initialGoal = initialGoal;
+	}
 
-   }
+	/**
+	 * set the name of the dungeon
+	 * @param dungeonName
+	 */
+	public void setDungeonName(String dungeonName) {
+		this.dungeonName = dungeonName;
+	}
 
-   @FXML
-   public void handleKeyPress(KeyEvent event) {
-      if (dungeon.getState() == DungeonState.INPROGRESS) {         
-         switch (event.getCode()) {
-         case UP:
-            player.makeMove(Direction.UP);
-            break;
-         case DOWN:
-            player.makeMove(Direction.DOWN);
-            break;
-         case LEFT:
-            player.makeMove(Direction.LEFT);
-            break;
-         case RIGHT:
-            player.makeMove(Direction.RIGHT);
-            break;
-         default:
-            break;
-         }
-      }
-   }
-   
-   // allow the player to click the game screen to regain focus
-   @FXML
-   public void getFocus(Event e) {
-	   ((Node) e.getSource()).requestFocus();
-   }
-   
-   @FXML
-   public void handleReset() {
-      try {         
-         new DungeonScreen(this.dungeonName);
-         this.handleExit();
-      } catch (IOException e) {
-         // do nothing
-      }
-   }
+	/**
+	 * initialise the dungeon, add entities, set up buttons, and set up tracking
+	 */
+	@FXML
+	public void initialize() {
+		Image ground = new Image("/dirt_0_new.png");
 
-   @FXML
-   public void handleExit() {
-      ((Node) this.squares).getScene().getWindow().hide();
-   }
+		// Add the ground first so it is below all other entities
+		for (int x = 0; x < dungeon.getWidth(); x++) {
+			for (int y = 0; y < dungeon.getHeight(); y++) {
+				squares.add(new ImageView(ground), x, y);
+			}
+		}
+
+		for (ImageView entity : initialEntities)
+			squares.getChildren().add(entity);
+
+		// Show goal progress
+		this.goalsTree.setRoot(this.initialGoal);
+
+		// Setup buttons
+		ImageView resetIcon = new ImageView(new Image("/icon_reset.png"));
+		resetButton.getChildren().add(resetIcon);
+		resetIcon.setFitHeight(40);
+		resetIcon.setFitWidth(40);
+		resetIcon.layoutXProperty().bind(resetButton.widthProperty().subtract(resetIcon.getFitWidth()).divide(2));
+		resetIcon.layoutYProperty().bind(resetButton.heightProperty().subtract(resetIcon.getFitHeight()).divide(2));
+		ImageView exitIcon = new ImageView(new Image("/icon_exit.png"));
+		exitButton.getChildren().add(exitIcon);
+		exitIcon.setFitHeight(40);
+		exitIcon.setFitWidth(40);
+		exitIcon.layoutXProperty().bind(resetButton.widthProperty().subtract(exitIcon.getFitWidth()).divide(2));
+		exitIcon.layoutYProperty().bind(resetButton.heightProperty().subtract(exitIcon.getFitHeight()).divide(2));
+
+		// Setup DungeonState trackers
+		this.dungeon.isGameOver().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable,
+					Boolean oldValue, Boolean newValue) {
+				if (oldValue == false && newValue == true) {
+					banner.getChildren().remove(goalsTree);
+
+
+					if (dungeon.getState() == DungeonState.WON) {
+						Image victory = new Image("/victory.png");
+						ImageView victoryBanner = new ImageView(victory);
+						victoryBanner.setFitHeight(50);
+						victoryBanner.setFitWidth(200);
+						victoryBanner.layoutXProperty().bind(banner.widthProperty().subtract(victoryBanner.getFitWidth()).divide(2));
+						victoryBanner.layoutYProperty().bind(banner.heightProperty().subtract(victoryBanner.getFitHeight()).divide(2));
+						banner.getChildren().add(victoryBanner);
+
+						// Play sound
+						SoundEffects.playVictoryTune();
+					} else if (dungeon.getState() == DungeonState.LOST) {
+						Image defeat = new Image("/defeat.png");
+						ImageView defeatBanner = new ImageView(defeat);
+						defeatBanner.setFitHeight(50);
+						defeatBanner.setFitWidth(200);
+						defeatBanner.layoutXProperty().bind(banner.widthProperty().subtract(defeatBanner.getFitWidth()).divide(2));
+						defeatBanner.layoutYProperty().bind(banner.heightProperty().subtract(defeatBanner.getFitHeight()).divide(2));
+						banner.getChildren().add(defeatBanner);
+
+						// Play sound
+						SoundEffects.playDefeatTune();
+					}
+
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * handle the user's arrow key input
+	 * @param event
+	 */
+	@FXML
+	public void handleKeyPress(KeyEvent event) {
+		if (dungeon.getState() == DungeonState.INPROGRESS) {         
+			switch (event.getCode()) {
+			case UP:
+				player.makeMove(Direction.UP);
+				break;
+			case DOWN:
+				player.makeMove(Direction.DOWN);
+				break;
+			case LEFT:
+				player.makeMove(Direction.LEFT);
+				break;
+			case RIGHT:
+				player.makeMove(Direction.RIGHT);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	/**
+	 * allow the player to click the game screen to regain focus
+	 * @param e
+	 */
+	@FXML
+	public void getFocus(Event e) {
+		((Node) e.getSource()).requestFocus();
+	}
+
+	/**
+	 * reset the dungeon to its original state
+	 */
+	@FXML
+	public void handleReset() {
+		try {         
+			new DungeonScreen(this.dungeonName);
+			this.handleExit();
+		} catch (IOException e) {
+			// do nothing
+		}
+	}
+
+	/**
+	 * exit the dungeon
+	 */
+	@FXML
+	public void handleExit() {
+		((Node) this.squares).getScene().getWindow().hide();
+	}
 }
 

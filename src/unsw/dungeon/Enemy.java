@@ -40,7 +40,7 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	 * make move according to set strategy
 	 */
 	public void moveTowardsPlayer() {
-	   this.strategy.moveEnemy(this.dungeon, this.player, this);
+		this.strategy.moveEnemy(this.dungeon, this.player, this);
 	}
 
 	/**
@@ -79,75 +79,89 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 		x().set(x);
 		y().set(y);
 	}
-	
+
+	/**
+	 * get the type of enemy
+	 * @return
+	 */
 	public EnemyType getEnemyType() {
-	   return this.strategy.getType();
+		return this.strategy.getType();
 	}
 
+	/**
+	 * attempt to move the enemy in a specified direction
+	 * @param d the direction to move
+	 * @return if the move was successful
+	 */
 	public boolean makeMove(Direction d) {
 		int x, y;
 		x = getX();
 		y = getY();
 		int width, height;
-	      width = dungeon.getWidth();
-	      height = dungeon.getHeight();
+		width = dungeon.getWidth();
+		height = dungeon.getHeight();
 
-	      switch (d) {
-	      case UP:
-	         y = Math.floorMod(y - 1, height);
-	         break;
-	      case DOWN:
-	    	  y = Math.floorMod(y + 1, height);
-	         break;
-	      case LEFT:
-	         x = Math.floorMod(x - 1, width);
-	         break;
-	      case RIGHT:
-	    	  x = Math.floorMod(x + 1, width);
-	         break;
-	      }
+		switch (d) {
+		case UP:
+			y = Math.floorMod(y - 1, height);
+			break;
+		case DOWN:
+			y = Math.floorMod(y + 1, height);
+			break;
+		case LEFT:
+			x = Math.floorMod(x - 1, width);
+			break;
+		case RIGHT:
+			x = Math.floorMod(x + 1, width);
+			break;
+		}
 
 		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
 		boolean canMove = true;
 		for (Entity e : tileEntities) {
 			if(!e.canCollide(this, d)) canMove = false;
 		}
-		
+
 		if (canMove) {
 			setPosition(x, y);
 			for(Entity e : tileEntities) {
 				e.collide(this, d);
 			}
 		}
-		
+
 		return canMove;
 	}
-	
+
+	/**
+	 * switch a direction
+	 * @param d the direction to switch
+	 * @return the switched direction
+	 */
 	public Direction changeDirection(Direction d) {
-      switch (d) {
-      case UP:
-         return Direction.DOWN;
-      case DOWN:
-         return Direction.UP;
-      case LEFT:
-         return  Direction.RIGHT;
-      case RIGHT:
-         return Direction.LEFT;
-      default:
-         return Direction.UP;
-      }
-   }
-	
+		switch (d) {
+		case UP:
+			return Direction.DOWN;
+		case DOWN:
+			return Direction.UP;
+		case LEFT:
+			return  Direction.RIGHT;
+		case RIGHT:
+			return Direction.LEFT;
+		default:
+			return Direction.UP;
+		}
+	}
+
 	@Override
 	public boolean canCollide(Enemy e, Direction d) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean canCollide(Boulder b, Direction d) {
 		return false;
 	}
-	
+
 	@Override
 	public void collide(Player p, Direction d) {
 		dungeon.fight(p, this);

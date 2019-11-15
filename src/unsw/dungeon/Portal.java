@@ -7,48 +7,48 @@ package unsw.dungeon;
  */
 public class Portal extends Entity {
 
-   private Portal link;
-   private int ID;
+	private Portal link;
+	private int ID;
 
-   /**
-    * create a new portal
-    * @param x x position of the portal
-    * @param y y position of the portal
-    * @param ID the id of the portal, to link to another portal of the same id
-    */
-   public Portal(int x, int y, int ID) {
-      super(x, y, false);
-      this.link = null;
-      this.ID = ID;
-   }
+	/**
+	 * create a new portal
+	 * @param x x position of the portal
+	 * @param y y position of the portal
+	 * @param ID the id of the portal, to link to another portal of the same id
+	 */
+	public Portal(int x, int y, int ID) {
+		super(x, y, false);
+		this.link = null;
+		this.ID = ID;
+	}
 
-   /**
-    * link to a portal with the same id, to teleport to when touched
-    * @param portal the portal to link to
-    */
-   public void linkTo(Portal portal) {
-      link = portal;
-   }
+	/**
+	 * link to a portal with the same id, to teleport to when touched
+	 * @param portal the portal to link to
+	 */
+	public void linkTo(Portal portal) {
+		link = portal;
+	}
 
-   /**
-    * teleport a player who touches the portal to the corresponding linked portal
-    * @param player
-    */
-   public void teleport(Player player) {
-      if (link != null) {	      
-         player.setPosition(link.getX(), link.getY());
-      }
-   }
+	/**
+	 * teleport a player who touches the portal to the corresponding linked portal
+	 * @param player
+	 */
+	public void teleport(Player player) {
+		if (link != null) {	      
+			player.setPosition(link.getX(), link.getY());
+		}
+	}
 
-   /**
-    * get the id of the portal
-    * @return the id of the portal
-    */
-   public Object getID() {
-      return ID;
-   }
-   
-   @Override
+	/**
+	 * get the id of the portal
+	 * @return the id of the portal
+	 */
+	public Object getID() {
+		return ID;
+	}
+
+	@Override
 	public void collide(Player p, Direction d) {
 		teleport(p);
 	}

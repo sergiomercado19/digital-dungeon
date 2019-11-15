@@ -15,53 +15,53 @@ import javafx.beans.property.StringProperty;
  */
 public class GoalOr implements GoalComponent {
 
-   private ArrayList<GoalComponent> subgoals;
-   private BooleanProperty goalAchieved;
-   private StringProperty goalProgress;
-   
-   /**
-    * create a new composite-or goal
-    * @param goals the goals within the composite
-    */
-   public GoalOr(ArrayList<GoalComponent> goals) {
-      this.subgoals = goals;
-      this.goalAchieved = new SimpleBooleanProperty(false);
-      this.goalProgress = new SimpleStringProperty(getProgress());
-   }
+	private ArrayList<GoalComponent> subgoals;
+	private BooleanProperty goalAchieved;
+	private StringProperty goalProgress;
 
-   @Override
-   public boolean isComplete() {
-      for (GoalComponent gc : this.subgoals) {
-         if (gc.isComplete()) {
-            this.goalAchieved.set(true);
-            // Update goalProgress
-            this.goalProgress.set("OR Goal: 1 / 1");
-            return true;
-         }
-      }
-      return false;
-   }
+	/**
+	 * create a new composite-or goal
+	 * @param goals the goals within the composite
+	 */
+	public GoalOr(ArrayList<GoalComponent> goals) {
+		this.subgoals = goals;
+		this.goalAchieved = new SimpleBooleanProperty(false);
+		this.goalProgress = new SimpleStringProperty(getProgress());
+	}
 
-   @Override
-   public String getProgress() {
-      int count = 0;
-      if (this.isComplete()) count = 1;
-      return "OR Goal: " + count + " / 1";
-   }
+	@Override
+	public boolean isComplete() {
+		for (GoalComponent gc : this.subgoals) {
+			if (gc.isComplete()) {
+				this.goalAchieved.set(true);
+				// Update goalProgress
+				this.goalProgress.set("OR Goal: 1 / 1");
+				return true;
+			}
+		}
+		return false;
+	}
 
-   @Override
-   public BooleanProperty goalAchieved() {
-      return this.goalAchieved;
-   }
+	@Override
+	public String getProgress() {
+		int count = 0;
+		if (this.isComplete()) count = 1;
+		return "OR Goal: " + count + " / 1";
+	}
 
-   @Override
-   public ArrayList<GoalComponent> getSubgoals() {
-      return this.subgoals;
-   }
+	@Override
+	public BooleanProperty goalAchieved() {
+		return this.goalAchieved;
+	}
 
-   @Override
-   public StringProperty goalProgress() {
-      return this.goalProgress;
-   }
-   
+	@Override
+	public ArrayList<GoalComponent> getSubgoals() {
+		return this.subgoals;
+	}
+
+	@Override
+	public StringProperty goalProgress() {
+		return this.goalProgress;
+	}
+
 }

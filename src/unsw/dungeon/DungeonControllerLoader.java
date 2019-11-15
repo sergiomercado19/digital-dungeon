@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
 public class DungeonControllerLoader extends DungeonLoader {
 
 	private ArrayList<ImageView> entities;
-   private TreeItem<String> goal;
+	private TreeItem<String> goal;
 
 	//Images
 	private Image playerImage;
@@ -41,6 +41,11 @@ public class DungeonControllerLoader extends DungeonLoader {
 	private Image floorSwitchImage;
 	private Image exitImage;
 
+	/**
+	 * create a new loader for the dungeon controller
+	 * @param filename the dungeon level data
+	 * @throws FileNotFoundException
+	 */
 	public DungeonControllerLoader(String filename)
 			throws FileNotFoundException {
 		super(filename);
@@ -78,18 +83,18 @@ public class DungeonControllerLoader extends DungeonLoader {
 
 	@Override
 	public void onLoad(Enemy enemy) {
-	   ImageView view = null;
-	   switch (enemy.getEnemyType()) {
-	   case ENEMY:	      
-	      view = new ImageView(elfImage);
-	      break;
-	   case HOUND:
-	      view = new ImageView(houndImage);
-	      break;
-	   case GUARD:
-	      view = new ImageView(gnomeImage);
-	      break;
-	   }
+		ImageView view = null;
+		switch (enemy.getEnemyType()) {
+		case ENEMY:	      
+			view = new ImageView(elfImage);
+			break;
+		case HOUND:
+			view = new ImageView(houndImage);
+			break;
+		case GUARD:
+			view = new ImageView(gnomeImage);
+			break;
+		}
 		addEntity(enemy, view);
 	}
 
@@ -148,7 +153,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 	}
 
 	private void addEntity(Entity entity, ImageView view) {
-	   trackEntity(entity, view);
+		trackEntity(entity, view);
 		entities.add(view);
 	}
 
@@ -159,6 +164,9 @@ public class DungeonControllerLoader extends DungeonLoader {
 	 * By connecting the model with the view in this way, the model requires no
 	 * knowledge of the view and changes to the position of entities in the
 	 * model will automatically be reflected in the view.
+	 * 
+	 * Furthermore, track the status of several entites to change their sprites
+	 * over the course of play.
 	 * @param entity
 	 * @param node
 	 */
@@ -239,47 +247,55 @@ public class DungeonControllerLoader extends DungeonLoader {
 
 	}
 
+	/**
+	 * add a new goal to the dungeon
+	 */
 	@Override
 	public void addGoal(GoalComponent goals) {
-	   if (goals == null) return;
-	   
-	   this.goal = trackGoal(goals);
-	   goal.setExpanded(true);
+		if (goals == null) return;
+
+		this.goal = trackGoal(goals);
+		goal.setExpanded(true);
 	}
-	
+
+	/**
+	 * track the progress of a goal, outputting to the screen
+	 * @param goal
+	 * @return
+	 */
 	public TreeItem<String> trackGoal(GoalComponent goal) {
-	   TreeItem<String> node = new TreeItem<String>();
-	   
-	   if (goal.getSubgoals() == null) {
-	      // Single goal
-	      node.setValue(goal.goalProgress().get());
-	      goal.goalProgress().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                  String oldValue, String newValue) {
-               node.setValue(newValue);
-            }
-         });
-	      
-	   } else {
-	      // Composite goal
-	      node.setValue(goal.goalProgress().get());
-	      goal.goalProgress().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                  String oldValue, String newValue) {
-               node.setValue(newValue);
-            }
-         });
-	      
-	      for (GoalComponent gc : goal.getSubgoals()) {
-	         node.getChildren().add(trackGoal(gc));
-	      }
-	   }
-	   
-	   return node;
+		TreeItem<String> node = new TreeItem<String>();
+
+		if (goal.getSubgoals() == null) {
+			// Single goal
+			node.setValue(goal.goalProgress().get());
+			goal.goalProgress().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable,
+						String oldValue, String newValue) {
+					node.setValue(newValue);
+				}
+			});
+
+		} else {
+			// Composite goal
+			node.setValue(goal.goalProgress().get());
+			goal.goalProgress().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable,
+						String oldValue, String newValue) {
+					node.setValue(newValue);
+				}
+			});
+
+			for (GoalComponent gc : goal.getSubgoals()) {
+				node.getChildren().add(trackGoal(gc));
+			}
+		}
+
+		return node;
 	}
-	
+
 	/**
 	 * Create a controller that can be attached to the DungeonView with all the
 	 * loaded entities.
