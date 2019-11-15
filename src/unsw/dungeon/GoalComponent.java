@@ -11,21 +11,30 @@ import javafx.beans.property.StringProperty;
  *
  */
 public interface GoalComponent {
-   /**
-    * check whether the goal has been completed yet
-    * @return whether or not the goal has been completed
-    */
-   public boolean isComplete();
-   /**
-    * get the current progress of the goal as an array of strings
-    * strings are formatted like "goalName: currentValue/targetValue"
-    * @return an array of strings of goal progress
-    */
-   public String getProgress();
-   
-   public BooleanProperty goalAchieved();
-   
-   public StringProperty goalProgress();
-   
-   public ArrayList<GoalComponent> getSubgoals();
+	/**
+	 * check whether the goal has been completed yet
+	 * @return whether or not the goal has been completed
+	 */
+	public boolean isComplete();
+	/**
+	 * get the current progress of the goal as a string
+	 * strings are formatted like "goalName: currentValue/targetValue"
+	 * @return an array of strings of goal progress
+	 */
+	public String getProgress();
+	/**
+	 * observable property of whether the goal has been achieved
+	 * @return
+	 */
+	public BooleanProperty goalAchieved();
+	/**
+	 * observeable property of the current string form of the goal's progress
+	 * @return
+	 */
+	public StringProperty goalProgress();
+	/**
+	 * array of all subgoals of the goal
+	 * @return
+	 */
+	public ArrayList<GoalComponent> getSubgoals();
 }

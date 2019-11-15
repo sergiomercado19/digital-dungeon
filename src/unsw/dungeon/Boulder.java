@@ -26,12 +26,17 @@ public class Boulder extends Entity implements Movable {
 	public boolean canCollide(Player p, Direction d) {
 		return canMove(d);
 	}
-	
+
 	@Override
 	public boolean canCollide(Enemy e, Direction d) {
 		return canMove(d);
 	}
-	
+
+	/**
+	 * check if the boulder can move in a certain direction
+	 * @param d the direction to move
+	 * @return whether the boulder can move
+	 */
 	public boolean canMove(Direction d) {
 		int x, y;
 		x = getX();
@@ -63,6 +68,10 @@ public class Boulder extends Entity implements Movable {
 		return canMove;
 	}
 
+	/**
+	 * move the boulder in a direction
+	 * @param d the direction to move
+	 */
 	public void doMove(Direction d) {
 		int x, y;
 		x = getX();

@@ -7,13 +7,13 @@ package unsw.dungeon;
  */
 public class Wall extends Entity {
 
-   /**
-    * create a new wall
-    * @param x x position of the wall
-    * @param y y position of the wall
-    */
-   public Wall(int x, int y) {
-      super(x, y, true);
-   }
+	/**
+	 * create a new wall
+	 * @param x x position of the wall
+	 * @param y y position of the wall
+	 */
+	public Wall(int x, int y) {
+		super(x, y, true);
+	}
 
 }

@@ -32,6 +32,11 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * the controller of the level editor
+ * @author Sergio Mercado Ruiz & Rory Madden
+ *
+ */
 public class LevelEditorController {
 	private ArrayList<EditorTile> tiles;
 	private ArrayList<String> entities;
@@ -86,21 +91,29 @@ public class LevelEditorController {
 
 	@FXML
 	private TextField dName;
-	
+
 	@FXML
 	private TabPane tabs;
 
+	/**
+	 * set the dimensions of the editor space
+	 * @param event
+	 */
 	@FXML
 	void setDim(ActionEvent event) {
 		tiles.clear();
 		width = Integer.parseInt(dWidth.getText());
 		height = Integer.parseInt(dHeight.getText());
 		setUpSquares();
-		
+
 		tabs.getSelectionModel().select(0);
 		tabs.getScene().getWindow().sizeToScene();
 	}
 
+	/**
+	 * export the level
+	 * @param event
+	 */
 	@FXML
 	void doExport(ActionEvent event) {
 		JSONObject dungeon = new JSONObject();
@@ -159,17 +172,20 @@ public class LevelEditorController {
 		} catch (IOException e) {
 			System.out.println("Error writing to file");
 		}
-		
+
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Level exported");
 		alert.setHeaderText("Level exported");
 		alert.setContentText("Your level was successfully exported! You can now play it from the level menu.");
 		alert.showAndWait();
-		
+
 		tabs.getScene().getWindow().hide();
 
 	}
 
+	/**
+	 * set up the gridpane in the specified size, and click events
+	 */
 	public void setUpSquares() {
 		squares.getChildren().clear();
 		for (int x = 0; x < width; x++) {
@@ -182,14 +198,14 @@ public class LevelEditorController {
 				Pane p = new Pane();
 				GridPane.setConstraints(p, x, y);
 				squares.add(p, x, y);
-				
+
 				// keep track of the item in the pane
 				ImageView l = new ImageView();
 				p.getChildren().add(l);
 				EditorTile e = new EditorTile(x, y);
 				tiles.add(e);
 				trackChanges(e, l);
-				
+
 				p.setOnMouseDragEntered(event -> {
 					if (event.isPrimaryButtonDown()) {
 						if (selected.contentEquals("eraser")) selected = "empty";
@@ -198,12 +214,12 @@ public class LevelEditorController {
 						} else {
 							e.setTile(selected, (int)tileID.getValue());
 						}
-			        }
-			        if (event.isSecondaryButtonDown()) {
-			        	e.setTile("empty");
-			        }
+					}
+					if (event.isSecondaryButtonDown()) {
+						e.setTile("empty");
+					}
 				});
-				
+
 				p.setOnMousePressed(event -> {
 					if (event.isPrimaryButtonDown()) {
 						if (selected.contentEquals("eraser")) selected = "empty";
@@ -212,10 +228,10 @@ public class LevelEditorController {
 						} else {
 							e.setTile(selected, (int)tileID.getValue());
 						}
-			        }
-			        if (event.isSecondaryButtonDown()) {
-			        	e.setTile("empty");
-			        }
+					}
+					if (event.isSecondaryButtonDown()) {
+						e.setTile("empty");
+					}
 				});
 			}
 		}
@@ -224,65 +240,68 @@ public class LevelEditorController {
 		dHeight.setText(Integer.toString(height));
 	}
 
-	// if an image is updated
+	/**
+	 * observe when images are updated and change the imageview accordingly
+	 * @param t
+	 * @param node
+	 */
 	public void trackChanges(EditorTile t, Node node) {
 		t.currType().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable,
 					String oldValue, String newValue) {
 				if (!oldValue.equals(newValue)) {
-					switch(newValue) {
-					case "empty":
-						((ImageView) node).setImage(null);
-						break;
-					case "player":
-						((ImageView) node).setImage(playerImage);
-						break;
-					case "wall":
-						((ImageView) node).setImage(wallImage);
-						break;
-					case "boulder":
-						((ImageView) node).setImage(boulderImage);
-						break;
-					case "treasure":
-						((ImageView) node).setImage(treasureImage);
-						break;
-					case "key":
-						((ImageView) node).setImage(keyImage);
-						break;
-					case "door":
-						((ImageView) node).setImage(doorImage);
-						break;
-					case "sword":
-						((ImageView) node).setImage(swordImage);
-						break;
-					case "invincibility":
-						((ImageView) node).setImage(invincibilityImage);
-						break;
-					case "portal":
-						((ImageView) node).setImage(portalImage);
-						break;
-					case "enemy":
-						((ImageView) node).setImage(enemyImage);
-						break;
-					case "hound":
-						((ImageView) node).setImage(houndImage);
-						break;
-					case "guard":
-						((ImageView) node).setImage(guardImage);
-						break;
-					case "switch":
-						((ImageView) node).setImage(floorSwitchImage);
-						break;
-					case "exit":
-						((ImageView) node).setImage(exitImage);
-						break;		
-					}
+					((ImageView) node).setImage(stringToImage(newValue));
 				}
 			}
 		});
 	}
 
+	/**
+	 * get an image object from a string
+	 * @param tile the string of the entity
+	 * @return the image of the entity
+	 */
+	private Image stringToImage(String tile) {
+		switch(tile) {
+		case "empty":
+			return null;
+		case "player":
+			return playerImage;
+		case "wall":
+			return wallImage;
+		case "boulder":
+			return boulderImage;
+		case "treasure":
+			return treasureImage;
+		case "key":
+			return keyImage;
+		case "door":
+			return doorImage;
+		case "sword":
+			return swordImage;
+		case "invincibility":
+			return invincibilityImage;
+		case "portal":
+			return portalImage;
+		case "enemy":
+			return enemyImage;
+		case "hound":
+			return houndImage;
+		case "guard":
+			return guardImage;
+		case "switch":
+			return floorSwitchImage;
+		case "exit":
+			return exitImage;
+		default:
+			return null;
+		}
+	}
+
+	/**
+	 * intialise the level editor
+	 */
 	@FXML
 	public void initialize() {
 		// load in all the images
@@ -301,7 +320,7 @@ public class LevelEditorController {
 		guardImage = new Image("/gnome.png");
 		floorSwitchImage = new Image("/pressure_plate.png");
 		exitImage = new Image("/exit.png");
-		
+
 		// set up properties
 		height = 10;
 		width = 10;
@@ -309,7 +328,7 @@ public class LevelEditorController {
 		dropDown.setText(selected);
 		dName.setText("New Dungeon");
 		tileID.setDisable(true);
-		
+
 		// holds info on all the tiles
 		tiles = new ArrayList<>();
 
@@ -336,6 +355,7 @@ public class LevelEditorController {
 		// create menu options for each entity
 		for (String e : entities) {
 			MenuItem m = new MenuItem(e);
+			m.setGraphic(new ImageView(stringToImage(e)));
 
 			// when an entity is selected
 			m.setOnAction(event -> {
@@ -349,7 +369,7 @@ public class LevelEditorController {
 			});
 			dropDown.getItems().add(m);
 		}
-		
+
 		// set up drag event
 		squares.setOnDragDetected(e -> squares.startFullDrag());
 	}
