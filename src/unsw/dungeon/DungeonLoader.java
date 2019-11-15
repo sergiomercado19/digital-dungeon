@@ -226,10 +226,20 @@ public abstract class DungeonLoader {
 			entity = portal;
 			break;
 		case "enemy":
-			Enemy enemy = new Enemy(dungeon, x, y);
+			Enemy enemy = new Enemy(dungeon, x, y, new HuntStrategy());
 			onLoad(enemy);
 			entity = enemy;
 			break;
+		case "hound":
+         Enemy hound = new Enemy(dungeon, x, y, new IneptStrategy());
+         onLoad(hound);
+         entity = hound;
+         break;
+		case "guard":
+         Enemy guard = new Enemy(dungeon, x, y, new PatrolStrategy());
+         onLoad(guard);
+         entity = guard;
+         break;
 		case "sword":
 			Sword sword = new Sword(x, y);
 			onLoad(sword);

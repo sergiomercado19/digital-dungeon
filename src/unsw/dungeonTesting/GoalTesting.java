@@ -66,7 +66,7 @@ public class GoalTesting {
       player.pickupSword(sword);
 
       // Add enemy
-      Enemy enemy = new Enemy(dungeon, 3, 2);
+      Enemy enemy = new Enemy(dungeon, 3, 2, new IneptStrategy());
       enemy.setPlayer(player);
       dungeon.addEntity(enemy);
 

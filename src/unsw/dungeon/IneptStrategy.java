@@ -3,6 +3,11 @@ package unsw.dungeon;
 public class IneptStrategy implements EnemyStrategy {
 
    @Override
+   public EnemyType getType() {
+      return EnemyType.HOUND;
+   }
+   
+   @Override
    public void moveEnemy(Dungeon dungeon, Player player, Enemy enemy) {
       
       if (player != null) {         

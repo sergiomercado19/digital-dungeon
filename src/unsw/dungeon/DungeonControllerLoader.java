@@ -35,7 +35,9 @@ public class DungeonControllerLoader extends DungeonLoader {
 	private Image swordImage;
 	private Image invincibilityImage;
 	private Image portalImage;
-	private Image enemyImage;
+	private Image elfImage;
+	private Image houndImage;
+	private Image gnomeImage;
 	private Image floorSwitchImage;
 	private Image exitImage;
 
@@ -55,7 +57,9 @@ public class DungeonControllerLoader extends DungeonLoader {
 		swordImage = new Image("/greatsword_1_new.png");
 		invincibilityImage = new Image("/brilliant_blue_new.png");
 		portalImage = new Image("/portal.png");
-		enemyImage = new Image("/deep_elf_master_archer.png");
+		houndImage = new Image("/hound.png");
+		elfImage = new Image("/deep_elf_master_archer.png");
+		gnomeImage = new Image("/gnome.png");
 		floorSwitchImage = new Image("/pressure_plate.png");
 		exitImage = new Image("/exit.png");
 	}
@@ -74,7 +78,18 @@ public class DungeonControllerLoader extends DungeonLoader {
 
 	@Override
 	public void onLoad(Enemy enemy) {
-		ImageView view = new ImageView(enemyImage);
+	   ImageView view = null;
+	   switch (enemy.getEnemyType()) {
+	   case ENEMY:	      
+	      view = new ImageView(elfImage);
+	      break;
+	   case HOUND:
+	      view = new ImageView(houndImage);
+	      break;
+	   case GUARD:
+	      view = new ImageView(gnomeImage);
+	      break;
+	   }
 		addEntity(enemy, view);
 	}
 

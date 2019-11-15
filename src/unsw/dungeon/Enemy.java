@@ -20,14 +20,12 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	 * @param x x position of the enemy
 	 * @param y y position of the enemy
 	 */
-	public Enemy(Dungeon dungeon, int x, int y) {
+	public Enemy(Dungeon dungeon, int x, int y, EnemyStrategy strategy) {
 		super(x, y, false);
 		this.dungeon = dungeon;
 		this.player = null;
+		this.strategy = strategy;
 		this.goalObservers = new ArrayList<GoalObserver>();
-		
-		// Choose a strategy for this enemy
-		this.strategy = new IneptStrategy();
 	}
 
 	/**
@@ -80,6 +78,10 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	public void setPosition(int x, int y) {
 		x().set(x);
 		y().set(y);
+	}
+	
+	public EnemyType getEnemyType() {
+	   return this.strategy.getType();
 	}
 
 	public boolean makeMove(Direction d) {
