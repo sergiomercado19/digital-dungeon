@@ -2,6 +2,13 @@ package unsw.dungeon;
 
 import javafx.scene.media.AudioClip;
 
+/**
+ * sound effects of Digital Dungeon
+ * this static class allows the any class to trigger a sound effect
+ * clips obtained from https://soundsnap.com/
+ * @author Sergio Mercado Ruiz & Rory Madden
+ *
+ */
 public class SoundEffects {
 
 	public static void playSwordKill() {
