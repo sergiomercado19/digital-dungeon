@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 public class Player extends Entity implements Movable {
 
 	private Dungeon dungeon;
-	private ArrayList<Integer> keyIDs; 
 	private int swordHits;
 	private int invincibilityLeft;
 	private BooleanProperty hasSword;
@@ -28,7 +27,6 @@ public class Player extends Entity implements Movable {
 	public Player(Dungeon dungeon, int x, int y) {
 		super(x, y, false);
 		this.dungeon = dungeon;
-		this.keyIDs = new ArrayList<>();
 		this.swordHits = 0;
 		this.invincibilityLeft = 0;
 
@@ -106,7 +104,6 @@ public class Player extends Entity implements Movable {
 	 * @param ID the id of the key to add
 	 */
 	public void pickupKey(Key k) {
-		keyIDs.add(k.getID());
 		this.dungeon.removeEntity(k);
 	}
 
