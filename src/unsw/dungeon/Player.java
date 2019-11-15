@@ -160,8 +160,6 @@ public class Player extends Entity implements Movable {
 
 	@Override
 	public void collide(Enemy e, Direction d) {
-		// they gotta fight
-		System.out.println("player registered");
 		dungeon.fight(this, e);
 	}
 

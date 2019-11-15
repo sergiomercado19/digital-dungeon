@@ -11,6 +11,7 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 
 	private Dungeon dungeon;
 	private Player player;
+	private EnemyStrategy strategy;
 	private ArrayList<GoalObserver> goalObservers;
 
 	/**
@@ -22,8 +23,11 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	public Enemy(Dungeon dungeon, int x, int y) {
 		super(x, y, false);
 		this.dungeon = dungeon;
-		this.goalObservers = new ArrayList<GoalObserver>();
 		this.player = null;
+		this.goalObservers = new ArrayList<GoalObserver>();
+		
+		// Choose a strategy for this enemy
+		this.strategy = new IneptStrategy();
 	}
 
 	/**
@@ -35,44 +39,10 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	}
 
 	/**
-	 * pathfind one step towards the current position of the player
+	 * make move according to set strategy
 	 */
 	public void moveTowardsPlayer() {
-
-		if (this.player != null) {         
-			Direction d = null;
-
-			int xDist = Math.abs(this.getX()-this.player.getX());
-			int yDist = Math.abs(this.getY()-this.player.getY());
-
-			if (xDist > yDist) {
-				if (this.player.getX() < this.getX()) d = Direction.LEFT;
-				else d = Direction.RIGHT;
-			} else {
-				if (this.player.getY() < this.getY()) d = Direction.UP;
-				else d = Direction.DOWN;
-			}
-
-			// If player is invincible move in the opposite direction
-			if (this.player.isInvincible().get()) {
-				switch (d) {
-				case UP:
-					d = Direction.DOWN;
-					break;
-				case DOWN:
-					d = Direction.UP;
-					break;
-				case LEFT:
-					d = Direction.RIGHT;
-					break;
-				case RIGHT:
-					d = Direction.LEFT;
-					break;
-				}
-			}
-
-			makeMove(d);
-		}
+	   this.strategy.moveEnemy(this.dungeon, this.player, this);
 	}
 
 	/**
@@ -112,7 +82,7 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 		y().set(y);
 	}
 
-	public void makeMove(Direction d) {
+	public boolean makeMove(Direction d) {
 		int x, y;
 		x = getX();
 		y = getY();
@@ -137,16 +107,34 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 
 		ArrayList<Entity> tileEntities = dungeon.checkTile(x, y);
 		boolean canMove = true;
-		for(Entity e : tileEntities) {
+		for (Entity e : tileEntities) {
 			if(!e.canCollide(this, d)) canMove = false;
 		}
-		if(canMove) {
+		
+		if (canMove) {
 			setPosition(x, y);
 			for(Entity e : tileEntities) {
 				e.collide(this, d);
 			}
 		}
+		
+		return canMove;
 	}
+	
+	public Direction changeDirection(Direction d) {
+      switch (d) {
+      case UP:
+         return Direction.DOWN;
+      case DOWN:
+         return Direction.UP;
+      case LEFT:
+         return  Direction.RIGHT;
+      case RIGHT:
+         return Direction.LEFT;
+      default:
+         return Direction.UP;
+      }
+   }
 	
 	@Override
 	public boolean canCollide(Enemy e, Direction d) {
@@ -160,8 +148,6 @@ public class Enemy extends Entity implements Movable, GoalSubject {
 	
 	@Override
 	public void collide(Player p, Direction d) {
-		// work out death stuff
-		System.out.println("enemy registered");
 		dungeon.fight(p, this);
 	}
 }
