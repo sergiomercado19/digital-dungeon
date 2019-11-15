@@ -51,6 +51,8 @@ public class LevelEditorController {
 	private Image invincibilityImage;
 	private Image portalImage;
 	private Image enemyImage;
+	private Image houndImage;
+	private Image guardImage;
 	private Image floorSwitchImage;
 	private Image exitImage;
 
@@ -263,6 +265,12 @@ public class LevelEditorController {
 					case "enemy":
 						((ImageView) node).setImage(enemyImage);
 						break;
+					case "hound":
+						((ImageView) node).setImage(houndImage);
+						break;
+					case "guard":
+						((ImageView) node).setImage(guardImage);
+						break;
 					case "switch":
 						((ImageView) node).setImage(floorSwitchImage);
 						break;
@@ -289,6 +297,8 @@ public class LevelEditorController {
 		invincibilityImage = new Image("/brilliant_blue_new.png");
 		portalImage = new Image("/portal.png");
 		enemyImage = new Image("/deep_elf_master_archer.png");
+		houndImage = new Image("/hound.png");
+		guardImage = new Image("/gnome.png");
 		floorSwitchImage = new Image("/pressure_plate.png");
 		exitImage = new Image("/exit.png");
 		
@@ -313,6 +323,8 @@ public class LevelEditorController {
 		entities.add("key");
 		entities.add("door");
 		entities.add("enemy");
+		entities.add("hound");
+		entities.add("guard");
 		entities.add("sword");
 		entities.add("invincibility");
 		entities.add("portal");

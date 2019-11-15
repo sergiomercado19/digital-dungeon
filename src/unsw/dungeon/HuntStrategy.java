@@ -28,7 +28,7 @@ public class HuntStrategy implements EnemyStrategy {
             if (player.getY() < enemy.getY()) d = Direction.UP;
             else d = Direction.DOWN;
             
-            enemy.makeMove(getDirection(player, enemy, d));
+            if (enemy.makeMove(getDirection(player, enemy, d))) return;
             
          } else {
             
@@ -42,9 +42,19 @@ public class HuntStrategy implements EnemyStrategy {
             if (player.getX() < enemy.getX()) d = Direction.LEFT;
             else d = Direction.RIGHT;
             
-            enemy.makeMove(getDirection(player, enemy, d));
+            if (enemy.makeMove(getDirection(player, enemy, d))) return;
             
          }
+         
+         // if all else fails...
+         d = Direction.LEFT;
+         if (enemy.makeMove(getDirection(player, enemy, d))) return;
+         d = Direction.RIGHT;
+         if (enemy.makeMove(getDirection(player, enemy, d))) return;
+         d = Direction.UP;
+         if (enemy.makeMove(getDirection(player, enemy, d))) return;
+         d = Direction.DOWN;
+         if (enemy.makeMove(getDirection(player, enemy, d))) return;
 
       }
    }
