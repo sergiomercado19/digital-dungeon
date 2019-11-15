@@ -3,6 +3,11 @@ package unsw.dungeon;
 public class HuntStrategy implements EnemyStrategy {
 
    @Override
+   public EnemyType getType() {
+      return EnemyType.ENEMY;
+   }
+   
+   @Override
    public void moveEnemy(Dungeon dungeon, Player player, Enemy enemy) {
       
       if (player != null) {         

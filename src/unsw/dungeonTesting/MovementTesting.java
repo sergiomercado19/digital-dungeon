@@ -156,7 +156,7 @@ public class MovementTesting {
       Portal portal = new Portal(0, 0, 0);
       assertEquals(portal.isSolid(), false, "Portal is non-solid");
 
-      Enemy enemy = new Enemy(null, 0, 0);
+      Enemy enemy = new Enemy(null, 0, 0, new IneptStrategy());
       assertEquals(enemy.isSolid(), false, "Enemy is non-solid");
 
    }

@@ -42,7 +42,7 @@ public class CombatTesting {
       dungeon.addEntity(player);
 
       // Add enemy
-      enemy = new Enemy(dungeon, 4, 2);
+      enemy = new Enemy(dungeon, 4, 2, new IneptStrategy());
       enemy.setPlayer(player);
       dungeon.addEntity(enemy);
    }
@@ -124,7 +124,7 @@ public class CombatTesting {
 
 
       // Add another enemy
-      Enemy enemy2 = new Enemy(dungeon, 4, 2);
+      Enemy enemy2 = new Enemy(dungeon, 4, 2, new IneptStrategy());
       enemy2.setPlayer(player);
       dungeon.addEntity(enemy2);
 
@@ -133,7 +133,7 @@ public class CombatTesting {
 
 
       // Add another enemy
-      Enemy enemy3 = new Enemy(dungeon, 5, 2);
+      Enemy enemy3 = new Enemy(dungeon, 5, 2, new IneptStrategy());
       enemy3.setPlayer(player);
       dungeon.addEntity(enemy3);
 
@@ -142,7 +142,7 @@ public class CombatTesting {
 
 
       // Add another enemy
-      Enemy enemy4 = new Enemy(dungeon, 4, 2);
+      Enemy enemy4 = new Enemy(dungeon, 4, 2, new IneptStrategy());
       enemy4.setPlayer(player);
       dungeon.addEntity(enemy4);
 
@@ -151,7 +151,7 @@ public class CombatTesting {
 
 
       // Add another enemy
-      Enemy enemy5 = new Enemy(dungeon, 3, 2);
+      Enemy enemy5 = new Enemy(dungeon, 3, 2, new IneptStrategy());
       enemy5.setPlayer(player);
       dungeon.addEntity(enemy5);
 
