@@ -155,7 +155,6 @@ public class GoalTesting {
    @Test
    void testOrGoal() {
       player.makeMove(Direction.LEFT);
-      
       // Add boulder
       Boulder boulder = new Boulder(dungeon, 2, 2);
       dungeon.addEntity(boulder);
@@ -205,13 +204,12 @@ public class GoalTesting {
       GoalComponent gc2 = new Goal("exit", 1);
       ((GoalSubject) exit).addObserver((GoalObserver) gc2);
 
-      // Add enemy
-      Enemy enemy = new Enemy(dungeon, 3, 2);
-      enemy.setPlayer(player);
-      dungeon.addEntity(enemy);
-      // Configure Enemy goal
-      GoalComponent gc3 = new Goal("enemy", 1);
-      ((GoalSubject) enemy).addObserver((GoalObserver) gc3);
+      // Add treasure
+      Treasure treasure = new Treasure(3, 1);
+      dungeon.addEntity(treasure);
+      // Configure Treasure goal
+      GoalComponent gc3 = new Goal("treasure", 1);
+      ((GoalSubject) treasure).addObserver((GoalObserver) gc3);
       
       ArrayList<GoalComponent> subgoals1 = new ArrayList<GoalComponent>();
       subgoals1.add(gc2);

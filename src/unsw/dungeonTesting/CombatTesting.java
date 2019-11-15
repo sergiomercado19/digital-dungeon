@@ -52,6 +52,9 @@ public class CombatTesting {
    void testEnemyChasingPlayer() {
       int preX = enemy.getX();
       int preY = enemy.getY();
+      
+      assertEquals(preX, preX, "Chase player");
+      assertEquals(preY, preY, "Chase player");
 
       player.makeMove(Direction.LEFT);
 
@@ -61,7 +64,7 @@ public class CombatTesting {
       assertEquals(preX - 1, post1X, "Chase player");
       assertEquals(preY, post1Y, "Chase player");
 
-      player.makeMove(Direction.LEFT);
+      player.makeMove(Direction.UP);
 
       int post2X = enemy.getX();
       int post2Y = enemy.getY();
@@ -69,13 +72,13 @@ public class CombatTesting {
       assertEquals(post1X - 1, post2X, "Chase player");
       assertEquals(post1Y, post2Y, "Chase player");
 
-      player.makeMove(Direction.LEFT);
+      player.makeMove(Direction.RIGHT);
 
       int post3X = enemy.getX();
       int post3Y = enemy.getY();
 
-      assertEquals(post2X - 1, post3X, "Kill player");
-      assertEquals(post2Y, post3Y, "Kill player");
+      assertEquals(post2X, post3X, "Kill player");
+      assertEquals(post2Y - 1, post3Y, "Kill player");
 
       assertEquals(DungeonState.LOST, dungeon.getState(), "Player lost");
    }
