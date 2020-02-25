@@ -46,15 +46,6 @@ public class Door extends Entity {
 	 */
 	public void unlock() {
 		super.setSolid(false);
-	}
-	
-	/**
-	 * change the door model when the player approaches the door
-	 */
-   @Override
-	public void collide(Player p, Direction d) {
-		if (!super.isSolid()) {
-			isUnlocked.set(true);
-		}
+		isUnlocked.set(true);
 	}
 }
